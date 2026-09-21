@@ -1,0 +1,128 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { workflow } from '~/data/optic-site';
+
+const metadata = {
+  title: 'Fonctionnement',
+  description: 'Suivez le parcours Opti Solution de la fiche client au règlement, étape par étape.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="02 · Fonctionnement"
+    eyebrow="Le parcours principal"
+    title="Suivez la fiche, du premier échange au règlement."
+    text="Six étapes reliées permettent de garder le contexte d’une opération à l’autre. Chaque document reste distinct et chaque confirmation reste sous le contrôle de l’équipe."
+    primaryText="Voir une démo du parcours"
+    primaryHref="/demo"
+    secondaryText="Explorer les fonctionnalités"
+    secondaryHref="/fonctionnalites"
+  >
+    <ScreenshotFrame
+      slot="visual"
+      src="/working/05-prescription-review.webp"
+      alt="Fiche de correction Opti Solution avec valeurs OD et OG."
+      label="Étape clé"
+      caption="Correction validée avant la préparation de la suite"
+      href="/working/05-prescription-review.webp"
+    />
+  </PageHero>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container">
+      <p class="os-eyebrow">Vue d’ensemble</p>
+      <div class="os-workflow-rail">
+        {
+          workflow.map((step) => (
+            <article>
+              <>
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.short}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+      <div class="os-workflow-note !bg-white/5">
+        <strong class="!text-[var(--os-gold-400)]">À retenir</strong><span class="text-white/70"
+          >Le parcours fournisseur intervient lorsque le besoin l’exige. La vente et l’achat restent deux opérations
+          distinctes, chacune avec ses propres contrôles.</span
+        >
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Étape par étape"
+        title="Comprenez ce qui se passe à chaque étape."
+        text="Voyez où l’information est saisie, ce qui prépare l’opération suivante et les points que l’équipe vérifie avant de confirmer."
+      />
+      <div class="os-workflow-detail">
+        {
+          workflow.map((step) => (
+            <article class="os-sequence-item" id={`etape-${step.number}`}>
+              <span class="os-sequence-item__number">{step.number}</span>
+              <div class="os-sequence-item__copy">
+                <>
+                  <p class="os-kicker">{step.short}</p>
+                  <h2>{step.title}</h2>
+                  <p>{step.detail}</p>
+                </>
+              </div>
+              <ScreenshotFrame
+                src={step.image}
+                alt={`Écran de démonstration pour l’étape ${step.title}.`}
+                label={`Étape ${step.number}`}
+                caption={step.short}
+                href={step.image}
+              />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--soft">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Règle de contrôle</p><h2
+          class="text-[clamp(2.5rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]"
+        >
+          Une dernière vérification avant chaque engagement.
+        </h2>
+      </div>
+      <div class="os-problem-list">
+        <article>
+          <span>01</span><div>
+            <h3>Le bon contexte</h3><p>
+              Client ou fournisseur, produits concernés et correction liée lorsqu’elle s’applique.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>02</span><div>
+            <h3>Les bons montants</h3><p>Quantités, prix, remises, taxes et total avant confirmation du document.</p>
+          </div>
+        </article>
+        <article>
+          <span>03</span><div>
+            <h3>La bonne prochaine étape</h3><p>Garder le document en brouillon si une information reste incertaine.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <FinalCTA
+    title="Montrez-nous votre parcours actuel."
+    text="Pendant la démonstration, nous partirons de vos étapes pour montrer les écrans pertinents et repérer les points à configurer."
+  />
+</MarketingLayout>

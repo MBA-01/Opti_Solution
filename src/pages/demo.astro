@@ -1,0 +1,145 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
+import DemoRequest from '~/components/site/DemoRequest.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+
+const metadata = {
+  title: 'Démonstration',
+  description:
+    'Découvrez les parcours Opti Solution avec des écrans réels et demandez une démonstration adaptée à votre magasin.',
+};
+const demoSteps = [
+  ['01', 'Choisissez vos priorités', 'Fiche optique, devis, achat fournisseur, stock ou facturation.'],
+  [
+    '02',
+    'Suivez le parcours dans le produit',
+    'Nous montrons les écrans concernés avec des données préparées pour la démonstration.',
+  ],
+  [
+    '03',
+    'Évaluez l’adéquation',
+    'Nous distinguons ce qui correspond déjà, ce qui demande une configuration et ce qui reste à étudier.',
+  ],
+];
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="04 · Démo"
+    eyebrow="Le produit en situation"
+    title="Voyez Opti Solution à partir de votre façon de travailler."
+    text="Choisissez les opérations qui comptent pour votre magasin. La démonstration suit leurs écrans, leurs liens et les contrôles attendus à chaque étape."
+    primaryText="Demander une démo"
+    primaryHref="#demande"
+    secondaryText="Comprendre le parcours"
+    secondaryHref="/fonctionnement"
+  >
+    <ScreenshotFrame
+      slot="visual"
+      src="/working/05-prescription-hero.webp"
+      alt="Aperçu d’une correction optique dans Opti Solution."
+      label="Aperçu produit"
+      caption="Correction optique · données de démonstration"
+      href="/working/05-prescription-hero.webp"
+    />
+  </PageHero>
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Parcours disponibles"
+        title="Commencez par l’opération que vous voulez clarifier."
+        text="Ces trois séquences résument les parcours que nous pouvons détailler pendant un échange guidé."
+      />
+      <div class="os-video-grid">
+        <VideoPlaceholder
+          title="Créer une fiche et saisir une correction"
+          description="Client, valeurs OD/OG, caractéristiques de verres et validation."
+          poster="/working/05-prescription-review.webp"
+          duration="Démo guidée"
+        />
+        <VideoPlaceholder
+          title="Préparer un achat fournisseur"
+          description="Demande de prix, commande distincte et réception des produits."
+          poster="/working/06-supplier-rfq.webp"
+          duration="Démo guidée"
+        />
+        <VideoPlaceholder
+          title="Du devis au statut de règlement"
+          description="Devis, vente, facture et consultation du paiement après contrôle."
+          poster="/working/08-supplier-bill.webp"
+          duration="Démo guidée"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--cream">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Pendant une démo privée</p>
+        <h2 class="text-[clamp(2.5rem,5vw,4.7rem)] leading-none font-serif tracking-[-0.045em]">
+          Une démonstration préparée autour de vos priorités.
+        </h2>
+        <p class="os-lead mt-5">
+          Après la présentation, nous clarifions ensemble ce qui correspond à votre organisation et ce qui mérite une
+          étude complémentaire. Un accès d’essai limité peut être envisagé selon le contexte.
+        </p>
+      </div>
+      <div class="os-problem-list">
+        {
+          demoSteps.map(([number, title, text]) => (
+            <article>
+              <>
+                <span>{number}</span>
+                <div>
+                  <>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </>
+                </div>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Le parcours en images"
+        title="De la fiche client à l’approvisionnement."
+        text="Ces vues montrent trois moments du parcours : ouvrir la fiche, contrôler la correction et suivre la réception fournisseur."
+      />
+      <div class="os-capability-preview os-capability-preview--screens">
+        <ScreenshotFrame
+          src="/working/01-client-record.webp"
+          alt="Fiche client dans Opti Solution."
+          label="01 · Client"
+          caption="Ouvrir la fiche"
+          href="/working/01-client-record.webp"
+        />
+        <ScreenshotFrame
+          src="/working/05-prescription-review.webp"
+          alt="Correction optique dans Opti Solution."
+          label="02 · Correction"
+          caption="Contrôler les valeurs"
+          href="/working/05-prescription-review.webp"
+        />
+        <ScreenshotFrame
+          src="/working/07-purchase-reception.webp"
+          alt="Réception fournisseur dans Odoo."
+          label="03 · Réception"
+          caption="Suivre l’approvisionnement"
+          href="/working/07-purchase-reception.webp"
+        />
+      </div>
+    </div>
+  </section>
+  <DemoRequest />
+</MarketingLayout>

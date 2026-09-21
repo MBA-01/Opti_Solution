@@ -1,0 +1,95 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { capabilityGroups } from '~/data/optic-site';
+
+const metadata = {
+  title: 'Fonctionnalités',
+  description: 'Explorez les fonctionnalités d’Opti Solution par domaine de travail du magasin d’optique.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="03 · Fonctionnalités"
+    eyebrow="Capacités produit"
+    title="Retrouvez les fonctions utiles dans le contexte où vous travaillez."
+    text="Explorez Opti Solution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine montre les tâches et les écrans associés."
+    secondaryText="Suivre le parcours complet"
+    secondaryHref="/fonctionnement"
+  >
+    <ScreenshotFrame
+      slot="visual"
+      src="/working/02-product-catalog.webp"
+      alt="Fiche produit optique réelle dans Odoo."
+      label="Catalogue"
+      caption="Références, achats, ventes et accès stock"
+      href="/working/02-product-catalog.webp"
+    />
+  </PageHero>
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Six domaines"
+        title="Six domaines qui couvrent le parcours principal du magasin."
+        text="Passez d’une vue d’ensemble aux tâches concrètes, puis utilisez la démonstration pour vérifier leur adéquation avec votre organisation."
+      />
+      {
+        capabilityGroups.map((group) => (
+          <article class="os-feature-band" id={group.slug}>
+            <div class="os-feature-band__copy">
+              <>
+                <p class="os-kicker">{group.kicker}</p>
+                <h2>{group.title}</h2>
+                <p>{group.description}</p>
+              </>
+              <ul class="os-task-list">
+                {group.tasks.map((task) => (
+                  <li>{task}</li>
+                ))}
+              </ul>
+            </div>
+            <ScreenshotFrame
+              src={group.image}
+              alt={group.imageAlt}
+              label={group.kicker}
+              caption={`${group.title} · données de démonstration`}
+              href={group.image}
+            />
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container os-difference">
+      <p class="os-difference__statement">Une solution compréhensible avant même la démonstration.</p>
+      <div class="os-difference__notes">
+        <div>
+          <strong>Des validations explicites</strong><p>
+            L’équipe vérifie les informations avant de confirmer les documents et les opérations sensibles.
+          </p>
+        </div>
+        <div>
+          <strong>Un périmètre sans ambiguïté</strong><p>
+            Hébergement, migration, support et adaptations sont détaillés dans la proposition lorsqu’ils sont retenus.
+          </p>
+        </div>
+        <div>
+          <strong>Le produit reste la meilleure preuve</strong><p>
+            Les captures présentent les interfaces utilisées dans les parcours montrés pendant la démonstration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <FinalCTA
+    title="Choisissons les fonctionnalités à montrer."
+    text="La démo peut se concentrer sur les domaines les plus proches du travail de votre équipe."
+  />
+</MarketingLayout>

@@ -1,0 +1,162 @@
+---
+const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
+---
+
+<section class="os-section os-section--soft" id="demande" aria-labelledby="request-title">
+  <div class="os-container os-contact-grid">
+    <div>
+      <p class="os-eyebrow">Votre démonstration</p>
+      <h2 id="request-title" class="text-[clamp(2.5rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
+        Montrez-nous les parcours à clarifier.
+      </h2>
+      <p class="os-lead mt-5">
+        Indiquez-nous votre contexte et vos priorités. Nous pourrons préparer une démonstration centrée sur les
+        opérations qui comptent pour votre équipe.
+      </p>
+      <div class="os-direct-contact">
+        <strong>Contact direct</strong>
+        <span>Mohamed El Bachrioui</span>
+        <a href="mailto:bachriouijr@gmail.com">bachriouijr@gmail.com</a>
+        <a
+          href="https://wa.me/212632788555?text=Bonjour%2C%20je%20souhaite%20une%20d%C3%A9mo%20d%27Opti%20Solution."
+          target="_blank"
+          rel="noopener noreferrer">Écrire sur WhatsApp ↗</a
+        >
+      </div>
+    </div>
+    <form class="os-contact-form" data-demo-form data-endpoint={endpoint} novalidate>
+      <div class="os-form-grid">
+        <label for="demo-name"
+          >Nom et prénom *<input
+            id="demo-name"
+            name="name"
+            autocomplete="name"
+            required
+            aria-describedby="demo-name-error"
+          /><small class="os-field-error" id="demo-name-error"></small></label
+        >
+        <label for="demo-shop"
+          >Magasin *<input
+            id="demo-shop"
+            name="shop"
+            autocomplete="organization"
+            required
+            aria-describedby="demo-shop-error"
+          /><small class="os-field-error" id="demo-shop-error"></small></label
+        >
+        <label for="demo-city"
+          >Ville *<input
+            id="demo-city"
+            name="city"
+            autocomplete="address-level2"
+            required
+            aria-describedby="demo-city-error"
+          /><small class="os-field-error" id="demo-city-error"></small></label
+        >
+        <label for="demo-email"
+          >E-mail *<input
+            id="demo-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            aria-describedby="demo-email-error"
+          /><small class="os-field-error" id="demo-email-error"></small></label
+        >
+        <label for="demo-phone"
+          >Téléphone / WhatsApp<input id="demo-phone" name="phone" type="tel" autocomplete="tel" /></label
+        >
+        <label class="full" for="demo-need"
+          >Les opérations que vous souhaitez voir<textarea
+            id="demo-need"
+            name="need"
+            maxlength="500"
+            rows="4"
+            placeholder="Par exemple : fiche client, corrections, devis, achats fournisseurs, stock ou facturation"
+          ></textarea></label
+        >
+      </div>
+      <p class="os-form-note">
+        N’indiquez aucune donnée de patient. La notice de confidentialité complète sera ajoutée avant l’ouverture
+        publique.
+      </p>
+      <button class="btn-primary" type="submit">Préparer ma démonstration →</button>
+      <p class="os-form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const initDemoForms = () => {
+    document.querySelectorAll('[data-demo-form]').forEach((form) => {
+      if (!(form instanceof HTMLFormElement) || form.dataset.ready === 'true') return;
+      form.dataset.ready = 'true';
+      const status = form.querySelector('.os-form-status');
+
+      const setError = (field: Element, message: string) => {
+        if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) return;
+        const errorId = field.getAttribute('aria-describedby');
+        const error = errorId ? document.getElementById(errorId) : null;
+        field.setAttribute('aria-invalid', message ? 'true' : 'false');
+        if (error) error.textContent = message;
+      };
+
+      form.querySelectorAll('input, textarea').forEach((field) => {
+        field.addEventListener('input', () => {
+          if (field.getAttribute('aria-invalid') === 'true') setError(field, '');
+          if (status) status.textContent = '';
+        });
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        let valid = true;
+        form.querySelectorAll('[required]').forEach((field) => {
+          if (!(field instanceof HTMLInputElement)) return;
+          let message = field.value.trim() ? '' : 'Ce champ est nécessaire.';
+          if (!message && field.type === 'email' && !field.validity.valid)
+            message = 'Saisissez une adresse e-mail valide.';
+          setError(field, message);
+          if (message) valid = false;
+        });
+        if (!valid) {
+          if (status) status.textContent = 'Vérifiez les champs indiqués.';
+          const firstInvalid = form.querySelector('[aria-invalid="true"]');
+          if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
+          return;
+        }
+
+        const endpoint = form.dataset.endpoint;
+        if (!endpoint) {
+          if (status)
+            status.textContent =
+              'Le formulaire est encore en mode aperçu. Utilisez l’e-mail ou WhatsApp pour nous contacter.';
+          return;
+        }
+
+        const submit = form.querySelector('button[type="submit"]');
+        if (submit instanceof HTMLButtonElement) submit.disabled = true;
+        form.setAttribute('aria-busy', 'true');
+        if (status) status.textContent = 'Envoi en cours…';
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form))),
+          });
+          if (!response.ok) throw new Error('Request failed');
+          form.reset();
+          if (status) status.textContent = 'Merci, votre demande a bien été envoyée.';
+        } catch {
+          if (status) status.textContent = 'L’envoi a échoué. Réessayez ou utilisez l’e-mail ou WhatsApp.';
+        } finally {
+          form.removeAttribute('aria-busy');
+          if (submit instanceof HTMLButtonElement) submit.disabled = false;
+        }
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', initDemoForms);
+  initDemoForms();
+</script>

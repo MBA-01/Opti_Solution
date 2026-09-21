@@ -1,0 +1,184 @@
+---
+const rows = [
+  { key: 'clients', label: 'Gestion clients', volume: 30, minutes: 4, href: '/fonctionnalites#clients-optometrie' },
+  { key: 'devis', label: 'Devis', volume: 18, minutes: 8, href: '/fonctionnalites#ventes-devis' },
+  { key: 'corrections', label: 'Corrections', volume: 18, minutes: 10, href: '/fonctionnalites#clients-optometrie' },
+  {
+    key: 'achats',
+    label: 'Achats fournisseurs',
+    volume: 8,
+    minutes: 14,
+    href: '/fonctionnalites#fournisseurs-achats',
+  },
+  { key: 'factures', label: 'Facturation', volume: 20, minutes: 7, href: '/fonctionnalites#facturation-paiements' },
+  { key: 'stock', label: 'Stock', volume: 10, minutes: 8, href: '/fonctionnalites#produits-stock' },
+];
+---
+
+<div class="os-calculator" data-time-calculator>
+  <section class="os-calculator__form" aria-labelledby="calc-input-title">
+    <p class="os-eyebrow">Vos opérations</p>
+    <h2 id="calc-input-title">Décrivez une semaine type.</h2>
+    <p class="os-lead">
+      Remplacez les valeurs d’exemple par votre volume hebdomadaire et votre temps moyen actuel. Laissez une ligne à
+      zéro si elle ne vous concerne pas.
+    </p>
+    <div class="os-calculator__head" aria-hidden="true">
+      <span>Opération</span><span>Par semaine</span><span>Minutes / opération</span>
+    </div>
+    {
+      rows.map(({ key, label, volume, minutes }) => (
+        <div class="os-calc-row">
+          <label for={`${key}-volume`}>{label}</label>
+          <span class="os-number-field" data-unit="/ sem.">
+            <input
+              id={`${key}-volume`}
+              name={`${key}-volume`}
+              type="number"
+              min="0"
+              max="1000"
+              step="1"
+              value={volume}
+              aria-label={`${label} par semaine`}
+              data-volume={key}
+            />
+          </span>
+          <label class="sr-only" for={`${key}-minutes`}>
+            Minutes par opération pour {label}
+          </label>
+          <span class="os-number-field" data-unit="min">
+            <input
+              id={`${key}-minutes`}
+              name={`${key}-minutes`}
+              type="number"
+              min="0"
+              max="240"
+              step="1"
+              value={minutes}
+              aria-label={`Minutes par opération pour ${label}`}
+              data-minutes={key}
+            />
+          </span>
+        </div>
+      ))
+    }
+    <div class="os-assumption">
+      <label for="employees">
+        Employés impliqués
+        <small>Utilisé pour afficher une moyenne par personne.</small>
+      </label>
+      <span class="os-number-field" data-unit="pers.">
+        <input id="employees" type="number" min="1" max="50" step="1" value="2" data-employees />
+      </span>
+    </div>
+    <div class="os-assumption">
+      <label for="scenario">
+        Hypothèse d’amélioration à explorer
+        <small>Une hypothèse modifiable pour préparer la discussion, sans garantie de résultat.</small>
+      </label>
+      <span class="os-number-field" data-unit="%">
+        <input id="scenario" type="number" min="1" max="30" step="1" value="10" data-scenario />
+      </span>
+    </div>
+    <p class="os-calc-disclaimer">
+      Estimation mensuelle sur une base de 4,33 semaines. Les résultats dépendent uniquement de vos saisies. L’hypothèse
+      d’amélioration sert à explorer un ordre de grandeur et ne constitue pas une promesse d’économie.
+    </p>
+  </section>
+
+  <aside class="os-calculator__result" aria-live="polite" aria-labelledby="calc-result-title">
+    <p class="os-eyebrow">Votre estimation</p>
+    <h2 id="calc-result-title">Où se concentre le temps&nbsp;?</h2>
+    <div class="os-calc-total">
+      <span>Temps mensuel actuel estimé</span>
+      <strong data-current-hours>—</strong>
+      <small data-per-person>—</small>
+    </div>
+    <div class="os-calc-total">
+      <span>Temps potentiellement récupérable selon l’hypothèse</span>
+      <strong data-potential-hours>—</strong>
+      <small data-annual-hours>—</small>
+    </div>
+    <h3>Répartition estimée</h3>
+    <div class="os-calc-bars">
+      {
+        rows.map(({ key, label }) => (
+          <div data-bar={key}>
+            <>
+              <span>{label}</span>
+              <i style="--share: 0%" />
+              <b>0%</b>
+            </>
+          </div>
+        ))
+      }
+    </div>
+    <p class="os-calc-insight" data-insight>Adaptez les valeurs pour obtenir une lecture de votre organisation.</p>
+    <a class="btn-primary mt-5 inline-flex" href="/fonctionnalites" data-capability-link>
+      Découvrir le domaine concerné
+    </a>
+  </aside>
+</div>
+
+<script is:inline define:vars={{ rows }}>
+  const initCalculators = () => {
+    document.querySelectorAll('[data-time-calculator]').forEach((calculator) => {
+      if (!(calculator instanceof HTMLElement) || calculator.dataset.ready === 'true') return;
+      calculator.dataset.ready = 'true';
+
+      const numberValue = (selector) => {
+        const field = calculator.querySelector(selector);
+        return field instanceof HTMLInputElement ? Math.max(0, Number(field.value) || 0) : 0;
+      };
+
+      const update = () => {
+        const values = rows.map((row) => {
+          const volume = numberValue(`[data-volume="${row.key}"]`);
+          const minutes = numberValue(`[data-minutes="${row.key}"]`);
+          return { ...row, monthlyMinutes: volume * minutes * 4.33 };
+        });
+        const totalMinutes = values.reduce((sum, row) => sum + row.monthlyMinutes, 0);
+        const totalHours = totalMinutes / 60;
+        const employees = Math.max(1, numberValue('[data-employees]'));
+        const scenario = Math.min(30, Math.max(1, numberValue('[data-scenario]')));
+        const potential = totalHours * (scenario / 100);
+        const dominant = [...values].sort((a, b) => b.monthlyMinutes - a.monthlyMinutes)[0];
+
+        const current = calculator.querySelector('[data-current-hours]');
+        const perPerson = calculator.querySelector('[data-per-person]');
+        const potentialOutput = calculator.querySelector('[data-potential-hours]');
+        const annual = calculator.querySelector('[data-annual-hours]');
+        const insight = calculator.querySelector('[data-insight]');
+        const link = calculator.querySelector('[data-capability-link]');
+        if (current)
+          current.textContent = `${totalHours.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} h / mois`;
+        if (perPerson)
+          perPerson.textContent = `${(totalHours / employees).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} h par personne, avec ${employees} personne${employees > 1 ? 's' : ''}`;
+        if (potentialOutput)
+          potentialOutput.textContent = `${potential.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} h / mois`;
+        if (annual)
+          annual.textContent = `${(potential * 12).toLocaleString('fr-FR', { maximumFractionDigits: 0 })} h / an dans une hypothèse de ${scenario}%`;
+
+        values.forEach((row) => {
+          const share = totalMinutes ? Math.round((row.monthlyMinutes / totalMinutes) * 100) : 0;
+          const bar = calculator.querySelector(`[data-bar="${row.key}"]`);
+          const track = bar?.querySelector('i');
+          const output = bar?.querySelector('b');
+          if (track instanceof HTMLElement) track.style.setProperty('--share', `${share}%`);
+          if (output) output.textContent = `${share}%`;
+        });
+
+        if (insight && dominant) {
+          insight.textContent = `${dominant.label} concentre la plus grande part de cette estimation. Découvrez comment Opti Solution structure ce domaine de travail.`;
+        }
+        if (link instanceof HTMLAnchorElement && dominant) link.href = dominant.href;
+      };
+
+      calculator.querySelectorAll('input').forEach((input) => input.addEventListener('input', update));
+      update();
+    });
+  };
+
+  document.addEventListener('astro:page-load', initCalculators);
+  initCalculators();
+</script>

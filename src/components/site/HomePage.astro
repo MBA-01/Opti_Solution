@@ -1,0 +1,318 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import HomeOpening from '~/components/site/HomeOpening.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Button from '~/components/ui/Button.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
+
+interface Props {
+  variant?: 'a' | 'b' | 'c';
+  conceptMode?: boolean;
+}
+
+const { variant = 'a', conceptMode = false } = Astro.props;
+const metadata = {
+  title: conceptMode
+    ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
+    : 'Opti Solution — Gestion pour magasins d’optique',
+  ignoreTitleTemplate: true,
+  description:
+    'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
+};
+const problems = [
+  [
+    'La fiche se fragmente',
+    'Les coordonnées, la correction et les documents commerciaux finissent dans des outils différents.',
+  ],
+  ['La même information se répète', 'Chaque ressaisie augmente le temps de recherche et demande un nouveau contrôle.'],
+  [
+    'Les achats perdent leur contexte',
+    'Il devient difficile de relier une demande de prix, une commande et sa réception au bon besoin.',
+  ],
+  [
+    'Le suivi repose sur la mémoire',
+    'Produits, stock, factures et règlements doivent être recherchés au lieu d’être suivis dans leur parcours.',
+  ],
+];
+---
+
+<MarketingLayout metadata={metadata}>
+  <HomeOpening variant={variant} conceptMode={conceptMode} />
+
+  {
+    variant !== 'c' && (
+      <section class="os-section os-section--cream">
+        <div class="os-container os-problem-layout">
+          <div class="os-problem-statement">
+            <p class="os-eyebrow">Une réalité familière</p>
+            <blockquote>
+              Quand la fiche se disperse, l’équipe passe d’un outil à l’autre pour reconstituer le parcours.
+            </blockquote>
+          </div>
+          <div class="os-problem-list">
+            {problems.map(([title, text], index) => (
+              <article>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </article>
+            ))}
+            <a class="os-text-link mt-7" href="/solution">
+              Découvrir la solution <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    variant === 'c' && (
+      <section class="os-section os-section--cream">
+        <div class="os-container os-problem-layout">
+          <div class="os-problem-statement">
+            <>
+              <p class="os-eyebrow">Pourquoi relier les étapes</p>
+              <blockquote>Donnez à chaque rôle le bon contexte, sans lui faire perdre le fil de la fiche.</blockquote>
+            </>
+          </div>
+          <div class="os-problem-list">
+            {problems.slice(0, 3).map(([title, text], index) => (
+              <article>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="os-section os-section--dark">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Un parcours connecté"
+        title="Gardez le fil, de la fiche client jusqu’au règlement."
+        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. Opti Solution les replace dans un parcours que l’équipe peut suivre et contrôler."
+      />
+      <div class="os-workflow-rail">
+        {
+          workflow.map((step) => (
+            <article>
+              <>
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.short}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+      <a class="os-text-link mt-8 !text-[var(--os-cream-50)]" href="/fonctionnement">Découvrir le fonctionnement →</a>
+    </div>
+  </section>
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Au quotidien"
+        title="Les informations utiles, au moment où l’équipe en a besoin."
+        text="Fiche optique, vente, produits et achats se retrouvent dans des domaines de travail clairs, avec les détails disponibles lorsque vous en avez besoin."
+      />
+      <div class="os-capability-preview os-capability-preview--editorial">
+        {
+          capabilityGroups.slice(0, 3).map((group) => (
+            <article>
+              <div class="os-capability-preview__image">
+                <img src={group.image} alt="" width="1920" height="1080" loading="lazy" />
+              </div>
+              <div class="os-capability-preview__copy">
+                <>
+                  <p class="os-kicker">{group.kicker}</p>
+                  <h3>{group.title}</h3>
+                  <p>{group.description}</p>
+                </>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="os-actions">
+        <Button
+          variant="secondary"
+          href="/fonctionnalites"
+          text="Voir toutes les fonctionnalités"
+          icon="tabler:arrow-right"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container os-difference">
+      <p class="os-difference__statement">Une base Odoo enrichie pour le travail d’un magasin d’optique.</p>
+      <div class="os-difference__notes">
+        <div>
+          <strong>Le contexte optique reste visible</strong><p>
+            Corrections OD/OG, références de verres et fiches optiques restent proches des opérations concernées.
+          </p>
+        </div>
+        <div>
+          <strong>Votre équipe garde le contrôle</strong><p>
+            Chaque document peut être relu avant validation, commande, facturation ou enregistrement du paiement.
+          </p>
+        </div>
+        <div>
+          <strong>La mise en place part de votre magasin</strong><p>
+            Modules, données, hébergement, formation et support sont définis dans une proposition adaptée au périmètre.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--soft">
+    <div class="os-container os-calculator-teaser">
+      <div>
+        <p class="os-eyebrow">Mini diagnostic</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
+          Où votre équipe consacre-t-elle son temps administratif&nbsp;?
+        </h2>
+        <p class="os-lead mt-5">
+          Renseignez quelques volumes et temps moyens pour visualiser la répartition de vos opérations. Le résultat
+          reste indicatif et repose sur vos propres données.
+        </p>
+        <div class="os-actions">
+          <Button variant="primary" href="/calculateur" text="Calculer mon temps" icon="tabler:arrow-right" />
+        </div>
+      </div>
+      <div class="os-calculator-teaser__panel" aria-hidden="true">
+        <p class="os-kicker">Exemple de répartition</p>
+        <div class="os-teaser-bars">
+          <div><span>Devis</span><i style="--bar: 68%"></i><b>24%</b></div>
+          <div><span>Achats</span><i style="--bar: 82%"></i><b>29%</b></div>
+          <div><span>Facturation</span><i style="--bar: 51%"></i><b>18%</b></div>
+          <div><span>Stock</span><i style="--bar: 39%"></i><b>14%</b></div>
+          <div><span>Autres opérations</span><i style="--bar: 42%"></i><b>15%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section">
+    <div class="os-container os-offer-preview">
+      <div>
+        <p class="os-eyebrow">Mise en place</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
+          Une configuration pensée avant la mise en service.
+        </h2>
+        <p class="os-lead mt-5">
+          Nous commençons par vos parcours, vos données et les rôles de l’équipe afin de définir ce qui doit être
+          configuré, déployé et accompagné.
+        </p>
+        <div class="os-actions">
+          <Button
+            variant="secondary"
+            href="/mise-en-place"
+            text="Comprendre la mise en place"
+            icon="tabler:arrow-right"
+          />
+        </div>
+      </div>
+      <div class="os-offer-steps">
+        {
+          offerStages.map(([number, title, text]) => (
+            <article>
+              <>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--cream">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Le produit en situation"
+        title="Voyez comment chaque opération s’enchaîne."
+        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’Opti Solution, puis demandez une démonstration centrée sur vos priorités."
+      />
+      <div class="os-split">
+        <VideoPlaceholder
+          title="De la fiche client à la correction"
+          description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
+          poster="/working/05-prescription-hero.webp"
+        />
+        <ScreenshotFrame
+          src="/working/06-supplier-rfq.webp"
+          alt="Demande de prix fournisseur dans Odoo."
+          label="Aperçu logiciel"
+          caption="Une demande de prix fournisseur issue du parcours actuel"
+          href="/working/06-supplier-rfq.webp"
+        />
+      </div>
+      <div class="os-actions">
+        <Button variant="primary" href="/demo" text="Voir la démo" icon="tabler:arrow-right" />
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Ressources"
+        title="Avancez avec les bonnes questions."
+        text="Préparez une migration, clarifiez les rôles de l’équipe ou comprenez le lien entre fiche optique, vente et achat avant votre démonstration."
+      />
+      <div class="os-resource-grid os-resource-grid--editorial">
+        {
+          resources.map((resource) => (
+            <a class="os-resource-card" href={resource.href}>
+              <div class="os-resource-card__meta">
+                <>
+                  <span>
+                    {resource.type} · {resource.category}
+                  </span>
+                  <span>{resource.reading}</span>
+                </>
+              </div>
+              <>
+                <h3>{resource.title}</h3>
+                <p>{resource.description}</p>
+                <strong>Lire la ressource →</strong>
+              </>
+            </a>
+          ))
+        }
+      </div>
+      <div class="os-actions"><Button variant="secondary" href="/ressources" text="Voir toutes les ressources" /></div>
+    </div>
+  </section>
+
+  <FAQs
+    id="questions"
+    title="Vos questions avant une démonstration"
+    subtitle="Retrouvez les premières réponses sur le périmètre, le déploiement, la formation et la reprise de données."
+    items={faqs.slice(0, 4)}
+    collapsible
+    defaultOpen={0}
+    schema
+    classes={{ container: 'os-faq-shell', headline: { container: 'os-faq-heading' }, list: 'os-faq-list' }}
+  />
+  <FinalCTA />
+</MarketingLayout>

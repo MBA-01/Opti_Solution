@@ -1,0 +1,48 @@
+---
+import Button from '~/components/ui/Button.astro';
+import OpticalStill from '~/components/brand/OpticalStill.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  text: string;
+  primaryText?: string;
+  primaryHref?: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+  chapter?: string;
+  compact?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  text,
+  primaryText = 'Demander une démo',
+  primaryHref = '/demo#demande',
+  secondaryText,
+  secondaryHref,
+  chapter,
+  compact = false,
+} = Astro.props;
+---
+
+<section class:list={['os-page-hero', { 'os-page-hero--compact': compact }]}>
+  <div class="os-container os-page-hero__grid">
+    <div class="os-page-hero__copy">
+      {chapter && <span class="os-chapter">{chapter}</span>}
+      <p class="os-eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="os-lead">{text}</p>
+      <div class="os-actions">
+        <Button variant="primary" href={primaryHref} text={primaryText} icon="tabler:arrow-right" />
+        {secondaryText && secondaryHref && <Button variant="secondary" href={secondaryHref} text={secondaryText} />}
+      </div>
+    </div>
+    <div class="os-page-hero__visual">
+      <slot name="visual">
+        <OpticalStill variant="story" />
+      </slot>
+    </div>
+  </div>
+</section>

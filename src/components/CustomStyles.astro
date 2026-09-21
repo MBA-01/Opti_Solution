@@ -1,0 +1,65 @@
+---
+// System fonts keep the preview independent of remote font downloads.
+---
+
+<style is:inline>
+  :root {
+    --os-forest-900: #0b2e26;
+    --os-forest-800: #0f3d32;
+    --os-forest-700: #185548;
+    --os-forest-100: #e6efea;
+    --os-cream-50: #f8f5ed;
+    --os-surface: #fffdf8;
+    --os-ink-900: #1f1f1f;
+    --os-ink-600: #5d625f;
+    --os-gold-400: #c9a96b;
+    --os-gold-700: #806735;
+    --os-line: #d9d7cf;
+    --os-radius-sm: 0.72rem;
+    --os-radius-md: 1.15rem;
+    --os-radius-lg: 1.65rem;
+    --os-shadow-sm: 0 0.08rem 0.18rem rgb(11 46 38 / 0.08), 0 0.55rem 1.4rem rgb(11 46 38 / 0.06);
+    --os-shadow-md: 0 0.12rem 0.35rem rgb(11 46 38 / 0.08), 0 1.25rem 3.5rem rgb(11 46 38 / 0.1);
+    --os-shadow-lg: 0 0.2rem 0.6rem rgb(11 46 38 / 0.08), 0 2rem 5rem rgb(11 46 38 / 0.14);
+    --os-ease: cubic-bezier(0.2, 0, 0, 1);
+
+    --aw-font-sans: Inter, system-ui, sans-serif;
+    --aw-font-serif: Georgia, 'Times New Roman', serif;
+    --aw-font-heading: Georgia, 'Times New Roman', serif;
+
+    --aw-color-primary: var(--os-forest-800);
+    --aw-color-secondary: var(--os-forest-700);
+    --aw-color-accent: var(--os-gold-400);
+
+    --aw-color-text-heading: var(--os-ink-900);
+    --aw-color-text-default: var(--os-ink-900);
+    --aw-color-text-muted: var(--os-ink-600);
+    --aw-color-bg-page: var(--os-cream-50);
+
+    --aw-color-bg-page-dark: var(--os-forest-900);
+
+    ::selection {
+      background-color: var(--os-forest-100);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: Inter, system-ui, sans-serif;
+    --aw-font-serif: Georgia, 'Times New Roman', serif;
+    --aw-font-heading: Georgia, 'Times New Roman', serif;
+
+    --aw-color-primary: #f8f5ed;
+    --aw-color-secondary: #e6efea;
+    --aw-color-accent: #c9a96b;
+
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(8 9 10);
+
+    ::selection {
+      background-color: black;
+      color: snow;
+    }
+  }
+</style>

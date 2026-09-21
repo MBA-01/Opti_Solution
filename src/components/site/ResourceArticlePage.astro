@@ -1,0 +1,107 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import type { ResourceArticle } from '~/data/resource-articles';
+import { resourceArticles } from '~/data/resource-articles';
+
+interface Props {
+  article: ResourceArticle;
+}
+
+const { article } = Astro.props;
+const related = resourceArticles.filter((item) => item.slug !== article.slug).slice(0, 3);
+const metadata = {
+  title: article.title,
+  description: article.description,
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <article class="os-article-shell">
+    <header class="os-article">
+      <nav aria-label="Fil d’Ariane" class="os-article__meta">
+        <a href="/ressources">Ressources</a><span aria-hidden="true">·</span><span>{article.category}</span>
+      </nav>
+      <div class="os-article__meta">
+        <span>{article.type} · {article.category}</span><span>{article.reading} de lecture</span><span
+          >Mis à jour en {article.updated}</span
+        >
+      </div>
+      <h1>{article.title}</h1>
+      <p class="os-article__intro">{article.description}</p>
+      <div class="mt-10">
+        <ScreenshotFrame
+          src={article.image}
+          alt={article.imageAlt}
+          label={article.imageLabel}
+          caption={article.imageCaption}
+          href={article.image}
+        />
+      </div>
+    </header>
+
+    <div class="os-article os-prose">
+      {
+        article.sections.map((section, index) => (
+          <section>
+            <h2>{`${index + 1}. ${section.title}`}</h2>
+            {section.paragraphs?.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {section.list && (
+              <ul>
+                {section.list.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+            {section.note && (
+              <div class="os-callout">
+                <strong>{section.note.title}</strong>
+                <p>{section.note.text}</p>
+              </div>
+            )}
+          </section>
+        ))
+      }
+
+      <div class="os-callout">
+        <strong>{article.capability.title}</strong>
+        <p>{article.capability.text}</p>
+        <a class="os-text-link" href={article.capability.href}>{article.capability.linkText} →</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="os-section os-section--soft" aria-labelledby="related-title">
+    <div class="os-container">
+      <p class="os-eyebrow">À lire ensuite</p>
+      <h2 id="related-title" class="text-[clamp(2rem,4vw,3.5rem)] leading-none font-serif tracking-[-0.04em]">
+        Poursuivez avec une autre question opérationnelle.
+      </h2>
+      <div class="os-resource-grid mt-10">
+        {
+          related.map((item) => (
+            <a class="os-resource-card" href={`/ressources/${item.slug}`}>
+              <div class="os-resource-card__meta">
+                <span>
+                  {item.type} · {item.category}
+                </span>
+                <span>{item.reading}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <strong>Lire la ressource →</strong>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    title="Voyez comment ce sujet s’applique à votre magasin."
+    text="Choisissez le parcours à approfondir et préparez une démonstration guidée autour de votre organisation."
+  />
+</MarketingLayout>

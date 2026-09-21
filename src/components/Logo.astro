@@ -1,0 +1,46 @@
+---
+import LogoMark from '~/components/brand/LogoMark.astro';
+
+interface Props {
+  inverse?: boolean;
+}
+
+const { inverse = false } = Astro.props;
+---
+
+<span
+  class:list={[
+    'os-logo self-center inline-flex items-center gap-2.5 whitespace-nowrap',
+    inverse ? 'text-[#F8F5ED]' : 'text-primary',
+  ]}
+  data-inverse={inverse ? 'true' : 'false'}
+>
+  <LogoMark size={38} decorative />
+  <span class="os-logo__word"><b>Opti</b><span>Solution</span></span>
+</span>
+
+<style>
+  .os-logo__word {
+    display: flex;
+    gap: 0.18em;
+    align-items: baseline;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.32rem;
+    letter-spacing: -0.035em;
+  }
+  .os-logo__word b {
+    font-weight: 700;
+  }
+  .os-logo__word span {
+    color: var(--os-ink-900);
+    font-weight: 400;
+  }
+  .os-logo[data-inverse='true'] .os-logo__word span {
+    color: inherit;
+  }
+  @media (max-width: 380px) {
+    .os-logo__word {
+      font-size: 1.13rem;
+    }
+  }
+</style>

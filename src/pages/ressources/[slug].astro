@@ -1,0 +1,19 @@
+---
+import ResourceArticlePage from '~/components/site/ResourceArticlePage.astro';
+import { resourceArticles, type ResourceArticle } from '~/data/resource-articles';
+
+export function getStaticPaths() {
+  return resourceArticles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: ResourceArticle;
+}
+
+const { article } = Astro.props;
+---
+
+<ResourceArticlePage article={article} />

@@ -1,0 +1,33 @@
+---
+interface Props {
+  size?: number;
+  title?: string;
+  decorative?: boolean;
+  class?: string;
+}
+
+const { size = 40, title = 'Opti Solution', decorative = false, class: className = '' } = Astro.props;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden={decorative ? 'true' : undefined}
+  role={decorative ? undefined : 'img'}
+>
+  {!decorative && <title>{title}</title>}
+  <circle cx="32" cy="32" r="11.5" stroke="currentColor" stroke-width="4.5"></circle>
+  <circle cx="32" cy="32" r="7" stroke="currentColor" stroke-opacity=".22" stroke-width="1.5"></circle>
+  <path d="M22.5 9.7A25 25 0 0 1 54 27" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"></path>
+  <path d="M54.4 37A25 25 0 0 1 38 55.2" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"></path>
+  <path d="M25.5 56A25 25 0 0 1 9.6 40" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"></path>
+  <path d="M9.7 25A25 25 0 0 1 16 15" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"></path>
+  <circle cx="32" cy="6.5" r="4.5" fill="currentColor"></circle>
+  <circle cx="7" cy="33" r="4.5" fill="currentColor"></circle>
+  <circle cx="31" cy="57" r="4.5" fill="currentColor"></circle>
+  <circle cx="55.5" cy="35" r="5" fill="var(--os-gold-400, #c9a96b)"></circle>
+</svg>

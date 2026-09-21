@@ -1,0 +1,107 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  label?: string;
+  caption: string;
+  href?: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const { src, alt = '', label, caption, href, eager = false, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['os-screen', className]}>
+  <div class="os-screen__bar" aria-hidden="true"><i></i><i></i><i></i>{label && <span>{label}</span>}</div>
+  <div class="os-screen__viewport">
+    <img src={src} alt={alt} width="1920" height="1080" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  </div>
+  <figcaption>
+    <span>{caption}</span>
+    {
+      href && (
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          Agrandir <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
+  </figcaption>
+</figure>
+
+<style>
+  .os-screen {
+    overflow: hidden;
+    border-radius: var(--os-radius-md);
+    outline: 1px solid oklch(0 0 0 / 0.1);
+    outline-offset: -1px;
+    background: var(--os-surface);
+    box-shadow: var(--os-shadow-md);
+  }
+  .os-screen__bar {
+    display: flex;
+    align-items: center;
+    min-height: 2.25rem;
+    gap: 0.32rem;
+    padding: 0 0.8rem;
+    border-bottom: 1px solid var(--os-line);
+    color: var(--os-ink-600);
+    font-size: 0.72rem;
+  }
+  .os-screen__bar i {
+    display: block;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--os-line);
+  }
+  .os-screen__bar span {
+    margin-left: auto;
+    font-weight: 650;
+  }
+  .os-screen__viewport {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--os-forest-100);
+  }
+  .os-screen__viewport img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 150ms var(--os-ease);
+  }
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0.9rem;
+    color: var(--os-ink-600);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  figcaption a {
+    flex: none;
+    color: var(--os-forest-800);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.16rem;
+    transition-property: color, text-decoration-color;
+    transition-duration: 150ms;
+    transition-timing-function: var(--os-ease);
+  }
+  figcaption a:focus-visible {
+    border-radius: 0.25rem;
+    outline: 3px solid var(--os-forest-700);
+    outline-offset: 3px;
+  }
+  .os-screen:hover .os-screen__viewport img {
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .os-screen__viewport img {
+      transition: none;
+    }
+  }
+</style>

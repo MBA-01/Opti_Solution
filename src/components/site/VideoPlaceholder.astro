@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description?: string;
+  duration?: string;
+  poster?: string;
+}
+
+const { title, description, duration = 'Vidéo à venir', poster } = Astro.props;
+---
+
+<article class="os-video-card">
+  <div class="os-video-card__media">
+    {poster && <img src={poster} alt="" width="1600" height="900" loading="lazy" />}
+    <span class="os-video-card__cue" aria-hidden="true"><Icon name="tabler:video" /> Aperçu</span>
+    <span class="os-video-card__duration">{duration}</span>
+  </div>
+  <div class="os-video-card__body">
+    <p class="os-kicker">Démonstration produit</p>
+    <h3>{title}</h3>
+    {description && <p>{description}</p>}
+    <span class="os-status">Disponible en démonstration guidée</span>
+  </div>
+</article>

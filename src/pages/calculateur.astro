@@ -1,0 +1,66 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import TimeCalculator from '~/components/site/TimeCalculator.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+
+const metadata = {
+  title: 'Calculateur de temps administratif',
+  description: 'Estimez la répartition du temps consacré aux opérations de votre magasin d’optique.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="Outil · Calculateur"
+    eyebrow="Mini diagnostic"
+    title="Estimez le temps consacré aux opérations de votre magasin."
+    text="À partir de vos volumes et temps moyens, repérez les opérations qui mobilisent le plus votre équipe. L’estimation reste indicative et ne constitue pas une promesse de gain."
+    primaryText="Commencer le calcul"
+    primaryHref="#calcul"
+    secondaryText="Voir les fonctionnalités"
+    secondaryHref="/fonctionnalites"
+  />
+  <section class="os-section os-section--soft" id="calcul">
+    <div class="os-container"><TimeCalculator /></div>
+  </section>
+  <section class="os-section">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Comment lire le résultat</p><h2
+          class="text-[clamp(2.4rem,5vw,4.5rem)] leading-none font-serif tracking-[-0.045em]"
+        >
+          Une lecture utile de votre organisation actuelle.
+        </h2>
+      </div>
+      <div class="os-problem-list">
+        <article>
+          <span>01</span><div>
+            <h3>Partez de vos propres volumes</h3><p>
+              Le calcul utilise le nombre de clients, devis ou factures que vous renseignez.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>02</span><div>
+            <h3>Affinez les temps moyens</h3><p>
+              Chronométrez quelques opérations courantes pour obtenir une estimation plus représentative.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>03</span><div>
+            <h3>Interprétez le scénario avec prudence</h3><p>
+              Le pourcentage sert à explorer un ordre de grandeur. Un diagnostic reste nécessaire pour identifier des
+              améliorations réalistes.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <FinalCTA
+    title="Transformons l’estimation en parcours concret."
+    text="Pendant la démo, nous pouvons nous concentrer sur les opérations qui ressortent le plus dans votre calcul."
+  />
+</MarketingLayout>

@@ -1,0 +1,120 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
+import Button from '~/components/ui/Button.astro';
+import { resources } from '~/data/optic-site';
+import { resourceArticles } from '~/data/resource-articles';
+const metadata = {
+  title: 'Ressources',
+  description: 'Guides, articles, vidéos et tutoriels pour les opérations et projets logiciels des magasins d’optique.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="06 · Ressources"
+    eyebrow="Décider et mieux s’organiser"
+    title="Des réponses concrètes aux questions de votre magasin."
+    text="Préparez une migration, structurez vos données, clarifiez les rôles ou comprenez un parcours avant de choisir votre prochaine étape."
+    primaryText="Voir les guides"
+    primaryHref="#guides"
+    secondaryText="Utiliser le calculateur"
+    secondaryHref="/calculateur"
+    compact
+  />
+
+  <section class="os-section" id="guides">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Sélection"
+        title="Commencez par le sujet qui vous bloque aujourd’hui."
+        text="Chaque ressource traite une décision opérationnelle et vous aide à préparer une discussion plus précise sur votre organisation."
+      />
+      <div class="os-resource-grid os-resource-grid--editorial">
+        {
+          resources.map((resource) => (
+            <a class="os-resource-card" href={resource.href}>
+              <div class="os-resource-card__meta">
+                <>
+                  <span>
+                    {resource.type} · {resource.category}
+                  </span>
+                  <span>{resource.reading}</span>
+                </>
+              </div>
+              <>
+                <h3>{resource.title}</h3>
+                <p>{resource.description}</p>
+                <strong>Lire la ressource →</strong>
+              </>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--cream">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Guides & articles"
+        title="Approfondissez un sujet à votre rythme."
+        text="Chaque contenu propose une méthode concrète, les questions à poser et le lien avec le domaine concerné dans Opti Solution."
+      />
+      <div class="os-resource-grid os-resource-grid--editorial">
+        {
+          resourceArticles.map((article) => (
+            <a class="os-resource-card" href={`/ressources/${article.slug}`}>
+              <div class="os-resource-card__meta">
+                <span>
+                  {article.type} · {article.category}
+                </span>
+                <span>{article.reading}</span>
+              </div>
+              <h3>{article.title}</h3>
+              <p>{article.description}</p>
+              <strong>Lire la ressource →</strong>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section" id="videos">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Vidéos"
+        title="Regardez une opération précise, à votre rythme."
+        text="Les prochaines vidéos montreront des séquences courtes du produit et renverront vers le guide ou la fonctionnalité correspondante. Aucune lecture ne démarrera automatiquement."
+      />
+      <div class="os-video-grid">
+        <VideoPlaceholder
+          title="Le cycle de vie d’une correction"
+          description="De la saisie en brouillon à la validation contrôlée."
+          poster="/working/05-prescription-review.webp"
+        />
+        <VideoPlaceholder
+          title="Suivre une réception fournisseur"
+          description="Commande, quantité reçue et prochaine étape."
+          poster="/working/07-purchase-reception.webp"
+        />
+        <VideoPlaceholder
+          title="Lire une fiche produit"
+          description="Références, ventes, achats et accès au stock."
+          poster="/working/02-product-catalog.webp"
+        />
+      </div>
+      <div class="os-actions">
+        <Button variant="secondary" href="/ressources/videos" text="Voir la vidéothèque" icon="tabler:arrow-right" />
+      </div>
+    </div>
+  </section>
+  <FinalCTA
+    title="Une question mérite une démonstration ?"
+    text="Utilisez les ressources pour préparer votre échange, puis choisissez le parcours à voir dans Opti Solution."
+  />
+</MarketingLayout>

@@ -1,0 +1,157 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+import { offerStages, faqs } from '~/data/optic-site';
+import FAQs from '~/components/widgets/FAQs.astro';
+
+const metadata = {
+  title: 'Mise en place et offre',
+  description: 'Diagnostic, configuration, déploiement, formation et accompagnement autour d’Opti Solution.',
+};
+const offerRows = [
+  [
+    'Base Opti Solution',
+    'Solution Odoo Community et modules optiques existants, retenus selon le périmètre.',
+    'Solution',
+  ],
+  ['Configuration initiale', 'Référentiels, modules, rôles et réglages définis dans la proposition.', 'Mise en place'],
+  ['Déploiement', 'Option VPS/cloud ou locale étudiée selon l’environnement et le budget.', 'À définir'],
+  ['Formation', 'Contenu et utilisateurs concernés précisés selon les parcours retenus.', 'À définir'],
+  ['Support', 'Modalités, durée et conditions indiquées dans le devis.', 'Récurrent possible'],
+  ['Reprise de données', 'Sources et qualité évaluées avant de confirmer une reprise.', 'Option évaluée'],
+  ['Développement spécifique', 'Besoin analysé et chiffré séparément lorsqu’il dépasse la configuration.', 'Sur devis'],
+];
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="05 · Mise en place"
+    eyebrow="Produit + service"
+    title="Préparez une solution qui correspond à votre organisation."
+    text="Le diagnostic précise les parcours, les données, les accès et le mode de déploiement avant de définir la configuration, la formation et l’accompagnement."
+    primaryText="Parler de mon projet"
+    primaryHref="/demo#demande"
+    secondaryText="Voir la solution"
+    secondaryHref="/solution"
+  />
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Le processus"
+        title="Six étapes pour passer du besoin à la mise en service."
+        text="Chaque étape précise les décisions à prendre, les éléments à préparer et les responsabilités à confirmer dans votre proposition."
+      />
+      <div class="os-offer-steps">
+        {
+          offerStages.map(([number, title, text]) => (
+            <article>
+              <>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container os-difference">
+      <p class="os-difference__statement">
+        Une proposition qui sépare clairement le logiciel, la mise en place et les services.
+      </p>
+      <div class="os-difference__notes">
+        <div>
+          <strong>Un socle identifié</strong><p>
+            La base logicielle et les modules optiques retenus sont décrits dans le périmètre.
+          </p>
+        </div>
+        <div>
+          <strong>Une mise en place distincte</strong><p>
+            Diagnostic, configuration, déploiement et formation peuvent constituer la phase initiale du projet.
+          </p>
+        </div>
+        <div>
+          <strong>Des services récurrents identifiés</strong><p>
+            Hébergement géré, maintenance ou support sont précisés dans la proposition lorsqu’ils sont retenus.
+          </p>
+        </div>
+        <div>
+          <strong>Des besoins supplémentaires séparés</strong><p>
+            Reprise de données et développement spécifique sont évalués selon leur périmètre.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section" id="preparation">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Composition de l’offre"
+        title="Comprenez ce qui est inclus, optionnel ou étudié séparément."
+        text="La proposition précise chaque composant selon votre besoin. Le prix dépend du périmètre retenu, sans imposer de forfait artificiel."
+      />
+      <div class="os-offer-table">
+        {
+          offerRows.map(([title, text, status]) => (
+            <article class="os-offer-row">
+              <>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <span>{status}</span>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--soft">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Préparer le diagnostic</p><h2
+          class="text-[clamp(2.4rem,5vw,4.5rem)] leading-none font-serif tracking-[-0.045em]"
+        >
+          Les informations qui rendent l’échange utile.
+        </h2>
+      </div>
+      <div class="os-problem-list">
+        <article>
+          <span>01</span><div>
+            <h3>Votre organisation</h3><p>Rôles, nombre d’utilisateurs et responsabilités de confirmation.</p>
+          </div>
+        </article>
+        <article>
+          <span>02</span><div>
+            <h3>Vos données</h3><p>Fichiers clients, produits, fournisseurs et référentiels à examiner.</p>
+          </div>
+        </article>
+        <article>
+          <span>03</span><div>
+            <h3>Vos priorités</h3><p>Parcours à ouvrir en premier et points qui demandent une adaptation.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <FAQs
+    id="questions-mise-en-place"
+    title="Questions sur la mise en place"
+    subtitle="Les réponses définitives dépendent du périmètre, des données et du mode de déploiement retenus."
+    items={faqs.slice(2)}
+    collapsible
+    defaultOpen={0}
+    classes={{ container: 'os-faq-shell', headline: { container: 'os-faq-heading' }, list: 'os-faq-list' }}
+  />
+  <FinalCTA
+    title="Définissons un périmètre clair."
+    text="Le premier échange permet de comprendre votre organisation avant de proposer une configuration ou un mode de déploiement."
+  />
+</MarketingLayout>

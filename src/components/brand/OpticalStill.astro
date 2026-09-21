@@ -1,0 +1,113 @@
+---
+interface Props {
+  variant?: 'hero' | 'story';
+  class?: string;
+}
+
+const { variant = 'hero', class: className = '' } = Astro.props;
+---
+
+<div class:list={['optical-still', `optical-still--${variant}`, className]} aria-hidden="true">
+  <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id={`metal-${variant}`} x1="80" y1="70" x2="330" y2="250" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#224F45"></stop>
+        <stop offset=".48" stop-color="#0B2E26"></stop>
+        <stop offset="1" stop-color="#2F6458"></stop>
+      </linearGradient>
+      <radialGradient
+        id={`lens-${variant}`}
+        cx="0"
+        cy="0"
+        r="1"
+        gradientTransform="translate(190 130) rotate(43) scale(120 92)"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#FFFFFF" stop-opacity=".88"></stop>
+        <stop offset=".55" stop-color="#DDECE6" stop-opacity=".5"></stop>
+        <stop offset="1" stop-color="#B4D2C8" stop-opacity=".2"></stop>
+      </radialGradient>
+      <linearGradient id={`shine-${variant}`} x1="150" y1="82" x2="230" y2="200" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FFFFFF" stop-opacity=".85"></stop>
+        <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      </linearGradient>
+      <filter id={`shadow-${variant}`} x="20" y="10" width="380" height="300" filterUnits="userSpaceOnUse">
+        <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#0B2E26" flood-opacity=".18"></feDropShadow>
+      </filter>
+    </defs>
+    <ellipse cx="210" cy="267" rx="145" ry="24" fill="#0B2E26" opacity=".08"></ellipse>
+    <g filter={`url(#shadow-${variant})`} transform="rotate(-7 210 150)">
+      <circle
+        cx="135"
+        cy="143"
+        r="72"
+        fill={`url(#lens-${variant})`}
+        stroke={`url(#metal-${variant})`}
+        stroke-width="13"></circle>
+      <circle
+        cx="286"
+        cy="143"
+        r="72"
+        fill={`url(#lens-${variant})`}
+        stroke={`url(#metal-${variant})`}
+        stroke-width="13"></circle>
+      <path
+        d="M205 137C215 127 225 127 236 137"
+        stroke={`url(#metal-${variant})`}
+        stroke-width="12"
+        stroke-linecap="round"></path>
+      <path d="M66 127C43 116 27 107 13 88" stroke={`url(#metal-${variant})`} stroke-width="8" stroke-linecap="round"
+      ></path>
+      <path
+        d="M355 127C378 116 393 107 407 88"
+        stroke={`url(#metal-${variant})`}
+        stroke-width="8"
+        stroke-linecap="round"></path>
+      <path
+        d="M96 92C124 70 164 70 184 93"
+        stroke={`url(#shine-${variant})`}
+        stroke-width="9"
+        stroke-linecap="round"
+        opacity=".75"></path>
+      <path
+        d="M248 92C276 70 316 70 336 93"
+        stroke={`url(#shine-${variant})`}
+        stroke-width="9"
+        stroke-linecap="round"
+        opacity=".75"></path>
+    </g>
+    <circle cx="351" cy="62" r="11" fill="#C9A96B"></circle>
+    <path
+      d="M355 82A126 126 0 0 1 366 203"
+      stroke="#C9A96B"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-dasharray="2 9"></path>
+    <path
+      d="M54 213A126 126 0 0 1 62 94"
+      stroke="#0F3D32"
+      stroke-opacity=".38"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-dasharray="2 9"></path>
+  </svg>
+</div>
+
+<style>
+  .optical-still {
+    pointer-events: none;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .optical-still--hero {
+    width: min(20rem, 58%);
+    filter: saturate(0.92);
+  }
+  .optical-still--story {
+    width: min(30rem, 100%);
+  }
+</style>

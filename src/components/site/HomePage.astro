@@ -1,318 +1,45 @@
 ---
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import HomeOpening from '~/components/site/HomeOpening.astro';
-import SectionIntro from '~/components/site/SectionIntro.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
-import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
 import Button from '~/components/ui/Button.astro';
-import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
-import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
+import { capabilityGroups, faqs } from '~/data/optic-site';
+import FAQs from '~/components/widgets/FAQs.astro';
 
-interface Props {
-  variant?: 'a' | 'b' | 'c';
-  conceptMode?: boolean;
-}
-
-const { variant = 'a', conceptMode = false } = Astro.props;
 const metadata = {
-  title: conceptMode
-    ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
-    : 'Opti Solution — Gestion pour magasins d’optique',
+  title: 'OptiSolution — From vision to clarity',
   ignoreTitleTemplate: true,
-  description:
-    'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
+  description: 'OptiSolution connects eye care, eyewear, retail operations, and management in one precise platform.',
 };
-const problems = [
-  [
-    'La fiche se fragmente',
-    'Les coordonnées, la correction et les documents commerciaux finissent dans des outils différents.',
-  ],
-  ['La même information se répète', 'Chaque ressaisie augmente le temps de recherche et demande un nouveau contrôle.'],
-  [
-    'Les achats perdent leur contexte',
-    'Il devient difficile de relier une demande de prix, une commande et sa réception au bon besoin.',
-  ],
-  [
-    'Le suivi repose sur la mémoire',
-    'Produits, stock, factures et règlements doivent être recherchés au lieu d’être suivis dans leur parcours.',
-  ],
+const chapters = [
+  ['01', 'The story of vision', 'Vision is never just a measurement. It is the confidence to move through the world. OptiSolution gives optical teams the clarity to care for that journey.'],
+  ['02', 'Examination & precision', 'Every clear result begins with precise measurement. Keep client context, corrections, and decisions close to the work.'],
+  ['03', 'Lens intelligence', 'Data becomes precision. Precision becomes the right lens, the right treatment, and a better experience for every client.'],
 ];
 ---
-
 <MarketingLayout metadata={metadata}>
-  <HomeOpening variant={variant} conceptMode={conceptMode} />
-
-  {
-    variant !== 'c' && (
-      <section class="os-section os-section--cream">
-        <div class="os-container os-problem-layout">
-          <div class="os-problem-statement">
-            <p class="os-eyebrow">Une réalité familière</p>
-            <blockquote>
-              Quand la fiche se disperse, l’équipe passe d’un outil à l’autre pour reconstituer le parcours.
-            </blockquote>
-          </div>
-          <div class="os-problem-list">
-            {problems.map(([title, text], index) => (
-              <article>
-                <span>0{index + 1}</span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </article>
-            ))}
-            <a class="os-text-link mt-7" href="/solution">
-              Découvrir la solution <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {
-    variant === 'c' && (
-      <section class="os-section os-section--cream">
-        <div class="os-container os-problem-layout">
-          <div class="os-problem-statement">
-            <>
-              <p class="os-eyebrow">Pourquoi relier les étapes</p>
-              <blockquote>Donnez à chaque rôle le bon contexte, sans lui faire perdre le fil de la fiche.</blockquote>
-            </>
-          </div>
-          <div class="os-problem-list">
-            {problems.slice(0, 3).map(([title, text], index) => (
-              <article>
-                <span>0{index + 1}</span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <section class="os-section os-section--dark">
-    <div class="os-container">
-      <SectionIntro
-        eyebrow="Un parcours connecté"
-        title="Gardez le fil, de la fiche client jusqu’au règlement."
-        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. Opti Solution les replace dans un parcours que l’équipe peut suivre et contrôler."
-      />
-      <div class="os-workflow-rail">
-        {
-          workflow.map((step) => (
-            <article>
-              <>
-                <span>{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.short}</p>
-              </>
-            </article>
-          ))
-        }
-      </div>
-      <a class="os-text-link mt-8 !text-[var(--os-cream-50)]" href="/fonctionnement">Découvrir le fonctionnement →</a>
-    </div>
-  </section>
-
-  <section class="os-section">
-    <div class="os-container">
-      <SectionIntro
-        eyebrow="Au quotidien"
-        title="Les informations utiles, au moment où l’équipe en a besoin."
-        text="Fiche optique, vente, produits et achats se retrouvent dans des domaines de travail clairs, avec les détails disponibles lorsque vous en avez besoin."
-      />
-      <div class="os-capability-preview os-capability-preview--editorial">
-        {
-          capabilityGroups.slice(0, 3).map((group) => (
-            <article>
-              <div class="os-capability-preview__image">
-                <img src={group.image} alt="" width="1920" height="1080" loading="lazy" />
-              </div>
-              <div class="os-capability-preview__copy">
-                <>
-                  <p class="os-kicker">{group.kicker}</p>
-                  <h3>{group.title}</h3>
-                  <p>{group.description}</p>
-                </>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-      <div class="os-actions">
-        <Button
-          variant="secondary"
-          href="/fonctionnalites"
-          text="Voir toutes les fonctionnalités"
-          icon="tabler:arrow-right"
-        />
-      </div>
-    </div>
-  </section>
-
-  <section class="os-section os-section--dark">
-    <div class="os-container os-difference">
-      <p class="os-difference__statement">Une base Odoo enrichie pour le travail d’un magasin d’optique.</p>
-      <div class="os-difference__notes">
-        <div>
-          <strong>Le contexte optique reste visible</strong><p>
-            Corrections OD/OG, références de verres et fiches optiques restent proches des opérations concernées.
-          </p>
-        </div>
-        <div>
-          <strong>Votre équipe garde le contrôle</strong><p>
-            Chaque document peut être relu avant validation, commande, facturation ou enregistrement du paiement.
-          </p>
-        </div>
-        <div>
-          <strong>La mise en place part de votre magasin</strong><p>
-            Modules, données, hébergement, formation et support sont définis dans une proposition adaptée au périmètre.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="os-section os-section--soft">
-    <div class="os-container os-calculator-teaser">
-      <div>
-        <p class="os-eyebrow">Mini diagnostic</p>
-        <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
-          Où votre équipe consacre-t-elle son temps administratif&nbsp;?
-        </h2>
-        <p class="os-lead mt-5">
-          Renseignez quelques volumes et temps moyens pour visualiser la répartition de vos opérations. Le résultat
-          reste indicatif et repose sur vos propres données.
-        </p>
-        <div class="os-actions">
-          <Button variant="primary" href="/calculateur" text="Calculer mon temps" icon="tabler:arrow-right" />
-        </div>
-      </div>
-      <div class="os-calculator-teaser__panel" aria-hidden="true">
-        <p class="os-kicker">Exemple de répartition</p>
-        <div class="os-teaser-bars">
-          <div><span>Devis</span><i style="--bar: 68%"></i><b>24%</b></div>
-          <div><span>Achats</span><i style="--bar: 82%"></i><b>29%</b></div>
-          <div><span>Facturation</span><i style="--bar: 51%"></i><b>18%</b></div>
-          <div><span>Stock</span><i style="--bar: 39%"></i><b>14%</b></div>
-          <div><span>Autres opérations</span><i style="--bar: 42%"></i><b>15%</b></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="os-section">
-    <div class="os-container os-offer-preview">
-      <div>
-        <p class="os-eyebrow">Mise en place</p>
-        <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
-          Une configuration pensée avant la mise en service.
-        </h2>
-        <p class="os-lead mt-5">
-          Nous commençons par vos parcours, vos données et les rôles de l’équipe afin de définir ce qui doit être
-          configuré, déployé et accompagné.
-        </p>
-        <div class="os-actions">
-          <Button
-            variant="secondary"
-            href="/mise-en-place"
-            text="Comprendre la mise en place"
-            icon="tabler:arrow-right"
-          />
-        </div>
-      </div>
-      <div class="os-offer-steps">
-        {
-          offerStages.map(([number, title, text]) => (
-            <article>
-              <>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="os-section os-section--cream">
-    <div class="os-container">
-      <SectionIntro
-        eyebrow="Le produit en situation"
-        title="Voyez comment chaque opération s’enchaîne."
-        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’Opti Solution, puis demandez une démonstration centrée sur vos priorités."
-      />
-      <div class="os-split">
-        <VideoPlaceholder
-          title="De la fiche client à la correction"
-          description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
-          poster="/working/05-prescription-hero.webp"
-        />
-        <ScreenshotFrame
-          src="/working/06-supplier-rfq.webp"
-          alt="Demande de prix fournisseur dans Odoo."
-          label="Aperçu logiciel"
-          caption="Une demande de prix fournisseur issue du parcours actuel"
-          href="/working/06-supplier-rfq.webp"
-        />
-      </div>
-      <div class="os-actions">
-        <Button variant="primary" href="/demo" text="Voir la démo" icon="tabler:arrow-right" />
-      </div>
-    </div>
-  </section>
-
-  <section class="os-section">
-    <div class="os-container">
-      <SectionIntro
-        eyebrow="Ressources"
-        title="Avancez avec les bonnes questions."
-        text="Préparez une migration, clarifiez les rôles de l’équipe ou comprenez le lien entre fiche optique, vente et achat avant votre démonstration."
-      />
-      <div class="os-resource-grid os-resource-grid--editorial">
-        {
-          resources.map((resource) => (
-            <a class="os-resource-card" href={resource.href}>
-              <div class="os-resource-card__meta">
-                <>
-                  <span>
-                    {resource.type} · {resource.category}
-                  </span>
-                  <span>{resource.reading}</span>
-                </>
-              </div>
-              <>
-                <h3>{resource.title}</h3>
-                <p>{resource.description}</p>
-                <strong>Lire la ressource →</strong>
-              </>
-            </a>
-          ))
-        }
-      </div>
-      <div class="os-actions"><Button variant="secondary" href="/ressources" text="Voir toutes les ressources" /></div>
-    </div>
-  </section>
-
-  <FAQs
-    id="questions"
-    title="Vos questions avant une démonstration"
-    subtitle="Retrouvez les premières réponses sur le périmètre, le déploiement, la formation et la reprise de données."
-    items={faqs.slice(0, 4)}
-    collapsible
-    defaultOpen={0}
-    schema
-    classes={{ container: 'os-faq-shell', headline: { container: 'os-faq-heading' }, list: 'os-faq-list' }}
-  />
+  <HomeOpening />
+  <main id="story">
+    <section class="os-story-section os-story-section--light">
+      <div class="os-container os-story-intro"><div><p class="os-eyebrow">A human starting point</p><h2>Clarity is personal.</h2></div><p>Behind every prescription is a person looking for confidence. Behind every pair of glasses is a team doing precise, meaningful work. We build the space between the two.</p></div>
+      <div class="os-container os-chapter-grid">{chapters.map(([number, title, text]) => <article><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</div>
+    </section>
+    <section class="os-story-section os-story-section--green"><div class="os-container os-precision-grid"><div><p class="os-eyebrow">Examination & precision</p><h2>Every clear result begins with precise measurement.</h2><p class="os-lead">Bring the examination into the same connected journey as the product and the business. Fewer gaps. More confidence at every handoff.</p><Button variant="secondary" href="/fonctionnalites" text="Explore the workflow" icon="tabler:arrow-up-right" /></div><div class="os-device-card"><div class="os-device-card__ring"></div><div class="os-device-card__readout"><span>OPTICAL READOUT</span><strong>OD&nbsp; +1.25</strong><strong>OG&nbsp; +1.00</strong><small>ready for review</small></div></div></div></section>
+    <section class="os-story-section os-story-section--cream"><div class="os-container"><div class="os-section-intro"><p class="os-eyebrow">One connected system</p><h2>From prescription to finished eyewear.</h2><p>OptiSolution keeps the full optical journey in focus: the people, products, orders, stock, and decisions that make a store move.</p></div><div class="os-capability-row">{capabilityGroups.slice(0, 3).map((group, index) => <article><div class="os-capability-row__image"><img src={group.image} alt={group.imageAlt} loading="lazy" /></div><div class="os-capability-row__body"><span>0{index + 1}</span><h3>{group.title}</h3><p>{group.description}</p></div></article>)}</div></div></section>
+    <section class="os-story-section os-story-section--dark"><div class="os-container"><div class="os-section-intro"><p class="os-eyebrow">The platform layer</p><h2>One connected system for the entire optical journey.</h2><p>Clear tools for client management, examination records, prescriptions, orders, inventory, analytics, and store management.</p></div><div class="os-module-grid">{['Client records', 'Examinations', 'Prescriptions', 'Orders & inventory', 'Store operations', 'Analytics'].map((item, index) => <div><span>0{index + 1}</span><strong>{item}</strong><i aria-hidden="true">↗</i></div>)}</div><a class="os-text-link os-text-link--light" href="/fonctionnement">See how it works <span aria-hidden="true">→</span></a></div></section>
+    <section class="os-story-section os-impact-section"><div class="os-container os-impact-grid"><div><p class="os-eyebrow">Built for real optical businesses</p><h2>Confidence in every interaction.</h2></div><div class="os-impact-points"><p>01 <strong>Operational clarity</strong><span>Give every role the right context, without asking them to rebuild the story.</span></p><p>02 <strong>A calmer workflow</strong><span>Reduce repetition and make the next useful step easier to see.</span></p><p>03 <strong>Control that grows</strong><span>Build the system around your store, your data, and your way of serving clients.</span></p></div></div></section>
+    <FAQs id="questions" title="Questions before a demonstration" subtitle="A few practical answers about scope, setup, training, and data." items={faqs.slice(0, 4)} collapsible defaultOpen={0} schema classes={{ container: 'os-faq-shell', headline: { container: 'os-faq-heading' }, list: 'os-faq-list' }} />
+  </main>
   <FinalCTA />
 </MarketingLayout>
+
+<style>
+  .os-story-section { padding-block: clamp(5rem, 10vw, 9rem); } .os-story-section--light { background: #f7f4ec; } .os-story-section--cream { background: #eeebe2; } .os-story-section--green { color: var(--os-cream-50); background: var(--os-forest-900); } .os-story-section--green h2, .os-story-section--dark h2 { color: var(--os-cream-50); }
+  .os-story-intro, .os-precision-grid, .os-impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 10vw, 10rem); align-items: end; } .os-story-intro { padding-bottom: 6rem; } .os-story-intro h2, .os-story-section h2 { max-width: 43rem; margin: 0; color: var(--os-ink-900); font: 500 clamp(3rem, 6vw, 6rem)/.92 Georgia, serif; letter-spacing: -.065em; } .os-story-intro > p { max-width: 31rem; color: var(--os-ink-600); font-size: 1.15rem; line-height: 1.8; }
+  .os-chapter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-top: 1px solid rgb(15 61 50 / .18); } .os-chapter-grid article { display: grid; gap: 3rem; padding: 1.5rem 1.5rem 0 0; border-right: 1px solid rgb(15 61 50 / .18); } .os-chapter-grid article:not(:first-child) { padding-left: 1.5rem; } .os-chapter-grid span, .os-impact-points p { color: var(--os-gold-700); font-size: .72rem; letter-spacing: .14em; } .os-chapter-grid h3 { margin: 0 0 1rem; color: var(--os-ink-900); font: 500 1.8rem/1.05 Georgia, serif; } .os-chapter-grid p { margin: 0; color: var(--os-ink-600); line-height: 1.7; }
+  .os-precision-grid { align-items: center; } .os-story-section--green .os-lead { color: rgb(248 245 237 / .7); } .os-story-section--green .os-eyebrow { color: var(--os-gold-400); } .os-device-card { position: relative; min-height: 30rem; display: grid; place-items: center; overflow: hidden; border: 1px solid rgb(248 245 237 / .17); background: radial-gradient(circle at 50% 45%, rgb(109 155 141 / .35), transparent 25%), #123d33; } .os-device-card__ring { width: 70%; aspect-ratio: 1; border: 1px solid rgb(218 238 225 / .6); border-radius: 50%; box-shadow: 0 0 0 35px rgb(218 238 225 / .05), 0 0 0 90px rgb(218 238 225 / .04); } .os-device-card__readout { position: absolute; right: 12%; bottom: 12%; display: grid; gap: .45rem; padding: 1rem; border: 1px solid rgb(248 245 237 / .24); color: var(--os-cream-50); background: rgb(15 61 50 / .72); backdrop-filter: blur(12px); } .os-device-card__readout span, .os-device-card__readout small { color: var(--os-gold-400); font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; } .os-device-card__readout strong { font: 500 1.4rem Georgia, serif; }
+  .os-capability-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; } .os-capability-row article { background: #f7f4ec; } .os-capability-row__image { aspect-ratio: 1.35; overflow: hidden; } .os-capability-row img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; } .os-capability-row article:hover img { transform: scale(1.04); } .os-capability-row__body { padding: 1.5rem; } .os-capability-row__body span { color: var(--os-gold-700); font-size: .7rem; } .os-capability-row h3 { margin: .8rem 0 .5rem; color: var(--os-ink-900); font: 500 1.6rem Georgia, serif; } .os-capability-row p { margin: 0; color: var(--os-ink-600); line-height: 1.6; }
+  .os-story-section--dark { color: var(--os-cream-50); background: var(--os-ink-900); } .os-story-section--dark .os-section-intro > p:last-child { color: rgb(248 245 237 / .65); } .os-story-section--dark .os-eyebrow { color: var(--os-gold-400); } .os-module-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-block: 3rem 2rem; border-top: 1px solid rgb(248 245 237 / .18); } .os-module-grid div { display: flex; align-items: center; gap: 1rem; min-height: 5.5rem; border-bottom: 1px solid rgb(248 245 237 / .18); } .os-module-grid span { color: var(--os-gold-400); font-size: .7rem; } .os-module-grid strong { font: 500 1.25rem Georgia, serif; } .os-module-grid i { margin-left: auto; color: var(--os-gold-400); font-style: normal; } .os-text-link--light { color: var(--os-cream-50); }
+  .os-impact-section { background: #dfe9e1; } .os-impact-grid { align-items: start; } .os-impact-points { display: grid; gap: 1.5rem; } .os-impact-points p { display: grid; grid-template-columns: 2rem 1fr; gap: .5rem; margin: 0; padding-top: 1rem; border-top: 1px solid rgb(15 61 50 / .2); } .os-impact-points strong { color: var(--os-ink-900); font: 500 1.25rem Georgia, serif; } .os-impact-points span { grid-column: 2; color: var(--os-ink-600); font-size: .95rem; letter-spacing: 0; line-height: 1.5; }
+  @media (max-width: 800px) { .os-story-intro, .os-precision-grid, .os-impact-grid, .os-chapter-grid, .os-capability-row { grid-template-columns: 1fr; } .os-story-intro { gap: 1.5rem; padding-bottom: 3.5rem; } .os-chapter-grid article, .os-chapter-grid article:not(:first-child) { gap: 1rem; padding: 1.5rem 0; border-right: 0; border-bottom: 1px solid rgb(15 61 50 / .18); } .os-device-card { min-height: 22rem; } .os-module-grid { grid-template-columns: 1fr 1fr; } .os-module-grid div { padding-right: .75rem; } }
+</style>

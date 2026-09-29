@@ -1,0 +1,283 @@
+---
+import Button from '~/components/ui/Button.astro';
+---
+
+<section class="os-device-showcase" aria-labelledby="device-showcase-title">
+  <div class="os-container os-device-showcase__grid">
+    <div class="os-device-showcase__copy">
+      <p class="os-eyebrow">Multi-écran</p>
+      <h2 id="device-showcase-title">Votre magasin vous suit, quel que soit l’écran.</h2>
+      <p>
+        Au comptoir, en rayon ou au bureau, retrouvez la même information depuis un téléphone, une tablette ou un
+        ordinateur. L’interface s’adapte à l’écran pour garder les actions essentielles à portée de main.
+      </p>
+      <div class="os-device-showcase__list" aria-label="Écrans compatibles">
+        <span>Téléphone</span><span>Tablette</span><span>Ordinateur</span>
+      </div>
+      <div class="os-actions">
+        <Button variant="secondary" href="/fonctionnalites" text="Découvrir l’interface" icon="tabler:arrow-right" />
+      </div>
+    </div>
+
+    <div
+      class="os-device-stage"
+      aria-label="Tableau de bord Opti Solution affiché sur ordinateur, tablette et téléphone"
+    >
+      <figure class="os-device os-device--desktop">
+        <div class="os-device__camera" aria-hidden="true"></div>
+        <img
+          src="/product/desktop/sales-dashboard.webp"
+          alt="Tableau de bord des ventes Opti Solution sur ordinateur."
+          width="1920"
+          height="1080"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Ordinateur</figcaption>
+      </figure>
+
+      <figure class="os-device os-device--tablet">
+        <div class="os-device__camera" aria-hidden="true"></div>
+        <img
+          src="/product/tablet/sales-dashboard.webp"
+          alt="Le même tableau de bord Opti Solution adapté à une tablette."
+          width="1024"
+          height="1366"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Tablette</figcaption>
+      </figure>
+
+      <figure class="os-device os-device--phone">
+        <div class="os-device__camera" aria-hidden="true"></div>
+        <img
+          src="/product/mobile/sales-dashboard.webp"
+          alt="Le même tableau de bord Opti Solution adapté à un téléphone."
+          width="430"
+          height="932"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Téléphone</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .os-device-showcase {
+    overflow: clip;
+    padding-block: clamp(5rem, 9vw, 8rem);
+    background: radial-gradient(circle at 82% 20%, rgb(201 169 107 / 0.14), transparent 23rem), var(--os-forest-900);
+  }
+
+  .os-device-showcase__grid {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.72fr) minmax(32rem, 1.28fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+  }
+
+  .os-device-showcase__copy {
+    position: relative;
+    z-index: 4;
+  }
+
+  .os-device-showcase h2 {
+    max-width: 38rem;
+    margin: 0;
+    color: white;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.7rem, 5vw, 4.9rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .os-device-showcase__copy > p:not(.os-eyebrow) {
+    max-width: 36rem;
+    margin: 1.5rem 0 0;
+    color: rgb(248 245 237 / 0.72);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .os-device-showcase__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+  }
+
+  .os-device-showcase__list span {
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: var(--os-cream-50);
+    background: rgb(248 245 237 / 0.08);
+    font-size: 0.73rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+  }
+
+  .os-device-showcase :global(.btn-secondary) {
+    border-color: rgb(248 245 237 / 0.35);
+    color: white;
+    background: rgb(248 245 237 / 0.06);
+  }
+
+  .os-device-stage {
+    position: relative;
+    min-height: 37rem;
+    isolation: isolate;
+  }
+
+  .os-device-stage::before {
+    position: absolute;
+    z-index: -1;
+    inset: 8% 3% 0 12%;
+    border: 1px solid rgb(248 245 237 / 0.1);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .os-device {
+    position: absolute;
+    overflow: visible;
+    margin: 0;
+    padding: 0.48rem;
+    outline: 1px solid rgb(255 255 255 / 0.14);
+    outline-offset: -1px;
+    background: #202826;
+    box-shadow: 0 2.2rem 5rem rgb(0 0 0 / 0.34);
+  }
+
+  .os-device img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    outline: 1px solid oklch(1 0 0 / 0.1);
+    outline-offset: -1px;
+    object-fit: cover;
+    object-position: top left;
+  }
+
+  .os-device figcaption {
+    position: absolute;
+    right: 0;
+    bottom: -2rem;
+    padding: 0;
+    color: rgb(248 245 237 / 0.66);
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .os-device__camera {
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.18);
+  }
+
+  .os-device--desktop {
+    top: 2rem;
+    right: 0;
+    left: 0;
+    height: 22rem;
+    border-radius: 1.1rem;
+  }
+
+  .os-device--desktop::after {
+    position: absolute;
+    right: 24%;
+    bottom: -1.65rem;
+    left: 24%;
+    height: 1.7rem;
+    border-radius: 0 0 1rem 1rem;
+    background: #202826;
+    content: '';
+  }
+
+  .os-device--desktop .os-device__camera {
+    top: 0.16rem;
+    left: calc(50% - 0.13rem);
+    width: 0.26rem;
+    height: 0.26rem;
+  }
+
+  .os-device--tablet {
+    right: 8%;
+    bottom: 0;
+    z-index: 2;
+    width: 37%;
+    height: 27rem;
+    border-radius: 1.4rem;
+    transform: rotate(1.5deg);
+  }
+
+  .os-device--tablet .os-device__camera,
+  .os-device--phone .os-device__camera {
+    top: 0.16rem;
+    left: calc(50% - 0.13rem);
+    width: 0.26rem;
+    height: 0.26rem;
+  }
+
+  .os-device--phone {
+    bottom: 0.8rem;
+    left: 13%;
+    z-index: 3;
+    width: 19%;
+    height: 21rem;
+    border-radius: 1.35rem;
+    transform: rotate(-3deg);
+  }
+
+  @media (max-width: 1023px) {
+    .os-device-showcase__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .os-device-stage {
+      width: min(100%, 46rem);
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .os-device-stage {
+      min-height: 25rem;
+    }
+
+    .os-device--desktop {
+      height: 14rem;
+    }
+
+    .os-device--tablet {
+      right: 5%;
+      width: 41%;
+      height: 19rem;
+    }
+
+    .os-device--phone {
+      left: 8%;
+      width: 23%;
+      height: 15rem;
+    }
+
+    .os-device figcaption {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .os-device--tablet,
+    .os-device--phone {
+      transform: none;
+    }
+  }
+</style>

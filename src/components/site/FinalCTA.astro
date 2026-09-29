@@ -2,7 +2,6 @@
 import Button from '~/components/ui/Button.astro';
 
 interface Props {
-  eyebrow?: string;
   title?: string;
   text?: string;
   secondaryText?: string;
@@ -10,18 +9,16 @@ interface Props {
 }
 
 const {
-  eyebrow = 'Prochaine étape',
   title = 'Voyez Opti Solution sur les parcours qui comptent pour vous.',
   text = 'Indiquez-nous vos priorités. Nous préparerons une démonstration guidée pour évaluer l’adéquation avec votre magasin et préciser le périmètre à étudier.',
   secondaryText = 'Écrire sur WhatsApp',
-  secondaryHref = 'https://wa.me/212632788555',
+  secondaryHref = 'https://wa.me/212620169713',
 } = Astro.props;
 ---
 
 <section class="os-final-cta">
   <div class="os-container os-final-cta__inner">
     <div>
-      <p class="os-eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       <p>{text}</p>
     </div>

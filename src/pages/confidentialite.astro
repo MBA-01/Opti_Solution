@@ -1,0 +1,282 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+
+const metadata = {
+  title: 'Politique de confidentialité',
+  description:
+    'Découvrez comment Opti Solution collecte, utilise, protège et conserve les données transmises sur son site.',
+};
+
+const sections = [
+  ['01', 'Champ d’application', 'champ-application'],
+  ['02', 'Responsable du traitement', 'responsable'],
+  ['03', 'Données collectées', 'donnees'],
+  ['04', 'Finalités et fondement', 'finalites'],
+  ['05', 'Destinataires', 'destinataires'],
+  ['06', 'Conservation', 'conservation'],
+  ['07', 'Cookies et mesure d’audience', 'cookies'],
+  ['08', 'Sécurité et transferts', 'securite'],
+  ['09', 'Vos droits', 'droits'],
+  ['10', 'Mise à jour et contact', 'contact'],
+];
+---
+
+<MarketingLayout metadata={metadata}>
+  <header class="os-privacy-hero">
+    <div class="os-container os-privacy-hero__grid">
+      <div>
+        <span class="os-chapter">Informations légales · Données personnelles</span>
+        <h1>Votre confidentialité, expliquée clairement.</h1>
+        <p class="os-lead">
+          Cette politique décrit les données traitées lorsque vous consultez le site Opti Solution ou demandez une
+          démonstration, ainsi que les choix et les droits dont vous disposez.
+        </p>
+        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : 29 septembre 2026</p>
+      </div>
+      <dl class="os-privacy-summary" aria-label="Résumé de la politique de confidentialité">
+        <div>
+          <dt>Collecte</dt>
+          <dd>Uniquement les informations nécessaires à votre demande.</dd>
+        </div>
+        <div>
+          <dt>Publicité</dt>
+          <dd>Aucune vente de données ni aucun profilage publicitaire.</dd>
+        </div>
+        <div>
+          <dt>Mesure d’audience</dt>
+          <dd>Aucun outil d’analyse non essentiel n’est activé actuellement.</dd>
+        </div>
+        <div>
+          <dt>Contact</dt>
+          <dd><a href="mailto:hello@opvibe.com">hello@opvibe.com</a></dd>
+        </div>
+      </dl>
+    </div>
+  </header>
+
+  <section class="os-privacy-shell">
+    <div class="os-container os-privacy-layout">
+      <aside class="os-privacy-nav" aria-label="Sommaire de la politique">
+        <p>Dans cette politique</p>
+        <ol>
+          {
+            sections.map(([number, title, id]) => (
+              <li>
+                <a href={`#${id}`}>
+                  <span>{number}</span>
+                  {title}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </aside>
+
+      <article class="os-privacy-content">
+        <div class="os-privacy-notice" role="note">
+          <strong>À retenir avant d’envoyer une demande</strong>
+          <p>
+            Le formulaire de démonstration n’est pas destiné aux informations de patients, aux corrections optiques, aux
+            ordonnances ni à toute autre donnée de santé. Utilisez uniquement des informations professionnelles utiles à
+            la prise de contact.
+          </p>
+        </div>
+
+        <section id="champ-application">
+          <span class="os-privacy-section-number">01</span>
+          <h2>Champ d’application</h2>
+          <p>
+            La présente politique s’applique au site public Opti Solution, à ses pages de contenu et au formulaire de
+            demande de démonstration. Elle ne couvre pas les données enregistrées par un magasin dans une instance du
+            logiciel Opti Solution. Pour ces données, les rôles, responsabilités et mesures applicables sont définis
+            avec le magasin concerné dans le cadre contractuel du déploiement.
+          </p>
+          <p>
+            Les liens vers des services externes, notamment la messagerie électronique et WhatsApp, sont également
+            soumis aux politiques de confidentialité de leurs éditeurs lorsque vous décidez de les utiliser.
+          </p>
+        </section>
+
+        <section id="responsable">
+          <span class="os-privacy-section-number">02</span>
+          <h2>Responsable du traitement</h2>
+          <p>
+            Pour les données collectées sur ce site, le responsable du traitement est l’éditeur d’Opti Solution,
+            représenté par <strong>Mohamed El Bachrioui</strong>.
+          </p>
+          <dl class="os-privacy-contact-card">
+            <div><dt>E-mail</dt><dd><a href="mailto:hello@opvibe.com">hello@opvibe.com</a></dd></div>
+            <div><dt>Téléphone</dt><dd><a href="tel:+212620169713">+212 620 169 713</a></dd></div>
+          </dl>
+          <p>
+            Le traitement associé au formulaire sera activé en production après l’accomplissement des formalités
+            applicables auprès de la Commission Nationale de contrôle de la protection des Données à caractère Personnel
+            (CNDP). La référence du récépissé sera publiée ici dès son attribution.
+          </p>
+        </section>
+
+        <section id="donnees">
+          <span class="os-privacy-section-number">03</span>
+          <h2>Données que nous collectons</h2>
+          <h3>Lorsque vous demandez une démonstration</h3>
+          <p>Nous pouvons recevoir les informations suivantes :</p>
+          <ul>
+            <li>nom et prénom ;</li>
+            <li>nom du magasin et ville ;</li>
+            <li>adresse e-mail professionnelle ;</li>
+            <li>numéro de téléphone ou WhatsApp, si vous choisissez de le fournir ;</li>
+            <li>description libre des opérations que vous souhaitez découvrir ;</li>
+            <li>date de la demande et éléments nécessaires au suivi de l’échange.</li>
+          </ul>
+          <p>
+            Les champs signalés par un astérisque sont nécessaires pour identifier et traiter votre demande. Le
+            téléphone et la description détaillée sont facultatifs. Si vous ne renseignez pas un champ obligatoire, le
+            formulaire ne pourra pas être envoyé ; vous pourrez toujours nous contacter directement par e-mail.
+          </p>
+          <h3>Lorsque vous consultez le site</h3>
+          <p>
+            L’infrastructure d’hébergement peut traiter des données techniques limitées, telles que l’adresse IP, la
+            date de la requête, l’URL consultée, le type de navigateur et les journaux d’erreur. Ces informations
+            servent à délivrer et sécuriser le site, et non à établir un profil commercial de votre navigation.
+          </p>
+        </section>
+
+        <section id="finalites">
+          <span class="os-privacy-section-number">04</span>
+          <h2>Pourquoi nous utilisons ces données</h2>
+          <div class="os-privacy-table" role="region" aria-label="Finalités du traitement" tabindex="0">
+            <table>
+              <thead><tr><th>Finalité</th><th>Données concernées</th><th>Fondement</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Répondre à votre demande et préparer une démonstration adaptée</td>
+                  <td>Identité, magasin, coordonnées, ville et besoin exprimé</td>
+                  <td>Votre consentement et les démarches précontractuelles demandées</td>
+                </tr>
+                <tr>
+                  <td>Assurer le suivi de nos échanges</td>
+                  <td>Coordonnées et historique de la demande</td>
+                  <td>Votre demande et notre intérêt légitime à assurer son suivi</td>
+                </tr>
+                <tr>
+                  <td>Maintenir la disponibilité et la sécurité du site</td>
+                  <td>Données techniques et journaux de sécurité</td>
+                  <td>Notre intérêt légitime à exploiter un site fiable et sécurisé</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Nous n’utilisons pas une demande de démonstration pour vous inscrire automatiquement à une lettre
+            d’information. Toute communication promotionnelle régulière ferait l’objet d’un choix séparé.
+          </p>
+        </section>
+
+        <section id="destinataires">
+          <span class="os-privacy-section-number">05</span>
+          <h2>Qui peut recevoir les données</h2>
+          <p>Dans la limite de ce qui est nécessaire, les données peuvent être accessibles :</p>
+          <ul>
+            <li>aux personnes autorisées chez Opti Solution qui préparent et suivent les démonstrations ;</li>
+            <li>
+              aux prestataires techniques retenus pour l’hébergement, la transmission ou la sécurisation du formulaire ;
+            </li>
+            <li>aux autorités habilitées, uniquement lorsqu’une obligation légale l’impose.</li>
+          </ul>
+          <p>
+            Les prestataires agissent selon nos instructions et sont tenus à la confidentialité. Nous ne vendons, ne
+            louons et ne cédons pas vos données à des tiers à des fins publicitaires.
+          </p>
+        </section>
+
+        <section id="conservation">
+          <span class="os-privacy-section-number">06</span>
+          <h2>Combien de temps nous les conservons</h2>
+          <p>
+            Une demande de démonstration et les échanges associés sont conservés pendant la durée nécessaire à son
+            traitement, puis au maximum <strong>12 mois après le dernier échange</strong> lorsqu’aucune relation contractuelle
+            n’est engagée. Vous pouvez demander leur suppression plus tôt, sous réserve d’une obligation légale de conservation.
+          </p>
+          <p>
+            Les journaux techniques sont conservés pendant une durée courte, normalement inférieure ou égale à
+            <strong>90 jours</strong>, sauf nécessité de sécurité documentée. Si une relation contractuelle commence,
+            les documents commerciaux et comptables sont conservés pendant les durées imposées par la réglementation
+            applicable.
+          </p>
+        </section>
+
+        <section id="cookies">
+          <span class="os-privacy-section-number">07</span>
+          <h2>Cookies et mesure d’audience</h2>
+          <p>
+            Le site n’active actuellement aucun outil de publicité, de profilage ou de mesure d’audience non essentiel.
+            Il peut utiliser des mécanismes techniques strictement nécessaires à la navigation, à la sécurité ou au bon
+            fonctionnement du service. Ils ne servent pas à vous suivre sur d’autres sites.
+          </p>
+          <p>
+            Si un outil non essentiel est ajouté ultérieurement, cette politique sera mise à jour et votre accord sera
+            demandé avant son dépôt ou son activation lorsque la réglementation l’exige.
+          </p>
+        </section>
+
+        <section id="securite">
+          <span class="os-privacy-section-number">08</span>
+          <h2>Sécurité et transferts hors du Maroc</h2>
+          <p>
+            Nous appliquons des mesures proportionnées aux risques : accès limité aux personnes qui en ont besoin,
+            transmission chiffrée lorsque le site est publié en HTTPS, mises à jour de sécurité, sauvegardes encadrées
+            et contrôle des prestataires. Aucun système ne pouvant garantir une sécurité absolue, nous réévaluons ces
+            mesures lorsque le service évolue.
+          </p>
+          <p>
+            Si l’hébergement ou un prestataire implique un transfert de données hors du Maroc, ce transfert ne sera mis
+            en œuvre qu’après les formalités requises auprès de la CNDP et avec les garanties contractuelles et
+            techniques appropriées.
+          </p>
+        </section>
+
+        <section id="droits">
+          <span class="os-privacy-section-number">09</span>
+          <h2>Vos droits</h2>
+          <p>
+            Conformément à la loi marocaine n° 09-08, vous pouvez demander l’accès aux données qui vous concernent, leur
+            rectification, leur actualisation, leur effacement ou leur verrouillage lorsqu’elles sont inexactes,
+            incomplètes, équivoques, périmées ou traitées de manière non conforme. Vous pouvez également vous opposer,
+            pour des motifs légitimes, à leur traitement et retirer votre consentement pour l’avenir.
+          </p>
+          <p>
+            Écrivez à <a
+              href="mailto:hello@opvibe.com?subject=Exercice%20de%20mes%20droits%20-%20donn%C3%A9es%20personnelles"
+              >hello@opvibe.com</a
+            > en précisant l’objet de votre demande. Nous ne demanderons un justificatif d’identité que si cela est nécessaire
+            pour éviter qu’un tiers accède à vos données. Les rectifications recevables sont effectuées gratuitement dans
+            le délai prévu par la loi.
+          </p>
+          <p>
+            Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la <a
+              href="https://www.cndp.ma/"
+              target="_blank"
+              rel="noopener noreferrer">CNDP<span class="os-external-mark" aria-hidden="true"> ↗</span></a
+            >.
+          </p>
+        </section>
+
+        <section id="contact">
+          <span class="os-privacy-section-number">10</span>
+          <h2>Mise à jour et contact</h2>
+          <p>
+            Cette politique peut évoluer si le site, le formulaire, les prestataires ou les obligations applicables
+            changent. La date affichée en haut de la page indique sa dernière révision. Toute évolution substantielle
+            sera signalée de manière visible avant son entrée en vigueur lorsque cela est nécessaire.
+          </p>
+          <div class="os-privacy-closing">
+            <p>Une question sur vos données ?</p>
+            <a class="btn-primary" href="mailto:hello@opvibe.com?subject=Confidentialit%C3%A9%20-%20Opti%20Solution"
+              >Écrire à Opti Solution</a
+            >
+          </div>
+        </section>
+      </article>
+    </div>
+  </section>
+</MarketingLayout>

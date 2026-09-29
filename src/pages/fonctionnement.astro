@@ -15,7 +15,6 @@ const metadata = {
 <MarketingLayout metadata={metadata}>
   <PageHero
     chapter="02 · Fonctionnement"
-    eyebrow="Le parcours principal"
     title="Suivez la fiche, du premier échange au règlement."
     text="Six étapes reliées permettent de garder le contexte d’une opération à l’autre. Chaque document reste distinct et chaque confirmation reste sous le contrôle de l’équipe."
     primaryText="Voir une démo du parcours"
@@ -25,17 +24,17 @@ const metadata = {
   >
     <ScreenshotFrame
       slot="visual"
-      src="/working/05-prescription-review.webp"
+      src="/product/tablet/optical-correction.webp"
       alt="Fiche de correction Opti Solution avec valeurs OD et OG."
       label="Étape clé"
       caption="Correction validée avant la préparation de la suite"
-      href="/working/05-prescription-review.webp"
+      href="/product/tablet/optical-correction.webp"
+      aspect="tablet"
     />
   </PageHero>
 
   <section class="os-section os-section--dark">
     <div class="os-container">
-      <p class="os-eyebrow">Vue d’ensemble</p>
       <div class="os-workflow-rail">
         {
           workflow.map((step) => (
@@ -61,7 +60,6 @@ const metadata = {
   <section class="os-section">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Étape par étape"
         title="Comprenez ce qui se passe à chaque étape."
         text="Voyez où l’information est saisie, ce qui prépare l’opération suivante et les points que l’équipe vérifie avant de confirmer."
       />
@@ -83,6 +81,7 @@ const metadata = {
                 label={`Étape ${step.number}`}
                 caption={step.short}
                 href={step.image}
+                aspect="tablet"
               />
             </article>
           ))
@@ -94,9 +93,7 @@ const metadata = {
   <section class="os-section os-section--soft">
     <div class="os-container os-split">
       <div>
-        <p class="os-eyebrow">Règle de contrôle</p><h2
-          class="text-[clamp(2.5rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]"
-        >
+        <h2 class="text-[clamp(2.5rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
           Une dernière vérification avant chaque engagement.
         </h2>
       </div>

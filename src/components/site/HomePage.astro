@@ -7,6 +7,7 @@ import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Button from '~/components/ui/Button.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import DeviceShowcase from '~/components/site/DeviceShowcase.astro';
 import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
 
 interface Props {
@@ -48,7 +49,6 @@ const problems = [
       <section class="os-section os-section--cream">
         <div class="os-container os-problem-layout">
           <div class="os-problem-statement">
-            <p class="os-eyebrow">Une réalité familière</p>
             <blockquote>
               Quand la fiche se disperse, l’équipe passe d’un outil à l’autre pour reconstituer le parcours.
             </blockquote>
@@ -78,7 +78,6 @@ const problems = [
         <div class="os-container os-problem-layout">
           <div class="os-problem-statement">
             <>
-              <p class="os-eyebrow">Pourquoi relier les étapes</p>
               <blockquote>Donnez à chaque rôle le bon contexte, sans lui faire perdre le fil de la fiche.</blockquote>
             </>
           </div>
@@ -101,7 +100,6 @@ const problems = [
   <section class="os-section os-section--dark">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Un parcours connecté"
         title="Gardez le fil, de la fiche client jusqu’au règlement."
         text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. Opti Solution les replace dans un parcours que l’équipe peut suivre et contrôler."
       />
@@ -125,7 +123,6 @@ const problems = [
   <section class="os-section">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Au quotidien"
         title="Les informations utiles, au moment où l’équipe en a besoin."
         text="Fiche optique, vente, produits et achats se retrouvent dans des domaines de travail clairs, avec les détails disponibles lorsque vous en avez besoin."
       />
@@ -134,7 +131,7 @@ const problems = [
           capabilityGroups.slice(0, 3).map((group) => (
             <article>
               <div class="os-capability-preview__image">
-                <img src={group.image} alt="" width="1920" height="1080" loading="lazy" />
+                <img src={group.image} alt="" width="1024" height="1366" loading="lazy" />
               </div>
               <div class="os-capability-preview__copy">
                 <>
@@ -158,13 +155,15 @@ const problems = [
     </div>
   </section>
 
+  <DeviceShowcase />
+
   <section class="os-section os-section--dark">
     <div class="os-container os-difference">
       <p class="os-difference__statement">Une base Odoo enrichie pour le travail d’un magasin d’optique.</p>
       <div class="os-difference__notes">
         <div>
-          <strong>Le contexte optique reste visible</strong><p>
-            Corrections OD/OG, références de verres et fiches optiques restent proches des opérations concernées.
+          <strong>L’essentiel reste à portée</strong><p>
+            Fiche client, correction, produits et documents restent proches de l’opération en cours.
           </p>
         </div>
         <div>
@@ -184,7 +183,6 @@ const problems = [
   <section class="os-section os-section--soft">
     <div class="os-container os-calculator-teaser">
       <div>
-        <p class="os-eyebrow">Mini diagnostic</p>
         <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
           Où votre équipe consacre-t-elle son temps administratif&nbsp;?
         </h2>
@@ -212,7 +210,6 @@ const problems = [
   <section class="os-section">
     <div class="os-container os-offer-preview">
       <div>
-        <p class="os-eyebrow">Mise en place</p>
         <h2 class="text-[clamp(2.4rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
           Une configuration pensée avant la mise en service.
         </h2>
@@ -248,7 +245,6 @@ const problems = [
   <section class="os-section os-section--cream">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Le produit en situation"
         title="Voyez comment chaque opération s’enchaîne."
         text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’Opti Solution, puis demandez une démonstration centrée sur vos priorités."
       />
@@ -256,14 +252,15 @@ const problems = [
         <VideoPlaceholder
           title="De la fiche client à la correction"
           description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
-          poster="/working/05-prescription-hero.webp"
+          poster="/product/tablet/optical-correction.webp"
         />
         <ScreenshotFrame
-          src="/working/06-supplier-rfq.webp"
+          src="/product/tablet/purchase-order.webp"
           alt="Demande de prix fournisseur dans Odoo."
           label="Aperçu logiciel"
           caption="Une demande de prix fournisseur issue du parcours actuel"
-          href="/working/06-supplier-rfq.webp"
+          href="/product/tablet/purchase-order.webp"
+          aspect="tablet"
         />
       </div>
       <div class="os-actions">
@@ -275,7 +272,6 @@ const problems = [
   <section class="os-section">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Ressources"
         title="Avancez avec les bonnes questions."
         text="Préparez une migration, clarifiez les rôles de l’équipe ou comprenez le lien entre fiche optique, vente et achat avant votre démonstration."
       />

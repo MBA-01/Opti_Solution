@@ -15,7 +15,6 @@ const metadata = {
 <MarketingLayout metadata={metadata}>
   <PageHero
     chapter="03 · Fonctionnalités"
-    eyebrow="Capacités produit"
     title="Retrouvez les fonctions utiles dans le contexte où vous travaillez."
     text="Explorez Opti Solution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine montre les tâches et les écrans associés."
     secondaryText="Suivre le parcours complet"
@@ -23,18 +22,18 @@ const metadata = {
   >
     <ScreenshotFrame
       slot="visual"
-      src="/working/02-product-catalog.webp"
-      alt="Fiche produit optique réelle dans Odoo."
+      src="/product/tablet/products.webp"
+      alt="Liste des produits optiques dans Opti Solution sur tablette."
       label="Catalogue"
       caption="Références, achats, ventes et accès stock"
-      href="/working/02-product-catalog.webp"
+      href="/product/tablet/products.webp"
+      aspect="tablet"
     />
   </PageHero>
 
   <section class="os-section">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Six domaines"
         title="Six domaines qui couvrent le parcours principal du magasin."
         text="Passez d’une vue d’ensemble aux tâches concrètes, puis utilisez la démonstration pour vérifier leur adéquation avec votre organisation."
       />
@@ -59,6 +58,7 @@ const metadata = {
               label={group.kicker}
               caption={`${group.title} · données de démonstration`}
               href={group.image}
+              aspect="tablet"
             />
           </article>
         ))

@@ -6,16 +6,30 @@ interface Props {
   caption: string;
   href?: string;
   eager?: boolean;
+  aspect?: 'landscape' | 'tablet' | 'phone';
   class?: string;
 }
 
-const { src, alt = '', label, caption, href, eager = false, class: className = '' } = Astro.props;
+const { src, alt = '', label, caption, href, eager = false, aspect = 'landscape', class: className = '' } = Astro.props;
+const dimensions =
+  aspect === 'tablet'
+    ? { width: 1024, height: 1366 }
+    : aspect === 'phone'
+      ? { width: 430, height: 932 }
+      : { width: 1920, height: 1080 };
 ---
 
-<figure class:list={['os-screen', className]}>
+<figure class:list={['os-screen', `os-screen--${aspect}`, className]}>
   <div class="os-screen__bar" aria-hidden="true"><i></i><i></i><i></i>{label && <span>{label}</span>}</div>
   <div class="os-screen__viewport">
-    <img src={src} alt={alt} width="1920" height="1080" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <img
+      src={src}
+      alt={alt}
+      width={dimensions.width}
+      height={dimensions.height}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
   </div>
   <figcaption>
     <span>{caption}</span>
@@ -63,6 +77,12 @@ const { src, alt = '', label, caption, href, eager = false, class: className = '
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: var(--os-forest-100);
+  }
+  .os-screen--tablet .os-screen__viewport {
+    aspect-ratio: 4 / 3;
+  }
+  .os-screen--phone .os-screen__viewport {
+    aspect-ratio: 9 / 16;
   }
   .os-screen__viewport img {
     display: block;

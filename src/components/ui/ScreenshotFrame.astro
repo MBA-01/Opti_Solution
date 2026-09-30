@@ -11,6 +11,7 @@ interface Props {
 }
 
 const { src, alt = '', label, caption, href, eager = false, aspect = 'landscape', class: className = '' } = Astro.props;
+const previewSource = href ?? src;
 const dimensions =
   aspect === 'tablet'
     ? { width: 1024, height: 1366 }
@@ -21,7 +22,15 @@ const dimensions =
 
 <figure class:list={['os-screen', `os-screen--${aspect}`, className]}>
   <div class="os-screen__bar" aria-hidden="true"><i></i><i></i><i></i>{label && <span>{label}</span>}</div>
-  <div class="os-screen__viewport">
+  <button
+    class="os-screen__viewport"
+    type="button"
+    data-product-preview
+    data-src={previewSource}
+    data-alt={alt}
+    data-caption={caption}
+    aria-label={`Agrandir l’image : ${caption}`}
+  >
     <img
       src={src}
       alt={alt}
@@ -30,14 +39,14 @@ const dimensions =
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
     />
-  </div>
+  </button>
   <figcaption>
     <span>{caption}</span>
     {
       href && (
-        <a href={href} target="_blank" rel="noopener noreferrer">
+        <button type="button" data-product-preview data-src={previewSource} data-alt={alt} data-caption={caption}>
           Agrandir <span aria-hidden="true">↗</span>
-        </a>
+        </button>
       )
     }
   </figcaption>
@@ -74,9 +83,14 @@ const dimensions =
     font-weight: 650;
   }
   .os-screen__viewport {
+    display: block;
+    width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    border: 0;
+    padding: 0;
     background: var(--os-forest-100);
+    text-align: left;
   }
   .os-screen--tablet .os-screen__viewport {
     aspect-ratio: 4 / 3;
@@ -101,9 +115,13 @@ const dimensions =
     font-size: 0.75rem;
     line-height: 1.4;
   }
-  figcaption a {
+  figcaption button {
     flex: none;
+    border: 0;
+    padding: 0;
     color: var(--os-forest-800);
+    background: transparent;
+    font: inherit;
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 0.16rem;
@@ -111,7 +129,7 @@ const dimensions =
     transition-duration: 150ms;
     transition-timing-function: var(--os-ease);
   }
-  figcaption a:focus-visible {
+  figcaption button:focus-visible {
     border-radius: 0.25rem;
     outline: 3px solid var(--os-forest-700);
     outline-offset: 3px;

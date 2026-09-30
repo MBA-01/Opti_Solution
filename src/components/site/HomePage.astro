@@ -31,7 +31,7 @@ const problems = [
   ],
   ['La même information se répète', 'Chaque ressaisie augmente le temps de recherche et demande un nouveau contrôle.'],
   [
-    'Les achats perdent leur contexte',
+    'Les achats perdent leur lien avec le besoin',
     'Il devient difficile de relier une demande de prix, une commande et sa réception au bon besoin.',
   ],
   [
@@ -78,7 +78,9 @@ const problems = [
         <div class="os-container os-problem-layout">
           <div class="os-problem-statement">
             <>
-              <blockquote>Donnez à chaque rôle le bon contexte, sans lui faire perdre le fil de la fiche.</blockquote>
+              <blockquote>
+                Donnez à chacun les bonnes informations, sans lui faire perdre le fil de la fiche.
+              </blockquote>
             </>
           </div>
           <div class="os-problem-list">
@@ -130,9 +132,17 @@ const problems = [
         {
           capabilityGroups.slice(0, 3).map((group) => (
             <article>
-              <div class="os-capability-preview__image">
-                <img src={group.image} alt="" width="1024" height="1366" loading="lazy" />
-              </div>
+              <button
+                class="os-capability-preview__image"
+                type="button"
+                data-product-preview
+                data-src={group.image}
+                data-alt={group.imageAlt}
+                data-caption={`${group.title} · données de démonstration`}
+                aria-label={`Agrandir l’image : ${group.title}`}
+              >
+                <img src={group.image} alt={group.imageAlt} width="1024" height="1366" loading="lazy" />
+              </button>
               <div class="os-capability-preview__copy">
                 <>
                   <p class="os-kicker">{group.kicker}</p>

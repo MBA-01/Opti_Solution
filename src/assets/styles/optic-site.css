@@ -366,6 +366,15 @@
     object-position: left top;
   }
 
+  .os-product-stack__preview {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+
   .os-product-stack__main img {
     padding-top: 2.2rem;
   }
@@ -560,8 +569,14 @@
   }
 
   .os-capability-preview__image {
+    display: block;
+    width: 100%;
     height: 12rem;
     overflow: hidden;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    padding: 0;
     border-bottom: 1px solid var(--os-line);
     background: var(--os-forest-100);
   }

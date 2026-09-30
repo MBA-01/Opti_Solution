@@ -25,40 +25,70 @@ import Button from '~/components/ui/Button.astro';
     >
       <figure class="os-device os-device--desktop">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <img
-          src="/product/desktop/sales-dashboard.webp"
-          alt="Tableau de bord des ventes Opti Solution sur ordinateur."
-          width="1920"
-          height="1080"
-          loading="lazy"
-          decoding="async"
-        />
+        <button
+          class="os-device__preview"
+          type="button"
+          data-product-preview
+          data-src="/product/desktop/sales-dashboard.webp"
+          data-alt="Tableau de bord des ventes Opti Solution sur ordinateur."
+          data-caption="Tableau de bord · ordinateur"
+          aria-label="Agrandir l’interface sur ordinateur"
+        >
+          <img
+            src="/product/desktop/sales-dashboard.webp"
+            alt="Tableau de bord des ventes Opti Solution sur ordinateur."
+            width="1920"
+            height="1080"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
         <figcaption>Ordinateur</figcaption>
       </figure>
 
       <figure class="os-device os-device--tablet">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <img
-          src="/product/tablet/sales-dashboard.webp"
-          alt="Le même tableau de bord Opti Solution adapté à une tablette."
-          width="1024"
-          height="1366"
-          loading="lazy"
-          decoding="async"
-        />
+        <button
+          class="os-device__preview"
+          type="button"
+          data-product-preview
+          data-src="/product/tablet/sales-dashboard.webp"
+          data-alt="Le même tableau de bord Opti Solution adapté à une tablette."
+          data-caption="Tableau de bord · tablette"
+          aria-label="Agrandir l’interface sur tablette"
+        >
+          <img
+            src="/product/tablet/sales-dashboard.webp"
+            alt="Le même tableau de bord Opti Solution adapté à une tablette."
+            width="1024"
+            height="1366"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
         <figcaption>Tablette</figcaption>
       </figure>
 
       <figure class="os-device os-device--phone">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <img
-          src="/product/mobile/sales-dashboard.webp"
-          alt="Le même tableau de bord Opti Solution adapté à un téléphone."
-          width="430"
-          height="932"
-          loading="lazy"
-          decoding="async"
-        />
+        <button
+          class="os-device__preview"
+          type="button"
+          data-product-preview
+          data-src="/product/mobile/sales-dashboard.webp"
+          data-alt="Le même tableau de bord Opti Solution adapté à un téléphone."
+          data-caption="Tableau de bord · téléphone"
+          aria-label="Agrandir l’interface sur téléphone"
+        >
+          <img
+            src="/product/mobile/sales-dashboard.webp"
+            alt="Le même tableau de bord Opti Solution adapté à un téléphone."
+            width="430"
+            height="932"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
         <figcaption>Téléphone</figcaption>
       </figure>
     </div>
@@ -162,6 +192,17 @@ import Button from '~/components/ui/Button.astro';
     outline-offset: -1px;
     object-fit: cover;
     object-position: top left;
+  }
+
+  .os-device__preview {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 0;
+    border-radius: inherit;
+    padding: 0;
+    background: transparent;
   }
 
   .os-device figcaption {

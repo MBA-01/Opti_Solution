@@ -18,10 +18,28 @@
     --os-radius-sm: 0.72rem;
     --os-radius-md: 1.15rem;
     --os-radius-lg: 1.65rem;
-    --os-shadow-sm: 0 0.08rem 0.18rem rgb(11 46 38 / 0.08), 0 0.55rem 1.4rem rgb(11 46 38 / 0.06);
-    --os-shadow-md: 0 0.12rem 0.35rem rgb(11 46 38 / 0.08), 0 1.25rem 3.5rem rgb(11 46 38 / 0.1);
-    --os-shadow-lg: 0 0.2rem 0.6rem rgb(11 46 38 / 0.08), 0 2rem 5rem rgb(11 46 38 / 0.14);
-    --os-ease: cubic-bezier(0.2, 0, 0, 1);
+    /* Depths soft preset, tinted with the OptiSolution forest tone. */
+    --os-shadow-raised: 0 1px 2.6px rgb(11 46 38 / 7%), 0 0.4px 5.7px rgb(11 46 38 / 4.6%);
+    --os-shadow-hover: 0 1.9px 4.9px rgb(11 46 38 / 6.7%), 0 0.7px 10.9px rgb(11 46 38 / 4.3%);
+    --os-shadow-sticky: 0 1.9px 4.9px rgb(11 46 38 / 6.7%), 0 0.7px 10.9px rgb(11 46 38 / 4.3%);
+    --os-shadow-dropdown: 0 3.6px 9.4px rgb(11 46 38 / 6.3%), 0 1.3px 20.6px rgb(11 46 38 / 4.1%);
+    --os-shadow-modal: 0 6.9px 17.8px rgb(11 46 38 / 6%), 0 2.4px 39.2px rgb(11 46 38 / 3.9%);
+    --os-shadow-pressed: inset 0 0.8px 2.5px rgb(11 46 38 / 9.1%);
+    --os-shadow-sm: var(--os-shadow-raised);
+    --os-shadow-md: var(--os-shadow-dropdown);
+    --os-shadow-lg: var(--os-shadow-modal);
+
+    /* Springs semantic motion set. */
+    --os-duration-subtle: 140ms;
+    --os-duration-subtle-exit: 98ms;
+    --os-duration-standard: 200ms;
+    --os-duration-standard-exit: 140ms;
+    --os-duration-emphasized: 280ms;
+    --os-duration-emphasized-exit: 196ms;
+    --os-stagger: 40ms;
+    --os-ease-enter: cubic-bezier(0.2, 0, 0, 1);
+    --os-ease-exit: cubic-bezier(1, 0, 0.8, 1);
+    --os-ease: var(--os-ease-enter);
 
     --aw-font-sans: Inter, system-ui, sans-serif;
     --aw-font-serif: Georgia, 'Times New Roman', serif;

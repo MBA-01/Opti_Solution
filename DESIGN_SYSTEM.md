@@ -33,6 +33,14 @@ Implementation:
 
 The source of truth is `src/components/CustomStyles.astro`. AstroWind's theme variables are mapped to these tokens so its Header, Hero, FAQ, Button, and Footer components share the same palette.
 
+## Elevation, motion, and feedback
+
+- Elevation uses the [Depths soft preset](https://www.depths.studio/?p=soft&c=0b2e26&k=sb), tinted with Forest 900. Raised, hover, sticky, dropdown, modal, and pressed states each use one semantic level.
+- Motion uses the [Springs default semantic set](https://www.springs.studio/): 140ms for small state changes, 200ms for lists and menus, and 280ms for emphasized entrances. Exits are shorter than entrances.
+- Section entrances use the browser scroll timeline when available. Older browsers keep all content visible and retain hover and focus transitions.
+- Product previews use the [Beeps minimal preset](https://www.beeps.studio/?p=minimal&b=620) only for a user-triggered lightbox open or close. There is no sound on page load, hover, focus, scrolling, or navigation.
+- `prefers-reduced-motion: reduce` removes entrance, hover-transform, and modal animation without removing content or focus feedback.
+
 ## Typography
 
 - Display: Instrument Serif or a licensed equivalent. The current build uses Georgia and Times New Roman as local fallbacks, avoiding a remote font request.
@@ -75,11 +83,11 @@ Reusable additions:
 - FAQ content uses native disclosure controls.
 - The active navigation item is updated as sections enter the viewport.
 - The mobile demo action appears after the hero and yields near the contact section or while a field has focus.
-- Motion is restrained and disabled when `prefers-reduced-motion: reduce` is active.
+- Motion is restrained, purpose-based, and disabled when `prefers-reduced-motion: reduce` is active.
 
 ## Product evidence and performance
 
-- Public product evidence is limited to owner-approved, masked crops in `public/product/evidence-safe/`.
+- Public product evidence is limited to owner-approved, masked crops in `public/product/evidence-safe/` and the owner-selected composite at `public/product/device-showcase.png`.
 - Areas without approved public evidence use an explicit demonstration placeholder instead of a synthetic product screen.
 - Below-fold images are lazy loaded and include fixed dimensions to limit layout shift.
 - Decorative artwork is inline SVG to avoid extra image requests.

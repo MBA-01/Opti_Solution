@@ -19,8 +19,44 @@
     const caption = dialog.querySelector<HTMLElement>('[data-product-lightbox-caption]');
     const closeButton = dialog.querySelector<HTMLButtonElement>('[data-product-lightbox-close]');
     let activeTrigger: HTMLElement | null = null;
+    let audioContext: AudioContext | null = null;
 
-    const closePreview = () => dialog.close();
+    const playSurfaceSound = (kind: 'open' | 'close') => {
+      if (document.visibilityState !== 'visible') return;
+
+      const AudioContextClass =
+        window.AudioContext ??
+        (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      audioContext ??= new AudioContextClass();
+      const now = audioContext.currentTime;
+      const isOpen = kind === 'open';
+      const oscillator = audioContext.createOscillator();
+      const filter = audioContext.createBiquadFilter();
+      const gain = audioContext.createGain();
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(isOpen ? 786 : 616, now);
+      oscillator.frequency.exponentialRampToValueAtTime(isOpen ? 1043 : 464, now + 0.028);
+      filter.type = 'lowpass';
+      filter.Q.value = 0.5;
+      filter.frequency.setValueAtTime(isOpen ? 1558 : 2750, now);
+      filter.frequency.exponentialRampToValueAtTime(isOpen ? 5971 : 1584, now + 0.089);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.018, now + 0.002);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.087);
+
+      oscillator.connect(filter).connect(gain).connect(audioContext.destination);
+      oscillator.start(now);
+      oscillator.stop(now + 0.089);
+    };
+
+    const closePreview = () => {
+      if (!dialog.open) return;
+      playSurfaceSound('close');
+      dialog.close();
+    };
 
     document.querySelectorAll<HTMLElement>('[data-product-preview]').forEach((trigger) => {
       trigger.addEventListener('click', () => {
@@ -33,12 +69,17 @@
         caption.textContent = trigger.dataset.caption ?? trigger.dataset.alt ?? '';
         document.documentElement.classList.add('os-lightbox-open');
         dialog.showModal();
+        playSurfaceSound('open');
       });
     });
 
     closeButton?.addEventListener('click', closePreview);
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) closePreview();
+    });
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closePreview();
     });
     dialog.addEventListener('close', () => {
       document.documentElement.classList.remove('os-lightbox-open');
@@ -79,6 +120,14 @@
     backdrop-filter: blur(0.35rem);
   }
 
+  .os-lightbox[open] {
+    animation: os-lightbox-enter var(--os-duration-emphasized) var(--os-ease-enter) both;
+  }
+
+  .os-lightbox[open]::backdrop {
+    animation: os-lightbox-backdrop-enter var(--os-duration-emphasized) var(--os-ease-enter) both;
+  }
+
   .os-lightbox__panel {
     position: relative;
     border-radius: var(--os-radius-md);
@@ -86,7 +135,9 @@
     outline: 1px solid oklch(1 0 0 / 0.14);
     outline-offset: -1px;
     background: #111b18;
-    box-shadow: 0 2rem 7rem rgb(0 0 0 / 0.48);
+    box-shadow:
+      var(--os-shadow-modal),
+      0 2rem 7rem rgb(0 0 0 / 0.42);
   }
 
   .os-lightbox figure {
@@ -131,8 +182,9 @@
     font-size: 0.75rem;
     font-weight: 750;
     transition:
-      background-color 120ms var(--os-ease),
-      transform 120ms var(--os-ease);
+      background-color var(--os-duration-subtle) var(--os-ease),
+      transform var(--os-duration-subtle) var(--os-ease),
+      box-shadow var(--os-duration-subtle) var(--os-ease);
   }
 
   .os-lightbox__close:hover {
@@ -141,12 +193,33 @@
 
   .os-lightbox__close:active {
     transform: scale(0.96);
+    box-shadow: var(--os-shadow-pressed);
   }
 
   .os-lightbox__close span:last-child {
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1;
+  }
+
+  @keyframes os-lightbox-enter {
+    from {
+      opacity: 0;
+      transform: translateY(1rem) scale(0.975);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes os-lightbox-backdrop-enter {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   @media (max-width: 639px) {
@@ -173,6 +246,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .os-lightbox[open],
+    .os-lightbox[open]::backdrop {
+      animation: none;
+    }
+
     .os-lightbox__close {
       transition: none;
     }

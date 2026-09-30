@@ -19,37 +19,26 @@ import Button from '~/components/ui/Button.astro';
       </div>
     </div>
 
-    <div class="os-device-stage" aria-label="Illustration de la mise en page du tableau de bord sur trois formats">
-      <figure class="os-device os-device--desktop">
-        <div class="os-device__camera" aria-hidden="true"></div>
-        <div class="os-device__canvas" aria-hidden="true">
-          <span><small>Activité du mois</small><b>6 200 DH</b></span>
-          <span><small>Devis en attente</small><b>3</b></span>
-          <span><small>Commandes à livrer</small><b>2</b></span>
-        </div>
-        <figcaption>Ordinateur</figcaption>
-      </figure>
-
-      <figure class="os-device os-device--tablet">
-        <div class="os-device__camera" aria-hidden="true"></div>
-        <div class="os-device__canvas" aria-hidden="true">
-          <span><small>Activité</small><b>6 200 DH</b></span>
-          <span><small>Devis</small><b>3</b></span>
-          <span><small>Livraisons</small><b>2</b></span>
-        </div>
-        <figcaption>Tablette</figcaption>
-      </figure>
-
-      <figure class="os-device os-device--phone">
-        <div class="os-device__camera" aria-hidden="true"></div>
-        <div class="os-device__canvas" aria-hidden="true">
-          <span><small>Activité</small><b>6 200 DH</b></span>
-          <span><small>Devis</small><b>3</b></span>
-          <span><small>Livraisons</small><b>2</b></span>
-        </div>
-        <figcaption>Téléphone</figcaption>
-      </figure>
-    </div>
+    <figure class="os-device-showcase__visual">
+      <button
+        class="os-device-showcase__preview"
+        type="button"
+        data-product-preview
+        data-src="/product/device-showcase.png"
+        data-alt="Tableau de bord OptiSolution présenté sur un ordinateur, une tablette et un téléphone."
+        data-caption="OptiSolution · aperçu multi-écran"
+        aria-label="Agrandir l’aperçu multi-écran d’OptiSolution"
+      >
+        <img
+          src="/product/device-showcase.png"
+          alt="Tableau de bord OptiSolution présenté sur un ordinateur, une tablette et un téléphone."
+          width="1672"
+          height="941"
+          loading="lazy"
+          decoding="async"
+        />
+      </button>
+    </figure>
   </div>
 </section>
 
@@ -115,145 +104,74 @@ import Button from '~/components/ui/Button.astro';
     background: rgb(248 245 237 / 0.06);
   }
 
-  .os-device-stage {
+  .os-device-showcase__visual {
+    --os-frame-padding: clamp(0.35rem, 0.7vw, 0.5rem);
+    --os-frame-radius: clamp(1.25rem, 2.4vw, 1.75rem);
+
     position: relative;
-    min-height: 37rem;
-    isolation: isolate;
-  }
-
-  .os-device-stage::before {
-    position: absolute;
-    z-index: -1;
-    inset: 8% 3% 0 12%;
-    border: 1px solid rgb(248 245 237 / 0.1);
-    border-radius: 50%;
-    content: '';
-  }
-
-  .os-device {
-    position: absolute;
-    overflow: visible;
+    z-index: 0;
     margin: 0;
-    padding: 0.48rem;
-    outline: 1px solid rgb(255 255 255 / 0.14);
-    outline-offset: -1px;
-    background: #202826;
-    box-shadow: 0 2.2rem 5rem rgb(0 0 0 / 0.34);
+    padding: var(--os-frame-padding);
+    border-radius: var(--os-frame-radius);
+    background: linear-gradient(145deg, rgb(248 245 237 / 0.15), rgb(248 245 237 / 0.035));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      var(--os-shadow-modal);
   }
 
-  .os-device__canvas {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    gap: 0.5rem;
-    align-content: start;
-    border-radius: inherit;
-    padding: clamp(0.7rem, 2vw, 1.4rem);
-    background: #f8faf9;
-  }
-
-  .os-device__canvas span {
-    display: grid;
-    gap: 0.2rem;
-    border: 1px solid rgb(15 61 50 / 0.1);
-    border-radius: 0.7rem;
-    padding: clamp(0.6rem, 1.4vw, 1rem);
-    color: var(--os-forest-900);
-    background: white;
-    box-shadow: 0 0.4rem 1.2rem rgb(11 46 38 / 0.08);
-  }
-
-  .os-device__canvas small {
-    color: var(--os-ink-600);
-    font-size: clamp(0.42rem, 0.8vw, 0.68rem);
-    text-transform: uppercase;
-  }
-
-  .os-device__canvas b {
-    font-size: clamp(0.78rem, 1.5vw, 1.55rem);
-  }
-
-  .os-device--desktop .os-device__canvas {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .os-device--tablet .os-device__canvas,
-  .os-device--phone .os-device__canvas {
-    grid-template-columns: 1fr;
-  }
-
-  .os-device figcaption {
+  .os-device-showcase__visual::before {
     position: absolute;
-    right: 0;
-    bottom: -2rem;
-    padding: 0;
-    color: rgb(248 245 237 / 0.66);
-    font-size: 0.68rem;
-    font-weight: 750;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .os-device__camera {
-    position: absolute;
-    z-index: 2;
-    border-radius: 50%;
-    background: rgb(255 255 255 / 0.18);
-  }
-
-  .os-device--desktop {
-    top: 2rem;
-    right: 0;
-    left: 0;
-    height: 22rem;
-    border-radius: 1.1rem;
-  }
-
-  .os-device--desktop::after {
-    position: absolute;
-    right: 24%;
-    bottom: -1.65rem;
-    left: 24%;
-    height: 1.7rem;
-    border-radius: 0 0 1rem 1rem;
-    background: #202826;
+    z-index: 0;
+    inset: 6% -5% -10%;
+    border-radius: 45%;
+    background:
+      radial-gradient(ellipse at 72% 42%, rgb(201 169 107 / 0.2), transparent 64%),
+      radial-gradient(ellipse at 30% 55%, rgb(248 245 237 / 0.07), transparent 58%);
     content: '';
+    filter: blur(24px);
+    pointer-events: none;
   }
 
-  .os-device--desktop .os-device__camera {
-    top: 0.16rem;
-    left: calc(50% - 0.13rem);
-    width: 0.26rem;
-    height: 0.26rem;
+  .os-device-showcase__preview {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border: 0;
+    border-radius: calc(var(--os-frame-radius) - var(--os-frame-padding));
+    padding: 0;
+    background: var(--os-forest-900);
+    outline: 1px solid oklch(1 0 0 / 0.1);
+    outline-offset: -1px;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.14),
+      0 1rem 2.5rem rgb(0 0 0 / 0.2);
+    cursor: zoom-in;
+    transition:
+      transform var(--os-duration-emphasized) var(--os-ease-enter),
+      box-shadow var(--os-duration-standard) var(--os-ease-enter);
   }
 
-  .os-device--tablet {
-    right: 8%;
-    bottom: 0;
-    z-index: 2;
-    width: 37%;
-    height: 27rem;
-    border-radius: 1.4rem;
-    transform: rotate(1.5deg);
+  .os-device-showcase__preview:focus-visible {
+    outline: 3px solid var(--os-cream-50);
+    outline-offset: 4px;
   }
 
-  .os-device--tablet .os-device__camera,
-  .os-device--phone .os-device__camera {
-    top: 0.16rem;
-    left: calc(50% - 0.13rem);
-    width: 0.26rem;
-    height: 0.26rem;
+  .os-device-showcase__preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform var(--os-duration-emphasized) var(--os-ease-enter);
   }
 
-  .os-device--phone {
-    bottom: 0.8rem;
-    left: 13%;
-    z-index: 3;
-    width: 19%;
-    height: 21rem;
-    border-radius: 1.35rem;
-    transform: rotate(-3deg);
+  .os-device-showcase__preview:hover {
+    transform: translateY(-0.2rem) scale(1.005);
+    box-shadow: var(--os-shadow-modal);
+  }
+
+  .os-device-showcase__preview:hover img {
+    transform: scale(1.012);
   }
 
   @media (max-width: 1023px) {
@@ -261,41 +179,29 @@ import Button from '~/components/ui/Button.astro';
       grid-template-columns: 1fr;
     }
 
-    .os-device-stage {
+    .os-device-showcase__visual {
       width: min(100%, 46rem);
       margin-inline: auto;
     }
   }
 
   @media (max-width: 767px) {
-    .os-device-stage {
-      min-height: 25rem;
-    }
+    .os-device-showcase__visual {
+      --os-frame-padding: 0.3rem;
+      --os-frame-radius: 1.2rem;
 
-    .os-device--desktop {
-      height: 14rem;
-    }
-
-    .os-device--tablet {
-      right: 5%;
-      width: 41%;
-      height: 19rem;
-    }
-
-    .os-device--phone {
-      left: 8%;
-      width: 23%;
-      height: 15rem;
-    }
-
-    .os-device figcaption {
-      display: none;
+      box-shadow: 0 1.4rem 3rem rgb(0 0 0 / 0.28);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .os-device--tablet,
-    .os-device--phone {
+    .os-device-showcase__preview,
+    .os-device-showcase__preview img {
+      transition: none;
+    }
+
+    .os-device-showcase__preview:hover,
+    .os-device-showcase__preview:hover img {
       transform: none;
     }
   }

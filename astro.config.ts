@@ -1,4 +1,5 @@
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
@@ -7,16 +8,49 @@ import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
+import yaml from 'js-yaml';
 
 import astrowind from './vendor/integration';
+import type { Config } from './vendor/integration/utils/configBuilder';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const configuredSiteUrl = process.env.PUBLIC_SITE_URL?.trim();
+const isPublicHttpsUrl = Boolean(configuredSiteUrl?.startsWith('https://'));
+const indexingEnabled = process.env.PUBLIC_ENABLE_INDEXING === 'true' && isPublicHttpsUrl;
+const siteConfig = yaml.load(fs.readFileSync(path.join(__dirname, 'src/config.yaml'), 'utf8')) as Config;
+
+siteConfig.site = {
+  name: siteConfig.site?.name || 'OptiSolution',
+  ...siteConfig.site,
+  site: configuredSiteUrl || 'https://review.invalid',
+};
+siteConfig.metadata = {
+  ...siteConfig.metadata,
+  robots: { index: indexingEnabled, follow: indexingEnabled },
+};
+
+const releaseRobots = (): AstroIntegration => ({
+  name: 'optisolution-release-robots',
+  hooks: {
+    'astro:build:done': ({ dir }) => {
+      const sitemapLine = indexingEnabled
+        ? `\nSitemap: ${new URL('sitemap-index.xml', configuredSiteUrl!).href}\n`
+        : '\n';
+      fs.writeFileSync(
+        new URL('robots.txt', dir),
+        `User-agent: *\n${indexingEnabled ? 'Allow: /' : 'Disallow: /'}${sitemapLine}`
+      );
+    },
+  },
+});
 
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
@@ -34,6 +68,7 @@ export default defineConfig({
   },
 
   integrations: [
+    ...(indexingEnabled ? [sitemap()] : []),
     mdx(),
     icon({
       // Local SVG icons (used as <Icon name="file-name" />) live next to the other assets.
@@ -77,9 +112,8 @@ export default defineConfig({
       Logger: 1,
     }),
 
-    astrowind({
-      config: './src/config.yaml',
-    }),
+    astrowind({ config: siteConfig }),
+    releaseRobots(),
   ],
 
   image: {

@@ -16,8 +16,8 @@ interface Props {
 const {
   title,
   text,
-  primaryText = 'Demander une démo',
-  primaryHref = '/demo#demande',
+  primaryText = 'Réserver un échange',
+  primaryHref = 'https://calendly.com/opvibe01/30min',
   secondaryText,
   secondaryHref,
   chapter,
@@ -32,7 +32,14 @@ const {
       <h1>{title}</h1>
       <p class="os-lead">{text}</p>
       <div class="os-actions">
-        <Button variant="primary" href={primaryHref} text={primaryText} icon="tabler:arrow-right" />
+        <Button
+          variant="primary"
+          href={primaryHref}
+          text={primaryText}
+          target={primaryHref.startsWith('http') ? '_blank' : undefined}
+          data-cta={primaryHref.includes('calendly.com') ? 'calendly-page-hero' : undefined}
+          icon="tabler:arrow-right"
+        />
         {secondaryText && secondaryHref && <Button variant="secondary" href={secondaryHref} text={secondaryText} />}
       </div>
     </div>

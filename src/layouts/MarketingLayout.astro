@@ -20,8 +20,23 @@ const pageName =
   <a class="os-skip" href="#main">Aller au contenu</a>
   <Header
     links={primaryNav}
-    actions={[{ variant: 'primary', text: 'Demander une démo', href: '/demo#demande', icon: 'tabler:arrow-right' }]}
-    mobileAction={{ variant: 'primary', text: 'Démo', href: '/demo#demande' }}
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Réserver un échange',
+        href: 'https://calendly.com/opvibe01/30min',
+        target: '_blank',
+        icon: 'tabler:arrow-right',
+        'data-cta': 'calendly-header',
+      },
+    ]}
+    mobileAction={{
+      variant: 'primary',
+      text: 'Réserver',
+      href: 'https://calendly.com/opvibe01/30min',
+      target: '_blank',
+      'data-cta': 'calendly-header-mobile',
+    }}
     isSticky
   />
   <main id="main" class="os-main" data-page={pageName}><slot /></main>
@@ -30,7 +45,26 @@ const pageName =
     links={footerLinks}
     secondaryLinks={[{ text: 'Confidentialité', href: '/confidentialite' }]}
     socialLinks={[]}
-    footNote="Opti Solution · La gestion reliée au métier de l’optique."
+    footNote="OptiSolution · La gestion reliée au métier de l’optique."
     theme="dark"
   />
 </Layout>
+
+<script>
+  const initCtaEvents = () => {
+    document.querySelectorAll<HTMLElement>('[data-cta]').forEach((link) => {
+      if (link.dataset.ctaReady === 'true') return;
+      link.dataset.ctaReady = 'true';
+      link.addEventListener('click', () => {
+        document.dispatchEvent(
+          new CustomEvent('optisolution:cta', {
+            detail: { name: link.dataset.cta, path: window.location.pathname },
+          })
+        );
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', initCtaEvents);
+  initCtaEvents();
+</script>

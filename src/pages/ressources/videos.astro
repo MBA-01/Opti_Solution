@@ -8,50 +8,49 @@ import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
 
 const metadata = {
   title: 'Vidéos et démonstrations',
-  description:
-    'Découvrez les parcours Opti Solution à travers des démonstrations guidées et de futures vidéos courtes.',
+  description: 'Découvrez les parcours OptiSolution à travers des démonstrations guidées et de futures vidéos courtes.',
 };
 
 const videoTopics = [
   {
     title: 'Créer une fiche et saisir une correction',
     description: 'Passer de la fiche client aux valeurs OD/OG, puis contrôler les informations avant validation.',
-    poster: '/product/tablet/optical-correction.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Clients & optométrie',
     related: '/fonctionnalites#clients-optometrie',
   },
   {
     title: 'Préparer un devis client',
     description: 'Ajouter les produits, relire les quantités et montants, puis confirmer le document au bon moment.',
-    poster: '/product/tablet/quotations.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Ventes & devis',
     related: '/fonctionnalites#ventes-devis',
   },
   {
     title: 'Lire une fiche produit',
     description: 'Retrouver une référence, sa marque, sa catégorie et les informations utiles aux ventes et achats.',
-    poster: '/product/tablet/products.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Produits & stock',
     related: '/fonctionnalites#produits-stock',
   },
   {
     title: 'Préparer une demande de prix fournisseur',
     description: 'Vérifier le fournisseur, les références et les quantités avant de confirmer la commande.',
-    poster: '/product/tablet/purchase-order.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Fournisseurs & achats',
     related: '/fonctionnalites#fournisseurs-achats',
   },
   {
     title: 'Suivre une réception fournisseur',
     description: 'Comparer la réception avec la commande et repérer les quantités qui demandent une vérification.',
-    poster: '/product/tablet/purchase-order.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Fournisseurs & achats',
     related: '/fonctionnalites#fournisseurs-achats',
   },
   {
     title: 'Retrouver une facture et son règlement',
     description: 'Contrôler les montants et consulter le statut de règlement dans le parcours concerné.',
-    poster: '/product/tablet/paid-invoice.webp',
+    poster: '/product/synthetic/dashboard.png',
     category: 'Facturation & paiements',
     related: '/fonctionnalites#facturation-paiements',
   },
@@ -63,19 +62,19 @@ const videoTopics = [
     chapter="Ressources · Vidéos"
     title="Comprenez une opération en quelques étapes visibles."
     text="La vidéothèque est organisée par tâche afin de vous aider à choisir le parcours à voir pendant une démonstration guidée. Les vidéos publiées ne démarreront jamais automatiquement."
-    primaryText="Demander une démo"
-    primaryHref="/demo#demande"
+    primaryText="Réserver un échange"
+    primaryHref="https://calendly.com/opvibe01/30min"
     secondaryText="Voir tous les guides"
     secondaryHref="/ressources"
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/tablet/optical-correction.webp"
-      alt="Aperçu d’une correction optique utilisée comme support de démonstration."
-      label="Démonstration produit"
-      caption="Fiche client et correction optique"
-      href="/product/tablet/optical-correction.webp"
-      aspect="tablet"
+      src="/product/synthetic/dashboard.png"
+      alt="Aperçu synthétique du tableau de bord OptiSolution."
+      label="Aperçu synthétique"
+      caption="Données de démonstration"
+      href="/product/synthetic/dashboard.png"
+      aspect="landscape"
     />
   </PageHero>
 
@@ -111,7 +110,7 @@ const videoTopics = [
         </div>
         <div>
           <strong>Le produit reste visible</strong><p>
-            Les démonstrations utilisent les interfaces d’Opti Solution et des données préparées.
+            Les démonstrations utilisent les interfaces d’OptiSolution et des données préparées.
           </p>
         </div>
         <div>

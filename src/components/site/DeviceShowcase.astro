@@ -5,11 +5,11 @@ import Button from '~/components/ui/Button.astro';
 <section class="os-device-showcase" aria-labelledby="device-showcase-title">
   <div class="os-container os-device-showcase__grid">
     <div class="os-device-showcase__copy">
-      <p class="os-eyebrow">Multi-écran</p>
-      <h2 id="device-showcase-title">Votre magasin vous suit, quel que soit l’écran.</h2>
+      <p class="os-eyebrow">Aperçu responsive</p>
+      <h2 id="device-showcase-title">Le tableau de bord montré s’adapte à ces trois formats.</h2>
       <p>
-        Au comptoir, en rayon ou au bureau, retrouvez la même information depuis un téléphone, une tablette ou un
-        ordinateur. L’interface s’adapte à l’écran pour garder les actions essentielles à portée de main.
+        Ces vues illustrent uniquement le tableau de bord présenté. La démonstration permet de vérifier, écran par
+        écran, les parcours utiles à votre équipe.
       </p>
       <div class="os-device-showcase__list" aria-label="Écrans compatibles">
         <span>Téléphone</span><span>Tablette</span><span>Ordinateur</span>
@@ -19,26 +19,23 @@ import Button from '~/components/ui/Button.astro';
       </div>
     </div>
 
-    <div
-      class="os-device-stage"
-      aria-label="Tableau de bord Opti Solution affiché sur ordinateur, tablette et téléphone"
-    >
+    <div class="os-device-stage" aria-label="Aperçu synthétique du tableau de bord dans trois cadres d’écran">
       <figure class="os-device os-device--desktop">
         <div class="os-device__camera" aria-hidden="true"></div>
         <button
           class="os-device__preview"
           type="button"
           data-product-preview
-          data-src="/product/desktop/sales-dashboard.webp"
-          data-alt="Tableau de bord des ventes Opti Solution sur ordinateur."
-          data-caption="Tableau de bord · ordinateur"
+          data-src="/product/synthetic/dashboard.png"
+          data-alt="Aperçu synthétique du tableau de bord OptiSolution sur ordinateur."
+          data-caption="Aperçu synthétique · ordinateur"
           aria-label="Agrandir l’interface sur ordinateur"
         >
           <img
-            src="/product/desktop/sales-dashboard.webp"
-            alt="Tableau de bord des ventes Opti Solution sur ordinateur."
-            width="1920"
-            height="1080"
+            src="/product/synthetic/dashboard.png"
+            alt="Aperçu synthétique du tableau de bord OptiSolution sur ordinateur."
+            width="1664"
+            height="936"
             loading="lazy"
             decoding="async"
           />
@@ -52,16 +49,16 @@ import Button from '~/components/ui/Button.astro';
           class="os-device__preview"
           type="button"
           data-product-preview
-          data-src="/product/tablet/sales-dashboard.webp"
-          data-alt="Le même tableau de bord Opti Solution adapté à une tablette."
-          data-caption="Tableau de bord · tablette"
+          data-src="/product/synthetic/dashboard.png"
+          data-alt="Aperçu synthétique du tableau de bord OptiSolution dans un cadre tablette."
+          data-caption="Aperçu synthétique · tablette"
           aria-label="Agrandir l’interface sur tablette"
         >
           <img
-            src="/product/tablet/sales-dashboard.webp"
-            alt="Le même tableau de bord Opti Solution adapté à une tablette."
-            width="1024"
-            height="1366"
+            src="/product/synthetic/dashboard.png"
+            alt="Aperçu synthétique du tableau de bord OptiSolution dans un cadre tablette."
+            width="1664"
+            height="936"
             loading="lazy"
             decoding="async"
           />
@@ -75,16 +72,16 @@ import Button from '~/components/ui/Button.astro';
           class="os-device__preview"
           type="button"
           data-product-preview
-          data-src="/product/mobile/sales-dashboard.webp"
-          data-alt="Le même tableau de bord Opti Solution adapté à un téléphone."
-          data-caption="Tableau de bord · téléphone"
+          data-src="/product/synthetic/dashboard.png"
+          data-alt="Aperçu synthétique du tableau de bord OptiSolution dans un cadre téléphone."
+          data-caption="Aperçu synthétique · téléphone"
           aria-label="Agrandir l’interface sur téléphone"
         >
           <img
-            src="/product/mobile/sales-dashboard.webp"
-            alt="Le même tableau de bord Opti Solution adapté à un téléphone."
-            width="430"
-            height="932"
+            src="/product/synthetic/dashboard.png"
+            alt="Aperçu synthétique du tableau de bord OptiSolution dans un cadre téléphone."
+            width="1664"
+            height="936"
             loading="lazy"
             decoding="async"
           />

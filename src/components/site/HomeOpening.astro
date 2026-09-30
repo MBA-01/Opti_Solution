@@ -13,7 +13,7 @@ const concepts = {
     label: 'A · Promesse puis preuve',
     title:
       'Moins d’informations <span class="os-highlight-danger">dispersées</span>. Plus de <span class="os-highlight-success">contrôle</span> sur votre magasin.',
-    text: 'Opti Solution relie la fiche optique aux opérations du magasin pour aider votre équipe à retrouver l’information, préparer la suite et garder chaque étape sous contrôle.',
+    text: 'OptiSolution relie la fiche optique aux opérations du magasin pour aider votre équipe à retrouver l’information, préparer la suite et garder chaque étape sous contrôle.',
     secondary: 'Découvrir le parcours',
     secondaryHref: '/fonctionnement',
   },
@@ -27,17 +27,12 @@ const concepts = {
   c: {
     label: 'C · Parcours d’abord',
     title: 'De la fiche client au règlement, <em>gardez le fil.</em>',
-    text: 'Opti Solution relie les étapes utiles au client, à l’optométrie, à la vente, aux achats et à la facturation, tout en laissant les validations à votre équipe.',
+    text: 'OptiSolution relie les étapes utiles au client, à l’optométrie, à la vente, aux achats et à la facturation, tout en laissant les validations à votre équipe.',
     secondary: 'Suivre les 6 étapes',
     secondaryHref: '/fonctionnement',
   },
 };
 const content = concepts[variant];
-const sideImage = variant === 'c' ? '/product/tablet/purchase-order.webp' : '/product/tablet/client-record.webp';
-const sideAlt =
-  variant === 'c'
-    ? 'Commande fournisseur dans l’interface Opti Solution sur tablette.'
-    : 'Fiche client dans l’interface Opti Solution sur tablette.';
 ---
 
 {
@@ -64,7 +59,14 @@ const sideAlt =
       <h1 id="home-title" set:html={content.title} />
       <p class="os-lead">{content.text}</p>
       <div class="os-actions">
-        <Button variant="primary" href="/demo#demande" text="Demander une démo" icon="tabler:arrow-right" />
+        <Button
+          variant="primary"
+          href="https://calendly.com/opvibe01/30min"
+          target="_blank"
+          data-cta="calendly-hero"
+          text="Réserver un échange"
+          icon="tabler:arrow-right"
+        />
         <Button variant="secondary" href={content.secondaryHref} text={content.secondary} />
       </div>
     </div>
@@ -76,16 +78,16 @@ const sideAlt =
             class="os-product-stack__preview"
             type="button"
             data-product-preview
-            data-src="/product/tablet/optical-correction.webp"
-            data-alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
-            data-caption="Correction optique · données de démonstration"
-            aria-label="Agrandir la correction optique"
+            data-src="/product/synthetic/dashboard.png"
+            data-alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
+            data-caption="Aperçu synthétique · données de démonstration"
+            aria-label="Agrandir l’aperçu de démonstration"
           >
             <img
-              src="/product/tablet/optical-correction.webp"
-              width="1024"
-              height="1366"
-              alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
+              src="/product/synthetic/dashboard.png"
+              width="1664"
+              height="936"
+              alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
               loading="eager"
               decoding="async"
               fetchpriority="high"
@@ -97,12 +99,19 @@ const sideAlt =
             class="os-product-stack__preview"
             type="button"
             data-product-preview
-            data-src={sideImage}
-            data-alt={sideAlt}
-            data-caption={variant === 'c' ? 'Commande fournisseur' : 'Fiche client'}
-            aria-label={`Agrandir l’image : ${variant === 'c' ? 'commande fournisseur' : 'fiche client'}`}
+            data-src="/product/synthetic/dashboard.png"
+            data-alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
+            data-caption="Aperçu synthétique"
+            aria-label="Agrandir l’aperçu de démonstration"
           >
-            <img src={sideImage} width="1024" height="1366" alt={sideAlt} loading="lazy" decoding="async" />
+            <img
+              src="/product/synthetic/dashboard.png"
+              width="1664"
+              height="936"
+              alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
+              loading="lazy"
+              decoding="async"
+            />
           </button>
         </div>
       </div>
@@ -115,7 +124,7 @@ const sideAlt =
     <div><strong class="os-proof-band__lead">Une solution concrète</strong></div>
     <div>
       <strong>Interface d’utilisateur</strong><p>
-        Découvrez l’interface utilisée pour les parcours présentés, avec des données de démonstration.
+        Découvrez un aperçu synthétique clairement identifié, sans donnée client ni information de production.
       </p>
     </div>
     <div>

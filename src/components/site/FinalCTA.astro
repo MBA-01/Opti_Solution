@@ -9,10 +9,10 @@ interface Props {
 }
 
 const {
-  title = 'Voyez Opti Solution sur les parcours qui comptent pour vous.',
+  title = 'Voyez OptiSolution sur les parcours qui comptent pour vous.',
   text = 'Indiquez-nous vos priorités. Nous préparerons une démonstration guidée pour évaluer l’adéquation avec votre magasin et préciser le périmètre à étudier.',
   secondaryText = 'Écrire sur WhatsApp',
-  secondaryHref = 'https://wa.me/212620169713',
+  secondaryHref = 'https://wa.me/212620169713?text=Bonjour%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20d%27OptiSolution.',
 } = Astro.props;
 ---
 
@@ -23,8 +23,15 @@ const {
       <p>{text}</p>
     </div>
     <div class="os-actions">
-      <Button variant="primary" href="/demo#demande" text="Demander une démo" icon="tabler:arrow-right" />
-      <Button variant="secondary" href={secondaryHref} text={secondaryText} target="_blank" />
+      <Button
+        variant="primary"
+        href="https://calendly.com/opvibe01/30min"
+        text="Réserver un échange de 30 minutes"
+        target="_blank"
+        data-cta="calendly-final"
+        icon="tabler:arrow-right"
+      />
+      <Button variant="secondary" href={secondaryHref} text={secondaryText} target="_blank" data-cta="whatsapp-final" />
     </div>
   </div>
 </section>

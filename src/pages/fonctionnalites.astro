@@ -8,7 +8,7 @@ import { capabilityGroups } from '~/data/optic-site';
 
 const metadata = {
   title: 'Fonctionnalités',
-  description: 'Explorez les fonctionnalités d’Opti Solution par domaine de travail du magasin d’optique.',
+  description: 'Explorez les fonctionnalités d’OptiSolution par domaine de travail du magasin d’optique.',
 };
 ---
 
@@ -16,18 +16,18 @@ const metadata = {
   <PageHero
     chapter="03 · Fonctionnalités"
     title="Les bons outils, au bon moment."
-    text="Explorez Opti Solution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine montre les tâches et les écrans associés."
+    text="Explorez OptiSolution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine présente les tâches à vérifier pendant la démonstration."
     secondaryText="Suivre le parcours complet"
     secondaryHref="/fonctionnement"
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/tablet/products.webp"
-      alt="Liste des produits optiques dans Opti Solution sur tablette."
-      label="Catalogue"
-      caption="Références, achats, ventes et accès stock"
-      href="/product/tablet/products.webp"
-      aspect="tablet"
+      src="/product/synthetic/dashboard.png"
+      alt="Aperçu synthétique du tableau de bord OptiSolution."
+      label="Aperçu synthétique"
+      caption="Données de démonstration"
+      href="/product/synthetic/dashboard.png"
+      aspect="landscape"
     />
   </PageHero>
 
@@ -55,10 +55,10 @@ const metadata = {
             <ScreenshotFrame
               src={group.image}
               alt={group.imageAlt}
-              label={group.kicker}
-              caption={`${group.title} · données de démonstration`}
+              label="Aperçu synthétique"
+              caption="Tableau de bord · données de démonstration"
               href={group.image}
-              aspect="tablet"
+              aspect="landscape"
             />
           </article>
         ))

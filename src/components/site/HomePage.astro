@@ -18,11 +18,12 @@ interface Props {
 const { variant = 'a', conceptMode = false } = Astro.props;
 const metadata = {
   title: conceptMode
-    ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
-    : 'Opti Solution — Gestion pour magasins d’optique',
+    ? `Concept accueil ${variant.toUpperCase()} — OptiSolution`
+    : 'OptiSolution — Gestion pour magasins d’optique',
   ignoreTitleTemplate: true,
   description:
     'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
+  robots: conceptMode ? { index: false, follow: false } : undefined,
 };
 const problems = [
   [
@@ -103,7 +104,7 @@ const problems = [
     <div class="os-container">
       <SectionIntro
         title="Gardez le fil, de la fiche client jusqu’au règlement."
-        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. Opti Solution les replace dans un parcours que l’équipe peut suivre et contrôler."
+        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. OptiSolution les replace dans un parcours que l’équipe peut suivre et contrôler."
       />
       <div class="os-workflow-rail">
         {
@@ -141,7 +142,7 @@ const problems = [
                 data-caption={`${group.title} · données de démonstration`}
                 aria-label={`Agrandir l’image : ${group.title}`}
               >
-                <img src={group.image} alt={group.imageAlt} width="1024" height="1366" loading="lazy" />
+                <img src={group.image} alt={group.imageAlt} width="1664" height="936" loading="lazy" />
               </button>
               <div class="os-capability-preview__copy">
                 <>
@@ -256,21 +257,21 @@ const problems = [
     <div class="os-container">
       <SectionIntro
         title="Voyez comment chaque opération s’enchaîne."
-        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’Opti Solution, puis demandez une démonstration centrée sur vos priorités."
+        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’OptiSolution, puis demandez une démonstration centrée sur vos priorités."
       />
       <div class="os-split">
         <VideoPlaceholder
           title="De la fiche client à la correction"
           description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
-          poster="/product/tablet/optical-correction.webp"
+          poster="/product/synthetic/dashboard.png"
         />
         <ScreenshotFrame
-          src="/product/tablet/purchase-order.webp"
-          alt="Demande de prix fournisseur dans Odoo."
-          label="Aperçu logiciel"
-          caption="Une demande de prix fournisseur issue du parcours actuel"
-          href="/product/tablet/purchase-order.webp"
-          aspect="tablet"
+          src="/product/synthetic/dashboard.png"
+          alt="Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration."
+          label="Aperçu synthétique"
+          caption="Tableau de bord · données de démonstration"
+          href="/product/synthetic/dashboard.png"
+          aspect="landscape"
         />
       </div>
       <div class="os-actions">

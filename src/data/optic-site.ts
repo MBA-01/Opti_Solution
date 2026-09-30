@@ -50,7 +50,8 @@ export const workflow = [
     number: '01',
     title: 'Client',
     short: 'Retrouver la bonne fiche dès l’accueil.',
-    detail: 'Créez ou ouvrez la fiche client pour retrouver ses coordonnées et le contexte utile avant de poursuivre.',
+    detail:
+      'Créez ou ouvrez la fiche client pour retrouver ses coordonnées et les informations utiles avant de poursuivre.',
     image: '/product/tablet/client-record.webp',
   },
   {
@@ -111,7 +112,7 @@ export const capabilityGroups = [
     kicker: 'Côté client',
     title: 'Ventes & devis',
     description:
-      'Passez du besoin exprimé à un devis structuré, puis suivez la vente et la livraison sans perdre le contexte de la fiche.',
+      'Passez du besoin exprimé à un devis structuré, puis suivez la vente et la livraison en gardant les informations de la fiche à portée.',
     tasks: [
       'Préparer un devis',
       'Ajouter les produits et quantités',

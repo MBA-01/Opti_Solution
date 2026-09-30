@@ -34,6 +34,10 @@ const concepts = {
 };
 const content = concepts[variant];
 const sideImage = variant === 'c' ? '/product/tablet/purchase-order.webp' : '/product/tablet/client-record.webp';
+const sideAlt =
+  variant === 'c'
+    ? 'Commande fournisseur dans l’interface Opti Solution sur tablette.'
+    : 'Fiche client dans l’interface Opti Solution sur tablette.';
 ---
 
 {
@@ -68,18 +72,38 @@ const sideImage = variant === 'c' ? '/product/tablet/purchase-order.webp' : '/pr
       <div class="os-product-stack">
         <div class="os-product-stack__main">
           <div class="os-product-stack__chrome"><i></i><i></i><i></i></div>
-          <img
-            src="/product/tablet/optical-correction.webp"
-            width="1024"
-            height="1366"
-            alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
+          <button
+            class="os-product-stack__preview"
+            type="button"
+            data-product-preview
+            data-src="/product/tablet/optical-correction.webp"
+            data-alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
+            data-caption="Correction optique · données de démonstration"
+            aria-label="Agrandir la correction optique"
+          >
+            <img
+              src="/product/tablet/optical-correction.webp"
+              width="1024"
+              height="1366"
+              alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </button>
         </div>
         <div class="os-product-stack__side">
-          <img src={sideImage} width="1024" height="1366" alt="" loading="lazy" decoding="async" />
+          <button
+            class="os-product-stack__preview"
+            type="button"
+            data-product-preview
+            data-src={sideImage}
+            data-alt={sideAlt}
+            data-caption={variant === 'c' ? 'Commande fournisseur' : 'Fiche client'}
+            aria-label={`Agrandir l’image : ${variant === 'c' ? 'commande fournisseur' : 'fiche client'}`}
+          >
+            <img src={sideImage} width="1024" height="1366" alt={sideAlt} loading="lazy" decoding="async" />
+          </button>
         </div>
       </div>
     </div>

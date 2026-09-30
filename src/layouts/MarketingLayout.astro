@@ -43,22 +43,3 @@ const pageName =
     theme="dark"
   />
 </Layout>
-
-<script>
-  const initCtaEvents = () => {
-    document.querySelectorAll<HTMLElement>('[data-cta]').forEach((link) => {
-      if (link.dataset.ctaReady === 'true') return;
-      link.dataset.ctaReady = 'true';
-      link.addEventListener('click', () => {
-        document.dispatchEvent(
-          new CustomEvent('optisolution:cta', {
-            detail: { name: link.dataset.cta, path: window.location.pathname },
-          })
-        );
-      });
-    });
-  };
-
-  document.addEventListener('astro:page-load', initCtaEvents);
-  initCtaEvents();
-</script>

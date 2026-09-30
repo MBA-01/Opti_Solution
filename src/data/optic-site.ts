@@ -1,3 +1,5 @@
+import { CALENDLY_URL, WHATSAPP_URL } from '~/data/contact';
+
 export const primaryNav = [
   { text: 'Solution', href: '/solution' },
   { text: 'Fonctionnement', href: '/fonctionnement' },
@@ -38,9 +40,9 @@ export const footerLinks = [
   {
     title: 'Contact',
     links: [
-      { text: 'Réserver 30 minutes', href: 'https://calendly.com/opvibe01/30min' },
+      { text: 'Planifier une démo', href: CALENDLY_URL },
       { text: 'hello@opvibe.com', href: 'mailto:hello@opvibe.com' },
-      { text: 'WhatsApp', href: 'https://wa.me/212620169713' },
+      { text: 'WhatsApp', href: WHATSAPP_URL },
     ],
   },
 ];
@@ -52,42 +54,46 @@ export const workflow = [
     short: 'Retrouver la bonne fiche dès l’accueil.',
     detail:
       'Créez ou ouvrez la fiche client pour retrouver ses coordonnées et les informations utiles avant de poursuivre.',
-    image: '/product/synthetic/dashboard.png',
+    image: '/product/evidence-safe/client-context.png',
+    imageAlt: 'Fiche client de démonstration dont les données personnelles sont masquées.',
   },
   {
     number: '02',
     title: 'Correction optique',
     short: 'Structurer les valeurs OD/OG.',
     detail: 'Renseignez les mesures de loin, de près ou de lentilles, puis contrôlez la correction avant validation.',
-    image: '/product/synthetic/dashboard.png',
+    image: '/product/evidence-safe/optometry-reference.png',
+    imageAlt: 'Extrait d’interface montrant une référence optométrique validée.',
   },
   {
     number: '03',
     title: 'Devis',
     short: 'Construire une proposition claire.',
     detail: 'Ajoutez les produits, quantités, prix, remises et taxes, puis vérifiez le devis avant confirmation.',
-    image: '/product/synthetic/dashboard.png',
   },
   {
     number: '04',
     title: 'Fournisseur',
     short: 'Approvisionner seulement si nécessaire.',
     detail: 'Préparez la demande de prix, confirmez la commande fournisseur et suivez la réception des produits.',
-    image: '/product/synthetic/dashboard.png',
+    image: '/product/evidence-safe/supplier-origin.png',
+    imageAlt: 'Extrait d’interface montrant l’origine d’un document fournisseur de démonstration.',
   },
   {
     number: '05',
     title: 'Vente & livraison',
     short: 'Suivre la vente jusqu’à la remise.',
     detail: 'Confirmez la vente et enregistrez la livraison lorsque le parcours de stock retenu le demande.',
-    image: '/product/synthetic/dashboard.png',
+    image: '/product/evidence-safe/delivery-ready.png',
+    imageAlt: 'Extrait d’interface montrant une livraison au statut Prêt.',
   },
   {
     number: '06',
     title: 'Facture & règlement',
     short: 'Garder le règlement en vue.',
     detail: 'Créez la facture, contrôlez les montants et retrouvez son statut de règlement dans le même environnement.',
-    image: '/product/synthetic/dashboard.png',
+    image: '/product/evidence-safe/invoice-balance.png',
+    imageAlt: 'Extrait d’interface montrant les totaux et le montant dû d’une facture de démonstration.',
   },
 ];
 
@@ -104,8 +110,8 @@ export const capabilityGroups = [
       'Renseigner types, matériaux et traitements',
       'Valider une correction après contrôle',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    image: '/product/evidence-safe/optometry-reference.png',
+    imageAlt: 'Extrait validé montrant une référence optométrique de démonstration.',
   },
   {
     slug: 'ventes-devis',
@@ -119,8 +125,6 @@ export const capabilityGroups = [
       'Contrôler prix, remises et taxes',
       'Suivre la vente et la livraison',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
   },
   {
     slug: 'produits-stock',
@@ -134,8 +138,6 @@ export const capabilityGroups = [
       'Consulter les quantités',
       'Suivre les mouvements utiles',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
   },
   {
     slug: 'fournisseurs-achats',
@@ -149,8 +151,8 @@ export const capabilityGroups = [
       'Confirmer une commande',
       'Enregistrer la réception',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    image: '/product/evidence-safe/supplier-origin.png',
+    imageAlt: 'Extrait validé montrant l’origine d’un document fournisseur de démonstration.',
   },
   {
     slug: 'facturation-paiements',
@@ -164,8 +166,8 @@ export const capabilityGroups = [
       'Enregistrer un paiement',
       'Suivre les statuts de règlement',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    image: '/product/evidence-safe/invoice-balance.png',
+    imageAlt: 'Extrait validé montrant les totaux et le montant dû d’une facture de démonstration.',
   },
   {
     slug: 'configuration-gestion',
@@ -179,8 +181,6 @@ export const capabilityGroups = [
       'Configurer marques et catégories',
       'Tester les parcours avant ouverture',
     ],
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
   },
 ];
 

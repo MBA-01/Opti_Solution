@@ -4,6 +4,7 @@ import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import ProductLightbox from '~/components/ui/ProductLightbox.astro';
 import { primaryNav, footerLinks } from '~/data/optic-site';
+import { CALENDLY_URL } from '~/data/contact';
 import '~/assets/styles/optic-site.css';
 import type { MetaData } from '~/types';
 
@@ -23,20 +24,13 @@ const pageName =
     actions={[
       {
         variant: 'primary',
-        text: 'Réserver un échange',
-        href: 'https://calendly.com/opvibe01/30min',
-        target: '_blank',
+        text: 'Planifier une démo',
+        href: CALENDLY_URL,
         icon: 'tabler:arrow-right',
-        'data-cta': 'calendly-header',
+        target: '_blank',
       },
     ]}
-    mobileAction={{
-      variant: 'primary',
-      text: 'Réserver',
-      href: 'https://calendly.com/opvibe01/30min',
-      target: '_blank',
-      'data-cta': 'calendly-header-mobile',
-    }}
+    mobileAction={{ variant: 'primary', text: 'Démo', href: CALENDLY_URL, target: '_blank' }}
     isSticky
   />
   <main id="main" class="os-main" data-page={pageName}><slot /></main>

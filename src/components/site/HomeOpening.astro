@@ -1,6 +1,7 @@
 ---
 import Button from '~/components/ui/Button.astro';
 import { workflow } from '~/data/optic-site';
+import { CALENDLY_URL } from '~/data/contact';
 
 interface Props {
   variant?: 'a' | 'b' | 'c';
@@ -33,6 +34,12 @@ const concepts = {
   },
 };
 const content = concepts[variant];
+const sideImage =
+  variant === 'c' ? '/product/evidence-safe/supplier-origin.png' : '/product/evidence-safe/client-context.png';
+const sideAlt =
+  variant === 'c'
+    ? 'Extrait validé montrant l’origine d’un document fournisseur de démonstration.'
+    : 'Fiche client de démonstration dont les données personnelles sont masquées.';
 ---
 
 {
@@ -61,11 +68,10 @@ const content = concepts[variant];
       <div class="os-actions">
         <Button
           variant="primary"
-          href="https://calendly.com/opvibe01/30min"
-          target="_blank"
-          data-cta="calendly-hero"
-          text="Réserver un échange"
+          href={CALENDLY_URL}
+          text="Planifier une démo"
           icon="tabler:arrow-right"
+          target="_blank"
         />
         <Button variant="secondary" href={content.secondaryHref} text={content.secondary} />
       </div>
@@ -78,16 +84,16 @@ const content = concepts[variant];
             class="os-product-stack__preview"
             type="button"
             data-product-preview
-            data-src="/product/synthetic/dashboard.png"
-            data-alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
-            data-caption="Aperçu synthétique · données de démonstration"
-            aria-label="Agrandir l’aperçu de démonstration"
+            data-src="/product/evidence-safe/optometry-reference.png"
+            data-alt="Extrait validé montrant une référence optométrique de démonstration."
+            data-caption="Référence optométrique · extrait validé"
+            aria-label="Agrandir l’extrait optométrique"
           >
             <img
-              src="/product/synthetic/dashboard.png"
-              width="1664"
-              height="936"
-              alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
+              src="/product/evidence-safe/optometry-reference.png"
+              width="1234"
+              height="380"
+              alt="Extrait validé montrant une référence optométrique de démonstration."
               loading="eager"
               decoding="async"
               fetchpriority="high"
@@ -99,19 +105,12 @@ const content = concepts[variant];
             class="os-product-stack__preview"
             type="button"
             data-product-preview
-            data-src="/product/synthetic/dashboard.png"
-            data-alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
-            data-caption="Aperçu synthétique"
-            aria-label="Agrandir l’aperçu de démonstration"
+            data-src={sideImage}
+            data-alt={sideAlt}
+            data-caption={variant === 'c' ? 'Origine fournisseur · extrait validé' : 'Fiche client · données masquées'}
+            aria-label={`Agrandir l’image : ${variant === 'c' ? 'origine fournisseur' : 'fiche client masquée'}`}
           >
-            <img
-              src="/product/synthetic/dashboard.png"
-              width="1664"
-              height="936"
-              alt="Tableau de bord synthétique OptiSolution avec données de démonstration."
-              loading="lazy"
-              decoding="async"
-            />
+            <img src={sideImage} width="1250" height="502" alt={sideAlt} loading="lazy" decoding="async" />
           </button>
         </div>
       </div>

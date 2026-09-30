@@ -1,4 +1,6 @@
 ---
+import { CALENDLY_URL, WHATSAPP_DEMO_URL } from '~/data/contact';
+
 const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
 ---
 
@@ -16,15 +18,8 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
         <strong>Contact direct</strong>
         <span>Mohamed El Bachrioui</span>
         <a href="mailto:hello@opvibe.com">hello@opvibe.com</a>
-        <a
-          href="https://wa.me/212620169713?text=Bonjour%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20d%27OptiSolution."
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cta="whatsapp-demo">Écrire sur WhatsApp ↗</a
-        >
-        <a href="https://calendly.com/opvibe01/30min" target="_blank" rel="noopener noreferrer" data-cta="calendly-demo"
-          >Réserver un échange de 30 minutes ↗</a
-        >
+        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">Planifier sur Calendly ↗</a>
+        <a href={WHATSAPP_DEMO_URL} target="_blank" rel="noopener noreferrer">Écrire sur WhatsApp ↗</a>
       </div>
     </div>
     {
@@ -119,29 +114,19 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
         </form>
       ) : (
         <aside class="os-contact-form" aria-labelledby="direct-booking-title">
-          <p class="os-kicker">Contact confirmé</p>
-          <h3 id="direct-booking-title">Choisissez votre prochain échange.</h3>
-          <p>
-            Le formulaire reste masqué tant qu’aucun service de traitement n’est configuré. Utilisez l’un des deux liens
-            vérifiés ci-dessous.
+          <p class="os-kicker">Rendez-vous direct</p>
+          <h3 id="direct-booking-title" class="text-3xl leading-tight font-serif">
+            Choisissez un créneau de 30 minutes.
+          </h3>
+          <p class="mt-4 text-[var(--os-ink-600)]">
+            Le formulaire reste masqué tant qu’aucun service d’envoi testé n’est configuré. Calendly et WhatsApp sont
+            disponibles dès maintenant.
           </p>
           <div class="os-actions">
-            <a
-              class="btn-primary"
-              href="https://calendly.com/opvibe01/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cta="calendly-demo-card"
-            >
-              Réserver 30 minutes →
+            <a class="btn-primary" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              Ouvrir Calendly →
             </a>
-            <a
-              class="btn-secondary"
-              href="https://wa.me/212620169713?text=Bonjour%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20d%27OptiSolution."
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cta="whatsapp-demo-card"
-            >
+            <a class="btn-secondary" href={WHATSAPP_DEMO_URL} target="_blank" rel="noopener noreferrer">
               Écrire sur WhatsApp
             </a>
           </div>

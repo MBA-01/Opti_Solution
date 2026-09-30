@@ -1,10 +1,10 @@
-# Opti Solution website design system
+# OptiSolution website design system
 
 This file records how `OptiSolution_Website_Design_System_Blueprint_v1.docx` is implemented in the AstroWind site. The guiding direction is **editorial calm, optical precision, and software credibility**.
 
 ## Brand identity
 
-- Business name: **Opti Solution**.
+- Business name: **OptiSolution**.
 - Mark: a code-native SVG based on selected Direction 05. The central optical ring represents vision, the surrounding nodes represent connected operational areas, and the gold node provides a restrained accent.
 - Wordmark: `Opti` uses the display face and heavier weight; `Solution` uses the same face at a regular weight.
 - The SVG remains sharp at interface and favicon sizes and inherits the surrounding text color when an inverse treatment is needed.
@@ -79,26 +79,26 @@ Reusable additions:
 
 ## Product evidence and performance
 
-- Current product images are compressed WebP files in `public/working/`.
-- The visible hero screenshot is about 20KB; the supporting screenshots are about 44–80KB each.
+- Public product evidence is limited to owner-approved, masked crops in `public/product/evidence-safe/`.
+- Areas without approved public evidence use an explicit demonstration placeholder instead of a synthetic product screen.
 - Below-fold images are lazy loaded and include fixed dimensions to limit layout shift.
 - Decorative artwork is inline SVG to avoid extra image requests.
-- Working screenshots remain marked as awaiting product-owner approval. Replace them with final clean captures before indexing.
+- Legacy screenshots with personal data, placeholders, English chatter, or contradictory financial values are not shipped.
 
 ## Content rules
 
 - Product claims come from the conversion brief and verified project material.
 - The page does not invent customer logos, testimonials, performance numbers, or commercial promises.
 - Conditional services such as hosting, migration, training, and support are described as items to scope in the proposal.
-- The primary conversion is a demo request. A success state appears only after a configured endpoint returns a successful response.
+- Calendly and WhatsApp are the primary conversion paths. The optional form appears only when a configured endpoint exists, and its success state requires an HTTP 2xx response.
 
 ## Release gates
 
 Before publishing:
 
 1. Approve the vector mark and wordmark at 16px, 24px, 32px, and large display sizes.
-2. Approve clean product screenshots and remove the working-media labels.
+2. Approve any additional public product screenshots before adding them to `public/`.
 3. Configure and test `PUBLIC_DEMO_FORM_ENDPOINT`, spam protection, privacy wording, and retention handling.
 4. Confirm the legal entity, privacy route, commercial terms, real domain, and social preview image.
 5. Recheck contrast and font metrics if production font files are introduced.
-6. Remove `noindex`, allow crawling in `robots.txt`, and restore the sitemap only after the preceding gates pass.
+6. Set `PUBLIC_SITE_URL` to the final origin and enable `PUBLIC_INDEX_SITE=true` only after the preceding gates pass.

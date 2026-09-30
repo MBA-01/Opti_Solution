@@ -18,12 +18,12 @@ The site uses a multi-page product architecture. Dedicated routes explain the so
 
 See `DESIGN_SYSTEM.md` for visual rules and `WEBSITE_EXPANSION_V1.md` for the sitemap, homepage concepts, page decisions, mobile direction, future 3D locations, and required product assets.
 
-The public site uses a clearly labeled synthetic dashboard at `public/product/synthetic/dashboard.png`. Legacy captures remain in the repository for internal reference, but public components must not link to them until they have publication approval.
+Deployable product evidence is limited to the approved, privacy-masked crops in `public/product/evidence-safe/`. The former working screenshots were removed from `public/`; pages without approved evidence use an explicit demonstration placeholder.
 
 ## Form and publication gate
 
-The form accepts a `PUBLIC_DEMO_FORM_ENDPOINT` environment variable. It POSTs JSON with `name`, `shop`, `city`, `email`, optional `phone`, and optional `need`. The success state appears only after an HTTP 2xx response. Without an endpoint, the form is hidden and the page shows the verified Calendly and WhatsApp routes.
+Calendly and WhatsApp are the default working contact paths. The form is rendered only when a tested `PUBLIC_DEMO_FORM_ENDPOINT` is configured. It POSTs JSON with `name`, `shop`, `city`, `email`, optional `phone`, and optional `need`; success appears only after an HTTP 2xx response.
 
-Preview builds use `https://review.invalid`, emit `noindex`, omit the sitemap, and disallow crawling. Public indexing is enabled only when both `PUBLIC_SITE_URL=https://…` and `PUBLIC_ENABLE_INDEXING=true` are set. Before that release build, confirm the public domain, legal controller and retention notice, approved social image, and commercial terms. A form endpoint remains optional because Calendly and WhatsApp are the confirmed lead routes.
+Review builds use the reserved `https://optisolution.invalid` origin, emit `noindex`, and disallow crawling. A release build must set `PUBLIC_SITE_URL` to the final public origin. Indexing remains off unless `PUBLIC_INDEX_SITE=true` is also set; that flag fails the build when the public URL is missing. Before enabling it, confirm the legal controller and retention notice, approve the public media, add the social image, review commercial terms, and obtain explicit release approval.
 
 AstroWind is MIT licensed; see `LICENSE.md` and the retained upstream documentation in `reference/ASTROWIND_README.md`.

@@ -4,6 +4,7 @@ import PageHero from '~/components/site/PageHero.astro';
 import SectionIntro from '~/components/site/SectionIntro.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 import { capabilityGroups } from '~/data/optic-site';
 
 const metadata = {
@@ -16,19 +17,17 @@ const metadata = {
   <PageHero
     chapter="03 · Fonctionnalités"
     title="Les bons outils, au bon moment."
-    text="Explorez OptiSolution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine présente les tâches à vérifier pendant la démonstration."
+    text="Explorez OptiSolution par activité : fiche optique, vente, produits, achats, facturation et configuration. Chaque domaine présente ses tâches et les points à vérifier pendant la démonstration."
     secondaryText="Suivre le parcours complet"
     secondaryHref="/fonctionnement"
   >
-    <ScreenshotFrame
-      slot="visual"
-      src="/product/synthetic/dashboard.png"
-      alt="Aperçu synthétique du tableau de bord OptiSolution."
-      label="Aperçu synthétique"
-      caption="Données de démonstration"
-      href="/product/synthetic/dashboard.png"
-      aspect="landscape"
-    />
+    <div slot="visual">
+      <EvidencePlaceholder
+        label="Démonstration guidée"
+        title="Produits & stock"
+        text="La capture publique du catalogue reste retirée. La démonstration utilise un jeu de données préparé."
+      />
+    </div>
   </PageHero>
 
   <section class="os-section">
@@ -52,14 +51,18 @@ const metadata = {
                 ))}
               </ul>
             </div>
-            <ScreenshotFrame
-              src={group.image}
-              alt={group.imageAlt}
-              label="Aperçu synthétique"
-              caption="Tableau de bord · données de démonstration"
-              href={group.image}
-              aspect="landscape"
-            />
+            {group.image ? (
+              <ScreenshotFrame
+                src={group.image}
+                alt={group.imageAlt}
+                label={group.kicker}
+                caption={`${group.title} · extrait validé`}
+                href={group.image}
+                fit="contain"
+              />
+            ) : (
+              <EvidencePlaceholder title={group.title} />
+            )}
           </article>
         ))
       }
@@ -82,7 +85,7 @@ const metadata = {
         </div>
         <div>
           <strong>Le produit reste la meilleure preuve</strong><p>
-            Les captures présentent les interfaces utilisées dans les parcours montrés pendant la démonstration.
+            Les extraits publiés sont limités aux états validés. Les autres vues sont montrées pendant la démonstration.
           </p>
         </div>
       </div>

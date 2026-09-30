@@ -5,10 +5,12 @@ import SectionIntro from '~/components/site/SectionIntro.astro';
 import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
 import DemoRequest from '~/components/site/DemoRequest.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { CALENDLY_URL } from '~/data/contact';
 
 const metadata = {
   title: 'Démonstration',
-  description: 'Découvrez les parcours OptiSolution lors d’un échange guidé adapté à votre magasin.',
+  description:
+    'Découvrez les parcours OptiSolution avec des extraits validés et planifiez une démonstration adaptée à votre magasin.',
 };
 const demoSteps = [
   ['01', 'Choisissez vos priorités', 'Fiche optique, devis, achat fournisseur, stock ou facturation.'],
@@ -30,19 +32,19 @@ const demoSteps = [
     chapter="04 · Démo"
     title="Voyez OptiSolution à partir de votre façon de travailler."
     text="Choisissez les opérations qui comptent pour votre magasin. La démonstration suit leurs écrans, leurs liens et les contrôles attendus à chaque étape."
-    primaryText="Réserver un échange"
-    primaryHref="https://calendly.com/opvibe01/30min"
+    primaryText="Planifier une démo"
+    primaryHref={CALENDLY_URL}
     secondaryText="Comprendre le parcours"
     secondaryHref="/fonctionnement"
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/synthetic/dashboard.png"
-      alt="Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration."
-      label="Aperçu synthétique"
-      caption="Tableau de bord · données de démonstration"
-      href="/product/synthetic/dashboard.png"
-      aspect="landscape"
+      src="/product/evidence-safe/optometry-reference.png"
+      alt="Extrait validé montrant une référence optométrique de démonstration."
+      label="Extrait validé"
+      caption="Référence optométrique · données de démonstration"
+      href="/product/evidence-safe/optometry-reference.png"
+      fit="contain"
     />
   </PageHero>
 
@@ -56,19 +58,19 @@ const demoSteps = [
         <VideoPlaceholder
           title="Créer une fiche et saisir une correction"
           description="Client, valeurs OD/OG, caractéristiques de verres et validation."
-          poster="/product/synthetic/dashboard.png"
+          poster="/product/evidence-safe/optometry-reference.png"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Préparer un achat fournisseur"
           description="Demande de prix, commande distincte et réception des produits."
-          poster="/product/synthetic/dashboard.png"
+          poster="/product/evidence-safe/supplier-origin.png"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Du devis au statut de règlement"
           description="Devis, vente, facture et consultation du paiement après contrôle."
-          poster="/product/synthetic/dashboard.png"
+          poster="/product/evidence-safe/invoice-balance.png"
           duration="Démo guidée"
         />
       </div>
@@ -114,28 +116,28 @@ const demoSteps = [
       />
       <div class="os-capability-preview os-capability-preview--screens">
         <ScreenshotFrame
-          src="/product/synthetic/dashboard.png"
-          alt="Aperçu synthétique du tableau de bord OptiSolution."
-          label="Données synthétiques"
-          caption="Aucun dossier client réel"
-          href="/product/synthetic/dashboard.png"
-          aspect="landscape"
+          src="/product/evidence-safe/client-context.png"
+          alt="Fiche client de démonstration dont les données personnelles sont masquées."
+          label="01 · Client · données masquées"
+          caption="Ouvrir la fiche sans exposer de données personnelles"
+          href="/product/evidence-safe/client-context.png"
+          fit="contain"
         />
         <ScreenshotFrame
-          src="/product/synthetic/dashboard.png"
-          alt="Aperçu synthétique du tableau de bord OptiSolution."
-          label="Périmètre illustratif"
-          caption="Les écrans détaillés sont vérifiés en démonstration"
-          href="/product/synthetic/dashboard.png"
-          aspect="landscape"
+          src="/product/evidence-safe/optometry-reference.png"
+          alt="Extrait validé montrant une référence optométrique de démonstration."
+          label="02 · Optométrie · extrait validé"
+          caption="Retrouver la référence validée"
+          href="/product/evidence-safe/optometry-reference.png"
+          fit="contain"
         />
         <ScreenshotFrame
-          src="/product/synthetic/dashboard.png"
-          alt="Aperçu synthétique du tableau de bord OptiSolution."
-          label="Revue guidée"
-          caption="Parcours choisi avec votre équipe"
-          href="/product/synthetic/dashboard.png"
-          aspect="landscape"
+          src="/product/evidence-safe/supplier-origin.png"
+          alt="Extrait validé montrant l’origine d’un document fournisseur de démonstration."
+          label="03 · Fournisseur · extrait validé"
+          caption="Retrouver l’origine du document fournisseur"
+          href="/product/evidence-safe/supplier-origin.png"
+          fit="contain"
         />
       </div>
     </div>

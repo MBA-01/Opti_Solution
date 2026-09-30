@@ -8,6 +8,7 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import Button from '~/components/ui/Button.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
 import DeviceShowcase from '~/components/site/DeviceShowcase.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const { variant = 'a', conceptMode = false } = Astro.props;
+const isDuplicateRoute = conceptMode || Astro.url.pathname !== '/';
 const metadata = {
   title: conceptMode
     ? `Concept accueil ${variant.toUpperCase()} — OptiSolution`
@@ -23,7 +25,7 @@ const metadata = {
   ignoreTitleTemplate: true,
   description:
     'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
-  robots: conceptMode ? { index: false, follow: false } : undefined,
+  ...(isDuplicateRoute ? { robots: { index: false, follow: false } } : {}),
 };
 const problems = [
   [
@@ -133,17 +135,25 @@ const problems = [
         {
           capabilityGroups.slice(0, 3).map((group) => (
             <article>
-              <button
-                class="os-capability-preview__image"
-                type="button"
-                data-product-preview
-                data-src={group.image}
-                data-alt={group.imageAlt}
-                data-caption={`${group.title} · données de démonstration`}
-                aria-label={`Agrandir l’image : ${group.title}`}
-              >
-                <img src={group.image} alt={group.imageAlt} width="1664" height="936" loading="lazy" />
-              </button>
+              {group.image ? (
+                <button
+                  class="os-capability-preview__image"
+                  type="button"
+                  data-product-preview
+                  data-src={group.image}
+                  data-alt={group.imageAlt}
+                  data-caption={`${group.title} · extrait validé`}
+                  aria-label={`Agrandir l’image : ${group.title}`}
+                >
+                  <img src={group.image} alt={group.imageAlt} width="1250" height="840" loading="lazy" />
+                </button>
+              ) : (
+                <EvidencePlaceholder
+                  label="Vue détaillée en démo"
+                  title={group.title}
+                  text="La capture publique de ce domaine reste retirée. Nous présentons le parcours avec des données préparées pendant la démonstration."
+                />
+              )}
               <div class="os-capability-preview__copy">
                 <>
                   <p class="os-kicker">{group.kicker}</p>
@@ -263,15 +273,15 @@ const problems = [
         <VideoPlaceholder
           title="De la fiche client à la correction"
           description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
-          poster="/product/synthetic/dashboard.png"
+          poster="/product/evidence-safe/optometry-reference.png"
         />
         <ScreenshotFrame
-          src="/product/synthetic/dashboard.png"
-          alt="Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration."
-          label="Aperçu synthétique"
-          caption="Tableau de bord · données de démonstration"
-          href="/product/synthetic/dashboard.png"
-          aspect="landscape"
+          src="/product/evidence-safe/supplier-origin.png"
+          alt="Extrait validé montrant l’origine d’un document fournisseur de démonstration."
+          label="Extrait validé"
+          caption="Origine du document fournisseur, sans données personnelles"
+          href="/product/evidence-safe/supplier-origin.png"
+          fit="contain"
         />
       </div>
       <div class="os-actions">

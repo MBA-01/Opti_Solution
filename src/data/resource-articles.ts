@@ -16,7 +16,7 @@ export interface ResourceArticle {
   description: string;
   reading: string;
   updated: string;
-  image: string;
+  image?: string;
   imageAlt: string;
   imageLabel: string;
   imageCaption: string;
@@ -39,8 +39,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Un cadre pratique pour retrouver plus facilement montures, verres et accessoires dans les opérations de vente, d’achat et de stock.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    imageAlt: 'Fiche produit OptiSolution présentant une référence utilisée en vente, achat et stock.',
     imageLabel: 'Catalogue produit',
     imageCaption: 'Une fiche claire commence par des références et catégories cohérentes',
     sections: [
@@ -96,8 +95,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Les questions techniques et opérationnelles à poser avant de retenir un mode de déploiement pour le magasin.',
     reading: '7 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    imageAlt: 'Interface OptiSolution consultée depuis un navigateur.',
     imageLabel: 'Environnement de travail',
     imageCaption: 'Le choix du déploiement dépend de l’organisation et des contraintes du magasin',
     sections: [
@@ -153,8 +151,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Une méthode simple pour savoir quels devis préparer, vérifier, confirmer ou reprendre avec le client.',
     reading: '5 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    imageAlt: 'Liste des devis clients dans OptiSolution sur tablette.',
     imageLabel: 'Vente & devis',
     imageCaption: 'Le suivi commence par un document vérifiable et un prochain geste clairement identifié',
     sections: [
@@ -203,8 +200,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Définissez qui consulte, prépare, contrôle ou confirme chaque opération avant de configurer les utilisateurs.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    imageAlt: 'Écran de configuration de caractéristiques optiques dans OptiSolution.',
     imageLabel: 'Configuration & gestion',
     imageCaption: 'Les accès deviennent plus simples à définir lorsque les responsabilités sont explicites',
     sections: [
@@ -261,8 +257,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Nettoyez la structure, les identifiants et les valeurs de vos fichiers avant d’évaluer une reprise de données.',
     reading: '7 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
+    imageAlt: 'Fiche produit illustrant les champs à préparer avant un import.',
     imageLabel: 'Préparation des données',
     imageCaption: 'Un fichier régulier permet d’évaluer plus précisément les données à reprendre',
     sections: [
@@ -317,10 +312,10 @@ export const resourceArticles: ResourceArticle[] = [
       'Clarifiez les documents, les contrôles et les responsabilités entre le besoin d’achat et la réception des produits.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/synthetic/dashboard.png',
-    imageAlt: 'Aperçu synthétique du tableau de bord OptiSolution avec données de démonstration.',
-    imageLabel: 'Fournisseurs & achats',
-    imageCaption: 'La commande et la réception restent deux moments distincts du suivi fournisseur',
+    image: '/product/evidence-safe/supplier-origin.png',
+    imageAlt: 'Extrait validé montrant l’origine d’un document fournisseur de démonstration.',
+    imageLabel: 'Fournisseurs & achats · extrait validé',
+    imageCaption: 'L’origine du document reste visible sans exposer de données personnelles',
     sections: [
       {
         title: 'Identifier l’origine du besoin',

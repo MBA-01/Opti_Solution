@@ -5,6 +5,7 @@ import SectionIntro from '~/components/site/SectionIntro.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { CALENDLY_URL } from '~/data/contact';
 
 const metadata = {
   title: 'Vidéos et démonstrations',
@@ -15,42 +16,40 @@ const videoTopics = [
   {
     title: 'Créer une fiche et saisir une correction',
     description: 'Passer de la fiche client aux valeurs OD/OG, puis contrôler les informations avant validation.',
-    poster: '/product/synthetic/dashboard.png',
+    poster: '/product/evidence-safe/optometry-reference.png',
     category: 'Clients & optométrie',
     related: '/fonctionnalites#clients-optometrie',
   },
   {
     title: 'Préparer un devis client',
     description: 'Ajouter les produits, relire les quantités et montants, puis confirmer le document au bon moment.',
-    poster: '/product/synthetic/dashboard.png',
     category: 'Ventes & devis',
     related: '/fonctionnalites#ventes-devis',
   },
   {
     title: 'Lire une fiche produit',
     description: 'Retrouver une référence, sa marque, sa catégorie et les informations utiles aux ventes et achats.',
-    poster: '/product/synthetic/dashboard.png',
     category: 'Produits & stock',
     related: '/fonctionnalites#produits-stock',
   },
   {
     title: 'Préparer une demande de prix fournisseur',
     description: 'Vérifier le fournisseur, les références et les quantités avant de confirmer la commande.',
-    poster: '/product/synthetic/dashboard.png',
+    poster: '/product/evidence-safe/supplier-origin.png',
     category: 'Fournisseurs & achats',
     related: '/fonctionnalites#fournisseurs-achats',
   },
   {
     title: 'Suivre une réception fournisseur',
     description: 'Comparer la réception avec la commande et repérer les quantités qui demandent une vérification.',
-    poster: '/product/synthetic/dashboard.png',
+    poster: '/product/evidence-safe/receipt-ready-status.png',
     category: 'Fournisseurs & achats',
     related: '/fonctionnalites#fournisseurs-achats',
   },
   {
     title: 'Retrouver une facture et son règlement',
     description: 'Contrôler les montants et consulter le statut de règlement dans le parcours concerné.',
-    poster: '/product/synthetic/dashboard.png',
+    poster: '/product/evidence-safe/invoice-balance.png',
     category: 'Facturation & paiements',
     related: '/fonctionnalites#facturation-paiements',
   },
@@ -62,19 +61,19 @@ const videoTopics = [
     chapter="Ressources · Vidéos"
     title="Comprenez une opération en quelques étapes visibles."
     text="La vidéothèque est organisée par tâche afin de vous aider à choisir le parcours à voir pendant une démonstration guidée. Les vidéos publiées ne démarreront jamais automatiquement."
-    primaryText="Réserver un échange"
-    primaryHref="https://calendly.com/opvibe01/30min"
+    primaryText="Planifier une démo"
+    primaryHref={CALENDLY_URL}
     secondaryText="Voir tous les guides"
     secondaryHref="/ressources"
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/synthetic/dashboard.png"
-      alt="Aperçu synthétique du tableau de bord OptiSolution."
-      label="Aperçu synthétique"
-      caption="Données de démonstration"
-      href="/product/synthetic/dashboard.png"
-      aspect="landscape"
+      src="/product/evidence-safe/optometry-reference.png"
+      alt="Extrait validé montrant une référence optométrique de démonstration."
+      label="Extrait validé"
+      caption="Référence optométrique de démonstration"
+      href="/product/evidence-safe/optometry-reference.png"
+      fit="contain"
     />
   </PageHero>
 
@@ -109,8 +108,8 @@ const videoTopics = [
           </p>
         </div>
         <div>
-          <strong>Le produit reste visible</strong><p>
-            Les démonstrations utilisent les interfaces d’OptiSolution et des données préparées.
+          <strong>Des preuves limitées et lisibles</strong><p>
+            Les extraits publiés se limitent aux états validés; la démonstration utilise des données préparées.
           </p>
         </div>
         <div>

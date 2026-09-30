@@ -1,8 +1,7 @@
 site:
   name: OptiSolution
-  # astro.config.ts replaces this with PUBLIC_SITE_URL. Review builds use a
-  # non-public placeholder and remain noindex until release is explicit.
-  site: 'https://review.invalid'
+  # Safe review fallback. PUBLIC_SITE_URL replaces this value at build time.
+  site: 'https://optisolution.invalid'
   base: '/'
   trailingSlash: false
 

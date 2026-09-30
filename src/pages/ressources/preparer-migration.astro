@@ -1,7 +1,7 @@
 ---
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
-import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 
 const metadata = {
   title: 'Préparer les données avant une migration',
@@ -21,13 +21,10 @@ const metadata = {
         des propriétaires et des informations réellement utiles au futur système.
       </p>
       <div class="mt-10">
-        <ScreenshotFrame
-          src="/product/synthetic/dashboard.png"
-          alt="Aperçu synthétique du tableau de bord OptiSolution."
-          label="Aperçu synthétique"
-          caption="Les sources et référentiels doivent être clarifiés avant l’évaluation d’un import"
-          href="/product/synthetic/dashboard.png"
-          aspect="landscape"
+        <EvidencePlaceholder
+          label="Préparation des données"
+          title="Un fichier régulier avant tout import"
+          text="Références et catégories doivent être clarifiées avant l’évaluation. Aucune donnée réelle n’est nécessaire pour ce premier cadrage."
         />
       </div>
     </header>

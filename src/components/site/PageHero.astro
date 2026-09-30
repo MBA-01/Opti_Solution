@@ -1,6 +1,7 @@
 ---
 import Button from '~/components/ui/Button.astro';
 import OpticalStill from '~/components/brand/OpticalStill.astro';
+import { CALENDLY_URL } from '~/data/contact';
 
 interface Props {
   title: string;
@@ -16,13 +17,14 @@ interface Props {
 const {
   title,
   text,
-  primaryText = 'Réserver un échange',
-  primaryHref = 'https://calendly.com/opvibe01/30min',
+  primaryText = 'Demander une démo',
+  primaryHref = CALENDLY_URL,
   secondaryText,
   secondaryHref,
   chapter,
   compact = false,
 } = Astro.props;
+const primaryTarget = primaryHref.startsWith('http') ? '_blank' : undefined;
 ---
 
 <section class:list={['os-page-hero', { 'os-page-hero--compact': compact }]}>
@@ -36,9 +38,8 @@ const {
           variant="primary"
           href={primaryHref}
           text={primaryText}
-          target={primaryHref.startsWith('http') ? '_blank' : undefined}
-          data-cta={primaryHref.includes('calendly.com') ? 'calendly-page-hero' : undefined}
           icon="tabler:arrow-right"
+          target={primaryTarget}
         />
         {secondaryText && secondaryHref && <Button variant="secondary" href={secondaryHref} text={secondaryText} />}
       </div>

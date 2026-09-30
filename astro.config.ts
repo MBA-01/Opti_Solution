@@ -23,14 +23,23 @@ import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/uti
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const configuredSiteUrl = process.env.PUBLIC_SITE_URL?.trim();
-const isPublicHttpsUrl = Boolean(configuredSiteUrl?.startsWith('https://'));
-const indexingEnabled = process.env.PUBLIC_ENABLE_INDEXING === 'true' && isPublicHttpsUrl;
+const indexRequested = process.env.PUBLIC_INDEX_SITE?.trim().toLowerCase() === 'true';
+const parsedSiteUrl = configuredSiteUrl ? new URL(configuredSiteUrl) : undefined;
+
+if (parsedSiteUrl && !['http:', 'https:'].includes(parsedSiteUrl.protocol)) {
+  throw new Error('PUBLIC_SITE_URL must use HTTP or HTTPS.');
+}
+if (indexRequested && parsedSiteUrl?.protocol !== 'https:') {
+  throw new Error('PUBLIC_INDEX_SITE=true requires a valid HTTPS PUBLIC_SITE_URL.');
+}
+
+const indexingEnabled = indexRequested && parsedSiteUrl?.protocol === 'https:';
 const siteConfig = yaml.load(fs.readFileSync(path.join(__dirname, 'src/config.yaml'), 'utf8')) as Config;
 
 siteConfig.site = {
   name: siteConfig.site?.name || 'OptiSolution',
   ...siteConfig.site,
-  site: configuredSiteUrl || 'https://review.invalid',
+  site: configuredSiteUrl || 'https://optisolution.invalid',
 };
 siteConfig.metadata = {
   ...siteConfig.metadata,
@@ -41,12 +50,10 @@ const releaseRobots = (): AstroIntegration => ({
   name: 'optisolution-release-robots',
   hooks: {
     'astro:build:done': ({ dir }) => {
-      const sitemapLine = indexingEnabled
-        ? `\nSitemap: ${new URL('sitemap-index.xml', configuredSiteUrl!).href}\n`
-        : '\n';
+      const sitemapLine = indexingEnabled ? `Sitemap: ${new URL('sitemap-index.xml', parsedSiteUrl!).href}\n` : '';
       fs.writeFileSync(
         new URL('robots.txt', dir),
-        `User-agent: *\n${indexingEnabled ? 'Allow: /' : 'Disallow: /'}${sitemapLine}`
+        `User-agent: *\n${indexingEnabled ? 'Allow: /' : 'Disallow: /'}\n${sitemapLine}`
       );
     },
   },

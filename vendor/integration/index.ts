@@ -7,7 +7,6 @@ import loadConfig from './utils/loadConfig';
 
 export default ({ config: _themeConfig = 'src/config.yaml' }: { config?: string | Config } = {}): AstroIntegration => {
   let cfg: AstroConfig;
-  let allowCrawling = false;
   return {
     name: 'astrowind-integration',
 
@@ -27,32 +26,7 @@ export default ({ config: _themeConfig = 'src/config.yaml' }: { config?: string 
         const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
         const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
-        const publicSiteUrl = process.env.PUBLIC_SITE_URL?.trim();
-        const indexRequested = process.env.PUBLIC_INDEX_SITE?.trim().toLowerCase() === 'true';
-
-        if (publicSiteUrl) new URL(publicSiteUrl);
-        if (indexRequested && !publicSiteUrl) {
-          throw new Error('PUBLIC_INDEX_SITE=true requires a valid PUBLIC_SITE_URL.');
-        }
-
-        const runtimeConfig: Config = {
-          ...rawJsonConfig,
-          site: {
-            ...rawJsonConfig.site,
-            name: rawJsonConfig.site?.name ?? 'OptiSolution',
-            ...(publicSiteUrl ? { site: publicSiteUrl } : {}),
-          },
-          metadata: {
-            ...rawJsonConfig.metadata,
-            robots: {
-              ...rawJsonConfig.metadata?.robots,
-              index: indexRequested,
-              follow: indexRequested,
-            },
-          },
-        };
-        const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } = configBuilder(runtimeConfig);
-        allowCrawling = METADATA.robots?.index === true;
+        const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } = configBuilder(rawJsonConfig);
 
         updateConfig({
           site: SITE.site,
@@ -107,12 +81,11 @@ export default ({ config: _themeConfig = 'src/config.yaml' }: { config?: string 
           // fully static build it equals `outDir`; when an adapter renders some
           // pages on demand it is `outDir/client`, so `cfg.outDir` would miss it.
           const outDir = dir;
+          const publicDir = cfg.publicDir;
           const sitemapName = 'sitemap-index.xml';
           const sitemapFile = new URL(sitemapName, outDir);
+          const robotsTxtFile = new URL('robots.txt', publicDir);
           const robotsTxtFileInOut = new URL('robots.txt', outDir);
-          const robotsTxt = allowCrawling ? 'User-agent: *\nAllow: /\n' : 'User-agent: *\nDisallow: /\n';
-
-          fs.writeFileSync(robotsTxtFileInOut, robotsTxt, { encoding: 'utf8', flag: 'w' });
 
           const hasIntegration =
             Array.isArray(cfg?.integrations) &&
@@ -120,6 +93,7 @@ export default ({ config: _themeConfig = 'src/config.yaml' }: { config?: string 
           const sitemapExists = fs.existsSync(sitemapFile);
 
           if (hasIntegration && sitemapExists) {
+            const robotsTxt = fs.readFileSync(robotsTxtFile, { encoding: 'utf8', flag: 'a+' });
             const sitemapUrl = new URL(sitemapName, String(new URL(cfg.base, cfg.site)));
             const pattern = /^Sitemap:(.*)$/m;
 

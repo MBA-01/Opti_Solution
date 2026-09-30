@@ -29,7 +29,6 @@ const demoSteps = [
 <MarketingLayout metadata={metadata}>
   <PageHero
     chapter="04 · Démo"
-    eyebrow="Le produit en situation"
     title="Voyez Opti Solution à partir de votre façon de travailler."
     text="Choisissez les opérations qui comptent pour votre magasin. La démonstration suit leurs écrans, leurs liens et les contrôles attendus à chaque étape."
     primaryText="Demander une démo"
@@ -39,18 +38,18 @@ const demoSteps = [
   >
     <ScreenshotFrame
       slot="visual"
-      src="/working/05-prescription-hero.webp"
+      src="/product/tablet/optical-correction.webp"
       alt="Aperçu d’une correction optique dans Opti Solution."
       label="Aperçu produit"
       caption="Correction optique · données de démonstration"
-      href="/working/05-prescription-hero.webp"
+      href="/product/tablet/optical-correction.webp"
+      aspect="tablet"
     />
   </PageHero>
 
   <section class="os-section">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Parcours disponibles"
         title="Commencez par l’opération que vous voulez clarifier."
         text="Ces trois séquences résument les parcours que nous pouvons détailler pendant un échange guidé."
       />
@@ -58,19 +57,19 @@ const demoSteps = [
         <VideoPlaceholder
           title="Créer une fiche et saisir une correction"
           description="Client, valeurs OD/OG, caractéristiques de verres et validation."
-          poster="/working/05-prescription-review.webp"
+          poster="/product/tablet/optical-correction.webp"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Préparer un achat fournisseur"
           description="Demande de prix, commande distincte et réception des produits."
-          poster="/working/06-supplier-rfq.webp"
+          poster="/product/tablet/purchase-order.webp"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Du devis au statut de règlement"
           description="Devis, vente, facture et consultation du paiement après contrôle."
-          poster="/working/08-supplier-bill.webp"
+          poster="/product/tablet/paid-invoice.webp"
           duration="Démo guidée"
         />
       </div>
@@ -80,7 +79,6 @@ const demoSteps = [
   <section class="os-section os-section--cream">
     <div class="os-container os-split">
       <div>
-        <p class="os-eyebrow">Pendant une démo privée</p>
         <h2 class="text-[clamp(2.5rem,5vw,4.7rem)] leading-none font-serif tracking-[-0.045em]">
           Une démonstration préparée autour de vos priorités.
         </h2>
@@ -112,31 +110,33 @@ const demoSteps = [
   <section class="os-section os-section--dark">
     <div class="os-container">
       <SectionIntro
-        eyebrow="Le parcours en images"
         title="De la fiche client à l’approvisionnement."
         text="Ces vues montrent trois moments du parcours : ouvrir la fiche, contrôler la correction et suivre la réception fournisseur."
       />
       <div class="os-capability-preview os-capability-preview--screens">
         <ScreenshotFrame
-          src="/working/01-client-record.webp"
+          src="/product/tablet/client-record.webp"
           alt="Fiche client dans Opti Solution."
           label="01 · Client"
           caption="Ouvrir la fiche"
-          href="/working/01-client-record.webp"
+          href="/product/tablet/client-record.webp"
+          aspect="tablet"
         />
         <ScreenshotFrame
-          src="/working/05-prescription-review.webp"
+          src="/product/tablet/optical-correction.webp"
           alt="Correction optique dans Opti Solution."
           label="02 · Correction"
           caption="Contrôler les valeurs"
-          href="/working/05-prescription-review.webp"
+          href="/product/tablet/optical-correction.webp"
+          aspect="tablet"
         />
         <ScreenshotFrame
-          src="/working/07-purchase-reception.webp"
+          src="/product/tablet/purchase-order.webp"
           alt="Réception fournisseur dans Odoo."
           label="03 · Réception"
           caption="Suivre l’approvisionnement"
-          href="/working/07-purchase-reception.webp"
+          href="/product/tablet/purchase-order.webp"
+          aspect="tablet"
         />
       </div>
     </div>

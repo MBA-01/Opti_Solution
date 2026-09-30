@@ -11,34 +11,29 @@ const { variant = 'a', conceptMode = false } = Astro.props;
 const concepts = {
   a: {
     label: 'A · Promesse puis preuve',
-    eyebrow: 'Logiciel de gestion pour magasins d’optique',
     title:
       'Moins d’informations <span class="os-highlight-danger">dispersées</span>. Plus de <span class="os-highlight-success">contrôle</span> sur votre magasin.',
     text: 'Opti Solution relie la fiche optique aux opérations du magasin pour aider votre équipe à retrouver l’information, préparer la suite et garder chaque étape sous contrôle.',
     secondary: 'Découvrir le parcours',
     secondaryHref: '/fonctionnement',
-    proof: 'Le produit, dès le premier regard',
   },
   b: {
     label: 'B · Produit d’abord',
-    eyebrow: 'Opti Solution en pratique',
     title: 'Votre fiche optique, <em>reliée au reste du magasin.</em>',
     text: 'Retrouvez le client, sa correction et les opérations associées dans des écrans conçus pour suivre le travail de l’équipe.',
     secondary: 'Explorer les écrans',
     secondaryHref: '/fonctionnalites',
-    proof: 'Une interface métier concrète',
   },
   c: {
     label: 'C · Parcours d’abord',
-    eyebrow: 'Un fil conducteur pour l’équipe',
     title: 'De la fiche client au règlement, <em>gardez le fil.</em>',
     text: 'Opti Solution relie les étapes utiles au client, à l’optométrie, à la vente, aux achats et à la facturation, tout en laissant les validations à votre équipe.',
     secondary: 'Suivre les 6 étapes',
     secondaryHref: '/fonctionnement',
-    proof: 'Le parcours visible dans le produit',
   },
 };
 const content = concepts[variant];
+const sideImage = variant === 'c' ? '/product/tablet/purchase-order.webp' : '/product/tablet/client-record.webp';
 ---
 
 {
@@ -62,7 +57,6 @@ const content = concepts[variant];
 <section class:list={['os-home-hero', `os-home-hero--${variant}`]} aria-labelledby="home-title">
   <div class="os-container os-home-hero__grid">
     <div class="os-home-hero__copy">
-      <p class="os-eyebrow">{content.eyebrow}</p>
       <h1 id="home-title" set:html={content.title} />
       <p class="os-lead">{content.text}</p>
       <div class="os-actions">
@@ -72,24 +66,20 @@ const content = concepts[variant];
     </div>
     <div class="os-home-hero__aside">
       <div class="os-product-stack">
-        <span class="os-proof-label">{content.proof}</span>
         <div class="os-product-stack__main">
           <div class="os-product-stack__chrome"><i></i><i></i><i></i></div>
           <img
-            src="/working/05-prescription-review.webp"
-            width="1920"
-            height="1080"
+            src="/product/tablet/optical-correction.webp"
+            width="1024"
+            height="1366"
             alt="Correction optique OD et OG dans l’interface réelle d’Opti Solution."
+            loading="eager"
+            decoding="async"
             fetchpriority="high"
           />
         </div>
         <div class="os-product-stack__side">
-          <img
-            src={variant === 'c' ? '/working/07-purchase-reception.webp' : '/working/01-client-record.webp'}
-            width="1920"
-            height="1080"
-            alt=""
-          />
+          <img src={sideImage} width="1024" height="1366" alt="" loading="lazy" decoding="async" />
         </div>
       </div>
     </div>
@@ -98,15 +88,15 @@ const content = concepts[variant];
 
 <section class="os-proof-band" aria-label="Éléments de preuve">
   <div class="os-container os-proof-band__grid">
-    <div><p class="os-eyebrow">Une solution concrète</p><strong>Le produit avant les promesses</strong></div>
+    <div><strong class="os-proof-band__lead">Une solution concrète</strong></div>
     <div>
-      <strong>Écrans du produit</strong><p>
+      <strong>Interface d’utilisateur</strong><p>
         Découvrez l’interface utilisée pour les parcours présentés, avec des données de démonstration.
       </p>
     </div>
     <div>
-      <strong>Contexte optique</strong><p>
-        Corrections OD/OG, références de verres et fiche client restent à portée des opérations utiles.
+      <strong>Tout à portée</strong><p>
+        Client, correction et documents essentiels se retrouvent sans changer d’outil.
       </p>
     </div>
     <div>

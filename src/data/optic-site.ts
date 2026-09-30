@@ -39,8 +39,8 @@ export const footerLinks = [
     title: 'Contact',
     links: [
       { text: 'Demander une démo', href: '/demo#demande' },
-      { text: 'bachriouijr@gmail.com', href: 'mailto:bachriouijr@gmail.com' },
-      { text: 'WhatsApp', href: 'https://wa.me/212632788555' },
+      { text: 'hello@opvibe.com', href: 'mailto:hello@opvibe.com' },
+      { text: 'WhatsApp', href: 'https://wa.me/212620169713' },
     ],
   },
 ];
@@ -51,42 +51,42 @@ export const workflow = [
     title: 'Client',
     short: 'Retrouver la bonne fiche dès l’accueil.',
     detail: 'Créez ou ouvrez la fiche client pour retrouver ses coordonnées et le contexte utile avant de poursuivre.',
-    image: '/working/01-client-record.webp',
+    image: '/product/tablet/client-record.webp',
   },
   {
     number: '02',
     title: 'Correction optique',
     short: 'Structurer les valeurs OD/OG.',
     detail: 'Renseignez les mesures de loin, de près ou de lentilles, puis contrôlez la correction avant validation.',
-    image: '/working/05-prescription-review.webp',
+    image: '/product/tablet/optical-correction.webp',
   },
   {
     number: '03',
     title: 'Devis',
     short: 'Construire une proposition claire.',
     detail: 'Ajoutez les produits, quantités, prix, remises et taxes, puis vérifiez le devis avant confirmation.',
-    image: '/working/03-prescription-distance.webp',
+    image: '/product/tablet/quotations.webp',
   },
   {
     number: '04',
     title: 'Fournisseur',
     short: 'Approvisionner seulement si nécessaire.',
     detail: 'Préparez la demande de prix, confirmez la commande fournisseur et suivez la réception des produits.',
-    image: '/working/06-supplier-rfq.webp',
+    image: '/product/tablet/purchase-order.webp',
   },
   {
     number: '05',
     title: 'Vente & livraison',
     short: 'Suivre la vente jusqu’à la remise.',
     detail: 'Confirmez la vente et enregistrez la livraison lorsque le parcours de stock retenu le demande.',
-    image: '/working/07-purchase-reception.webp',
+    image: '/product/tablet/sales-order.webp',
   },
   {
     number: '06',
     title: 'Facture & règlement',
     short: 'Garder le règlement en vue.',
     detail: 'Créez la facture, contrôlez les montants et retrouvez son statut de règlement dans le même environnement.',
-    image: '/working/08-supplier-bill.webp',
+    image: '/product/tablet/paid-invoice.webp',
   },
 ];
 
@@ -103,7 +103,7 @@ export const capabilityGroups = [
       'Renseigner types, matériaux et traitements',
       'Valider une correction après contrôle',
     ],
-    image: '/working/05-prescription-review.webp',
+    image: '/product/tablet/optical-correction.webp',
     imageAlt: 'Fiche de correction optique dans Odoo avec données de démonstration.',
   },
   {
@@ -118,8 +118,8 @@ export const capabilityGroups = [
       'Contrôler prix, remises et taxes',
       'Suivre la vente et la livraison',
     ],
-    image: '/working/03-prescription-distance.webp',
-    imageAlt: 'Écran Opti Solution montrant les valeurs d’une correction et les actions liées aux commandes.',
+    image: '/product/tablet/quotations.webp',
+    imageAlt: 'Liste des devis clients dans Opti Solution avec montants et statuts de facturation.',
   },
   {
     slug: 'produits-stock',
@@ -133,8 +133,8 @@ export const capabilityGroups = [
       'Consulter les quantités',
       'Suivre les mouvements utiles',
     ],
-    image: '/working/02-product-catalog.webp',
-    imageAlt: 'Fiche produit optique dans Odoo avec informations d’achat, de vente et de stock.',
+    image: '/product/tablet/products.webp',
+    imageAlt: 'Liste des produits optiques dans Opti Solution avec références, prix et disponibilités.',
   },
   {
     slug: 'fournisseurs-achats',
@@ -148,8 +148,8 @@ export const capabilityGroups = [
       'Confirmer une commande',
       'Enregistrer la réception',
     ],
-    image: '/working/07-purchase-reception.webp',
-    imageAlt: 'Commande fournisseur dans Odoo montrant le suivi de la réception.',
+    image: '/product/tablet/purchase-order.webp',
+    imageAlt: 'Commande fournisseur dans Opti Solution avec produits, quantités et statut de facturation.',
   },
   {
     slug: 'facturation-paiements',
@@ -163,8 +163,8 @@ export const capabilityGroups = [
       'Enregistrer un paiement',
       'Suivre les statuts de règlement',
     ],
-    image: '/working/08-supplier-bill.webp',
-    imageAlt: 'Brouillon de facture fournisseur dans Odoo avec lignes et totaux de démonstration.',
+    image: '/product/tablet/paid-invoice.webp',
+    imageAlt: 'Facture client payée dans Opti Solution avec lignes, montants et statut de règlement.',
   },
   {
     slug: 'configuration-gestion',
@@ -178,8 +178,8 @@ export const capabilityGroups = [
       'Configurer marques et catégories',
       'Tester les parcours avant ouverture',
     ],
-    image: '/working/04-lens-selection.webp',
-    imageAlt: 'Écran de configuration des caractéristiques de verres dans Opti Solution.',
+    image: '/product/tablet/lens-configuration.webp',
+    imageAlt: 'Écran de configuration des types de verres dans Opti Solution.',
   },
 ];
 

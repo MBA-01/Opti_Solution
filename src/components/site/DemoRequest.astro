@@ -5,7 +5,6 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
 <section class="os-section os-section--soft" id="demande" aria-labelledby="request-title">
   <div class="os-container os-contact-grid">
     <div>
-      <p class="os-eyebrow">Votre démonstration</p>
       <h2 id="request-title" class="text-[clamp(2.5rem,5vw,4.8rem)] leading-none font-serif tracking-[-0.045em]">
         Montrez-nous les parcours à clarifier.
       </h2>
@@ -16,9 +15,9 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
       <div class="os-direct-contact">
         <strong>Contact direct</strong>
         <span>Mohamed El Bachrioui</span>
-        <a href="mailto:bachriouijr@gmail.com">bachriouijr@gmail.com</a>
+        <a href="mailto:hello@opvibe.com">hello@opvibe.com</a>
         <a
-          href="https://wa.me/212632788555?text=Bonjour%2C%20je%20souhaite%20une%20d%C3%A9mo%20d%27Opti%20Solution."
+          href="https://wa.me/212620169713?text=Bonjour%2C%20je%20souhaite%20une%20d%C3%A9mo%20d%27Opti%20Solution."
           target="_blank"
           rel="noopener noreferrer">Écrire sur WhatsApp ↗</a
         >
@@ -76,10 +75,25 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
           ></textarea></label
         >
       </div>
-      <p class="os-form-note">
-        N’indiquez aucune donnée de patient. La notice de confidentialité complète sera ajoutée avant l’ouverture
-        publique.
+      <p class="os-form-note" id="demo-privacy-note">
+        Les champs marqués * sont obligatoires pour traiter votre demande. N’indiquez aucune donnée de patient dans ce
+        formulaire.
       </p>
+      <label class="os-consent" for="demo-privacy-consent">
+        <input
+          id="demo-privacy-consent"
+          name="privacyConsent"
+          type="checkbox"
+          required
+          aria-describedby="demo-privacy-note"
+          aria-errormessage="demo-privacy-consent-error"
+        />
+        <span>
+          J’ai lu la <a href="/confidentialite">politique de confidentialité</a> et j’accepte le traitement de mes données
+          afin qu’Opti Solution réponde à ma demande. *
+        </span>
+      </label>
+      <small class="os-field-error" id="demo-privacy-consent-error"></small>
       <button class="btn-primary" type="submit">Préparer ma démonstration →</button>
       <p class="os-form-status" role="status" aria-live="polite"></p>
     </form>
@@ -95,7 +109,7 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
 
       const setError = (field: Element, message: string) => {
         if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) return;
-        const errorId = field.getAttribute('aria-describedby');
+        const errorId = field.getAttribute('aria-errormessage') || field.getAttribute('aria-describedby');
         const error = errorId ? document.getElementById(errorId) : null;
         field.setAttribute('aria-invalid', message ? 'true' : 'false');
         if (error) error.textContent = message;
@@ -113,7 +127,14 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
         let valid = true;
         form.querySelectorAll('[required]').forEach((field) => {
           if (!(field instanceof HTMLInputElement)) return;
-          let message = field.value.trim() ? '' : 'Ce champ est nécessaire.';
+          let message =
+            field.type === 'checkbox'
+              ? field.checked
+                ? ''
+                : 'Votre accord est nécessaire.'
+              : field.value.trim()
+                ? ''
+                : 'Ce champ est nécessaire.';
           if (!message && field.type === 'email' && !field.validity.valid)
             message = 'Saisissez une adresse e-mail valide.';
           setError(field, message);

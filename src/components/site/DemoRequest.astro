@@ -1,4 +1,6 @@
 ---
+import { CALENDLY_URL, WHATSAPP_DEMO_URL } from '~/data/contact';
+
 const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
 ---
 
@@ -16,87 +18,121 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
         <strong>Contact direct</strong>
         <span>Mohamed El Bachrioui</span>
         <a href="mailto:hello@opvibe.com">hello@opvibe.com</a>
-        <a
-          href="https://wa.me/212620169713?text=Bonjour%2C%20je%20souhaite%20une%20d%C3%A9mo%20d%27Opti%20Solution."
-          target="_blank"
-          rel="noopener noreferrer">Écrire sur WhatsApp ↗</a
-        >
+        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">Planifier sur Calendly ↗</a>
+        <a href={WHATSAPP_DEMO_URL} target="_blank" rel="noopener noreferrer">Écrire sur WhatsApp ↗</a>
       </div>
     </div>
-    <form class="os-contact-form" data-demo-form data-endpoint={endpoint} novalidate>
-      <div class="os-form-grid">
-        <label for="demo-name"
-          >Nom et prénom *<input
-            id="demo-name"
-            name="name"
-            autocomplete="name"
-            required
-            aria-describedby="demo-name-error"
-          /><small class="os-field-error" id="demo-name-error"></small></label
-        >
-        <label for="demo-shop"
-          >Magasin *<input
-            id="demo-shop"
-            name="shop"
-            autocomplete="organization"
-            required
-            aria-describedby="demo-shop-error"
-          /><small class="os-field-error" id="demo-shop-error"></small></label
-        >
-        <label for="demo-city"
-          >Ville *<input
-            id="demo-city"
-            name="city"
-            autocomplete="address-level2"
-            required
-            aria-describedby="demo-city-error"
-          /><small class="os-field-error" id="demo-city-error"></small></label
-        >
-        <label for="demo-email"
-          >E-mail *<input
-            id="demo-email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            aria-describedby="demo-email-error"
-          /><small class="os-field-error" id="demo-email-error"></small></label
-        >
-        <label for="demo-phone"
-          >Téléphone / WhatsApp<input id="demo-phone" name="phone" type="tel" autocomplete="tel" /></label
-        >
-        <label class="full" for="demo-need"
-          >Les opérations que vous souhaitez voir<textarea
-            id="demo-need"
-            name="need"
-            maxlength="500"
-            rows="4"
-            placeholder="Par exemple : fiche client, corrections, devis, achats fournisseurs, stock ou facturation"
-          ></textarea></label
-        >
-      </div>
-      <p class="os-form-note" id="demo-privacy-note">
-        Les champs marqués * sont obligatoires pour traiter votre demande. N’indiquez aucune donnée de patient dans ce
-        formulaire.
-      </p>
-      <label class="os-consent" for="demo-privacy-consent">
-        <input
-          id="demo-privacy-consent"
-          name="privacyConsent"
-          type="checkbox"
-          required
-          aria-describedby="demo-privacy-note"
-          aria-errormessage="demo-privacy-consent-error"
-        />
-        <span>
-          J’ai lu la <a href="/confidentialite">politique de confidentialité</a> et j’accepte le traitement de mes données
-          afin qu’Opti Solution réponde à ma demande. *
-        </span>
-      </label>
-      <small class="os-field-error" id="demo-privacy-consent-error"></small>
-      <button class="btn-primary" type="submit">Préparer ma démonstration →</button>
-      <p class="os-form-status" role="status" aria-live="polite"></p>
-    </form>
+    {
+      endpoint ? (
+        <form class="os-contact-form" data-demo-form data-endpoint={endpoint} novalidate>
+          <div class="os-form-grid">
+            <label for="demo-name">
+              Nom et prénom *
+              <>
+                <input id="demo-name" name="name" autocomplete="name" required aria-describedby="demo-name-error" />
+                <small class="os-field-error" id="demo-name-error" />
+              </>
+            </label>
+            <label for="demo-shop">
+              Magasin *
+              <>
+                <input
+                  id="demo-shop"
+                  name="shop"
+                  autocomplete="organization"
+                  required
+                  aria-describedby="demo-shop-error"
+                />
+                <small class="os-field-error" id="demo-shop-error" />
+              </>
+            </label>
+            <label for="demo-city">
+              Ville *
+              <>
+                <input
+                  id="demo-city"
+                  name="city"
+                  autocomplete="address-level2"
+                  required
+                  aria-describedby="demo-city-error"
+                />
+                <small class="os-field-error" id="demo-city-error" />
+              </>
+            </label>
+            <label for="demo-email">
+              E-mail *
+              <>
+                <input
+                  id="demo-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  aria-describedby="demo-email-error"
+                />
+                <small class="os-field-error" id="demo-email-error" />
+              </>
+            </label>
+            <label for="demo-phone">
+              Téléphone / WhatsApp
+              <input id="demo-phone" name="phone" type="tel" autocomplete="tel" />
+            </label>
+            <label class="full" for="demo-need">
+              Les opérations que vous souhaitez voir
+              <textarea
+                id="demo-need"
+                name="need"
+                maxlength="500"
+                rows="4"
+                placeholder="Par exemple : fiche client, corrections, devis, achats fournisseurs, stock ou facturation"
+              />
+            </label>
+          </div>
+          <p class="os-form-note" id="demo-privacy-note">
+            Les champs marqués * sont obligatoires pour traiter votre demande. N’indiquez aucune donnée de patient dans
+            ce formulaire.
+          </p>
+          <label class="os-consent" for="demo-privacy-consent">
+            <input
+              id="demo-privacy-consent"
+              name="privacyConsent"
+              type="checkbox"
+              required
+              aria-describedby="demo-privacy-note"
+              aria-errormessage="demo-privacy-consent-error"
+            />
+            <span>
+              J’ai lu la <a href="/confidentialite">politique de confidentialité</a> et j’accepte le traitement de mes
+              données afin qu’OptiSolution réponde à ma demande. *
+            </span>
+          </label>
+          <small class="os-field-error" id="demo-privacy-consent-error" />
+          <button class="btn-primary" type="submit">
+            Préparer ma démonstration →
+          </button>
+          <p class="os-form-status" role="status" aria-live="polite" />
+        </form>
+      ) : (
+        <aside class="os-contact-form" aria-labelledby="direct-booking-title">
+          <p class="os-kicker">Rendez-vous direct</p>
+          <h3 id="direct-booking-title" class="text-3xl leading-tight font-serif">
+            Choisissez un créneau de 30 minutes.
+          </h3>
+          <p class="mt-4 text-[var(--os-ink-600)]">
+            Le formulaire reste masqué tant qu’aucun service d’envoi testé n’est configuré. Calendly et WhatsApp sont
+            disponibles dès maintenant.
+          </p>
+          <div class="os-actions">
+            <a class="btn-primary" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              Ouvrir Calendly →
+            </a>
+            <a class="btn-secondary" href={WHATSAPP_DEMO_URL} target="_blank" rel="noopener noreferrer">
+              Écrire sur WhatsApp
+            </a>
+          </div>
+        </aside>
+      )
+    }
   </div>
 </section>
 

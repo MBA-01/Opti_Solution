@@ -5,11 +5,12 @@ import SectionIntro from '~/components/site/SectionIntro.astro';
 import VideoPlaceholder from '~/components/site/VideoPlaceholder.astro';
 import DemoRequest from '~/components/site/DemoRequest.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import { CALENDLY_URL } from '~/data/contact';
 
 const metadata = {
   title: 'Démonstration',
   description:
-    'Découvrez les parcours Opti Solution avec des écrans réels et demandez une démonstration adaptée à votre magasin.',
+    'Découvrez les parcours OptiSolution avec des extraits validés et planifiez une démonstration adaptée à votre magasin.',
 };
 const demoSteps = [
   ['01', 'Choisissez vos priorités', 'Fiche optique, devis, achat fournisseur, stock ou facturation.'],
@@ -29,21 +30,21 @@ const demoSteps = [
 <MarketingLayout metadata={metadata}>
   <PageHero
     chapter="04 · Démo"
-    title="Voyez Opti Solution à partir de votre façon de travailler."
+    title="Voyez OptiSolution à partir de votre façon de travailler."
     text="Choisissez les opérations qui comptent pour votre magasin. La démonstration suit leurs écrans, leurs liens et les contrôles attendus à chaque étape."
-    primaryText="Demander une démo"
-    primaryHref="#demande"
+    primaryText="Planifier une démo"
+    primaryHref={CALENDLY_URL}
     secondaryText="Comprendre le parcours"
     secondaryHref="/fonctionnement"
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/tablet/optical-correction.webp"
-      alt="Aperçu d’une correction optique dans Opti Solution."
-      label="Aperçu produit"
-      caption="Correction optique · données de démonstration"
-      href="/product/tablet/optical-correction.webp"
-      aspect="tablet"
+      src="/product/evidence-safe/optometry-reference.png"
+      alt="Extrait validé montrant une référence optométrique de démonstration."
+      label="Extrait validé"
+      caption="Référence optométrique · données de démonstration"
+      href="/product/evidence-safe/optometry-reference.png"
+      fit="contain"
     />
   </PageHero>
 
@@ -57,19 +58,19 @@ const demoSteps = [
         <VideoPlaceholder
           title="Créer une fiche et saisir une correction"
           description="Client, valeurs OD/OG, caractéristiques de verres et validation."
-          poster="/product/tablet/optical-correction.webp"
+          poster="/product/evidence-safe/optometry-reference.png"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Préparer un achat fournisseur"
           description="Demande de prix, commande distincte et réception des produits."
-          poster="/product/tablet/purchase-order.webp"
+          poster="/product/evidence-safe/supplier-origin.png"
           duration="Démo guidée"
         />
         <VideoPlaceholder
           title="Du devis au statut de règlement"
           description="Devis, vente, facture et consultation du paiement après contrôle."
-          poster="/product/tablet/paid-invoice.webp"
+          poster="/product/evidence-safe/invoice-balance.png"
           duration="Démo guidée"
         />
       </div>
@@ -110,33 +111,33 @@ const demoSteps = [
   <section class="os-section os-section--dark">
     <div class="os-container">
       <SectionIntro
-        title="De la fiche client à l’approvisionnement."
-        text="Ces vues montrent trois moments du parcours : ouvrir la fiche, contrôler la correction et suivre la réception fournisseur."
+        title="Un aperçu sûr avant la démonstration guidée."
+        text="Le tableau de bord ci-dessous utilise uniquement des données synthétiques. Les parcours détaillés sont montrés pendant l’échange, selon vos priorités."
       />
       <div class="os-capability-preview os-capability-preview--screens">
         <ScreenshotFrame
-          src="/product/tablet/client-record.webp"
-          alt="Fiche client dans Opti Solution."
-          label="01 · Client"
-          caption="Ouvrir la fiche"
-          href="/product/tablet/client-record.webp"
-          aspect="tablet"
+          src="/product/evidence-safe/client-context.png"
+          alt="Fiche client de démonstration dont les données personnelles sont masquées."
+          label="01 · Client · données masquées"
+          caption="Ouvrir la fiche sans exposer de données personnelles"
+          href="/product/evidence-safe/client-context.png"
+          fit="contain"
         />
         <ScreenshotFrame
-          src="/product/tablet/optical-correction.webp"
-          alt="Correction optique dans Opti Solution."
-          label="02 · Correction"
-          caption="Contrôler les valeurs"
-          href="/product/tablet/optical-correction.webp"
-          aspect="tablet"
+          src="/product/evidence-safe/optometry-reference.png"
+          alt="Extrait validé montrant une référence optométrique de démonstration."
+          label="02 · Optométrie · extrait validé"
+          caption="Retrouver la référence validée"
+          href="/product/evidence-safe/optometry-reference.png"
+          fit="contain"
         />
         <ScreenshotFrame
-          src="/product/tablet/purchase-order.webp"
-          alt="Réception fournisseur dans Odoo."
-          label="03 · Réception"
-          caption="Suivre l’approvisionnement"
-          href="/product/tablet/purchase-order.webp"
-          aspect="tablet"
+          src="/product/evidence-safe/supplier-origin.png"
+          alt="Extrait validé montrant l’origine d’un document fournisseur de démonstration."
+          label="03 · Fournisseur · extrait validé"
+          caption="Retrouver l’origine du document fournisseur"
+          href="/product/evidence-safe/supplier-origin.png"
+          fit="contain"
         />
       </div>
     </div>

@@ -2,6 +2,7 @@
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 import type { ResourceArticle } from '~/data/resource-articles';
 import { resourceArticles } from '~/data/resource-articles';
 
@@ -31,14 +32,20 @@ const metadata = {
       <h1>{article.title}</h1>
       <p class="os-article__intro">{article.description}</p>
       <div class="mt-10">
-        <ScreenshotFrame
-          src={article.image}
-          alt={article.imageAlt}
-          label={article.imageLabel}
-          caption={article.imageCaption}
-          href={article.image}
-          aspect="tablet"
-        />
+        {
+          article.image ? (
+            <ScreenshotFrame
+              src={article.image}
+              alt={article.imageAlt}
+              label={article.imageLabel}
+              caption={article.imageCaption}
+              href={article.image}
+              fit="contain"
+            />
+          ) : (
+            <EvidencePlaceholder label={article.imageLabel} title={article.title} text={article.imageCaption} />
+          )
+        }
       </div>
     </header>
 

@@ -5,90 +5,48 @@ import Button from '~/components/ui/Button.astro';
 <section class="os-device-showcase" aria-labelledby="device-showcase-title">
   <div class="os-container os-device-showcase__grid">
     <div class="os-device-showcase__copy">
-      <p class="os-eyebrow">Multi-écran</p>
-      <h2 id="device-showcase-title">Votre magasin vous suit, quel que soit l’écran.</h2>
+      <p class="os-eyebrow">Formats montrés</p>
+      <h2 id="device-showcase-title">Un tableau de bord cadré pour trois formats.</h2>
       <p>
-        Au comptoir, en rayon ou au bureau, retrouvez la même information depuis un téléphone, une tablette ou un
-        ordinateur. L’interface s’adapte à l’écran pour garder les actions essentielles à portée de main.
+        Ces aperçus illustrent seulement l’organisation du tableau de bord présentée sur ordinateur, tablette et
+        téléphone. La démonstration sert à vérifier chaque écran et chaque action nécessaire à votre équipe.
       </p>
-      <div class="os-device-showcase__list" aria-label="Écrans compatibles">
-        <span>Téléphone</span><span>Tablette</span><span>Ordinateur</span>
+      <div class="os-device-showcase__list" aria-label="Limites de la preuve">
+        <span>Tableau de bord illustré</span><span>Trois formats montrés</span>
       </div>
       <div class="os-actions">
         <Button variant="secondary" href="/fonctionnalites" text="Découvrir l’interface" icon="tabler:arrow-right" />
       </div>
     </div>
 
-    <div
-      class="os-device-stage"
-      aria-label="Tableau de bord Opti Solution affiché sur ordinateur, tablette et téléphone"
-    >
+    <div class="os-device-stage" aria-label="Illustration de la mise en page du tableau de bord sur trois formats">
       <figure class="os-device os-device--desktop">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <button
-          class="os-device__preview"
-          type="button"
-          data-product-preview
-          data-src="/product/desktop/sales-dashboard.webp"
-          data-alt="Tableau de bord des ventes Opti Solution sur ordinateur."
-          data-caption="Tableau de bord · ordinateur"
-          aria-label="Agrandir l’interface sur ordinateur"
-        >
-          <img
-            src="/product/desktop/sales-dashboard.webp"
-            alt="Tableau de bord des ventes Opti Solution sur ordinateur."
-            width="1920"
-            height="1080"
-            loading="lazy"
-            decoding="async"
-          />
-        </button>
+        <div class="os-device__canvas" aria-hidden="true">
+          <span><small>Activité du mois</small><b>6 200 DH</b></span>
+          <span><small>Devis en attente</small><b>3</b></span>
+          <span><small>Commandes à livrer</small><b>2</b></span>
+        </div>
         <figcaption>Ordinateur</figcaption>
       </figure>
 
       <figure class="os-device os-device--tablet">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <button
-          class="os-device__preview"
-          type="button"
-          data-product-preview
-          data-src="/product/tablet/sales-dashboard.webp"
-          data-alt="Le même tableau de bord Opti Solution adapté à une tablette."
-          data-caption="Tableau de bord · tablette"
-          aria-label="Agrandir l’interface sur tablette"
-        >
-          <img
-            src="/product/tablet/sales-dashboard.webp"
-            alt="Le même tableau de bord Opti Solution adapté à une tablette."
-            width="1024"
-            height="1366"
-            loading="lazy"
-            decoding="async"
-          />
-        </button>
+        <div class="os-device__canvas" aria-hidden="true">
+          <span><small>Activité</small><b>6 200 DH</b></span>
+          <span><small>Devis</small><b>3</b></span>
+          <span><small>Livraisons</small><b>2</b></span>
+        </div>
         <figcaption>Tablette</figcaption>
       </figure>
 
       <figure class="os-device os-device--phone">
         <div class="os-device__camera" aria-hidden="true"></div>
-        <button
-          class="os-device__preview"
-          type="button"
-          data-product-preview
-          data-src="/product/mobile/sales-dashboard.webp"
-          data-alt="Le même tableau de bord Opti Solution adapté à un téléphone."
-          data-caption="Tableau de bord · téléphone"
-          aria-label="Agrandir l’interface sur téléphone"
-        >
-          <img
-            src="/product/mobile/sales-dashboard.webp"
-            alt="Le même tableau de bord Opti Solution adapté à un téléphone."
-            width="430"
-            height="932"
-            loading="lazy"
-            decoding="async"
-          />
-        </button>
+        <div class="os-device__canvas" aria-hidden="true">
+          <span><small>Activité</small><b>6 200 DH</b></span>
+          <span><small>Devis</small><b>3</b></span>
+          <span><small>Livraisons</small><b>2</b></span>
+        </div>
         <figcaption>Téléphone</figcaption>
       </figure>
     </div>
@@ -183,26 +141,46 @@ import Button from '~/components/ui/Button.astro';
     box-shadow: 0 2.2rem 5rem rgb(0 0 0 / 0.34);
   }
 
-  .os-device img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    outline: 1px solid oklch(1 0 0 / 0.1);
-    outline-offset: -1px;
-    object-fit: cover;
-    object-position: top left;
-  }
-
-  .os-device__preview {
-    display: block;
+  .os-device__canvas {
+    display: grid;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 0;
+    gap: 0.5rem;
+    align-content: start;
     border-radius: inherit;
-    padding: 0;
-    background: transparent;
+    padding: clamp(0.7rem, 2vw, 1.4rem);
+    background: #f8faf9;
+  }
+
+  .os-device__canvas span {
+    display: grid;
+    gap: 0.2rem;
+    border: 1px solid rgb(15 61 50 / 0.1);
+    border-radius: 0.7rem;
+    padding: clamp(0.6rem, 1.4vw, 1rem);
+    color: var(--os-forest-900);
+    background: white;
+    box-shadow: 0 0.4rem 1.2rem rgb(11 46 38 / 0.08);
+  }
+
+  .os-device__canvas small {
+    color: var(--os-ink-600);
+    font-size: clamp(0.42rem, 0.8vw, 0.68rem);
+    text-transform: uppercase;
+  }
+
+  .os-device__canvas b {
+    font-size: clamp(0.78rem, 1.5vw, 1.55rem);
+  }
+
+  .os-device--desktop .os-device__canvas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .os-device--tablet .os-device__canvas,
+  .os-device--phone .os-device__canvas {
+    grid-template-columns: 1fr;
   }
 
   .os-device figcaption {

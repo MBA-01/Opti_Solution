@@ -8,6 +8,7 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import Button from '~/components/ui/Button.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
 import DeviceShowcase from '~/components/site/DeviceShowcase.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
 
 interface Props {
@@ -16,13 +17,15 @@ interface Props {
 }
 
 const { variant = 'a', conceptMode = false } = Astro.props;
+const isDuplicateRoute = conceptMode || Astro.url.pathname !== '/';
 const metadata = {
   title: conceptMode
-    ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
-    : 'Opti Solution — Gestion pour magasins d’optique',
+    ? `Concept accueil ${variant.toUpperCase()} — OptiSolution`
+    : 'OptiSolution — Gestion pour magasins d’optique',
   ignoreTitleTemplate: true,
   description:
     'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
+  ...(isDuplicateRoute ? { robots: { index: false, follow: false } } : {}),
 };
 const problems = [
   [
@@ -103,7 +106,7 @@ const problems = [
     <div class="os-container">
       <SectionIntro
         title="Gardez le fil, de la fiche client jusqu’au règlement."
-        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. Opti Solution les replace dans un parcours que l’équipe peut suivre et contrôler."
+        text="La correction, le devis, l’achat fournisseur, la vente et la facture restent des opérations distinctes. OptiSolution les replace dans un parcours que l’équipe peut suivre et contrôler."
       />
       <div class="os-workflow-rail">
         {
@@ -132,17 +135,25 @@ const problems = [
         {
           capabilityGroups.slice(0, 3).map((group) => (
             <article>
-              <button
-                class="os-capability-preview__image"
-                type="button"
-                data-product-preview
-                data-src={group.image}
-                data-alt={group.imageAlt}
-                data-caption={`${group.title} · données de démonstration`}
-                aria-label={`Agrandir l’image : ${group.title}`}
-              >
-                <img src={group.image} alt={group.imageAlt} width="1024" height="1366" loading="lazy" />
-              </button>
+              {group.image ? (
+                <button
+                  class="os-capability-preview__image"
+                  type="button"
+                  data-product-preview
+                  data-src={group.image}
+                  data-alt={group.imageAlt}
+                  data-caption={`${group.title} · extrait validé`}
+                  aria-label={`Agrandir l’image : ${group.title}`}
+                >
+                  <img src={group.image} alt={group.imageAlt} width="1250" height="840" loading="lazy" />
+                </button>
+              ) : (
+                <EvidencePlaceholder
+                  label="Vue détaillée en démo"
+                  title={group.title}
+                  text="La capture publique de ce domaine reste retirée. Nous présentons le parcours avec des données préparées pendant la démonstration."
+                />
+              )}
               <div class="os-capability-preview__copy">
                 <>
                   <p class="os-kicker">{group.kicker}</p>
@@ -256,21 +267,21 @@ const problems = [
     <div class="os-container">
       <SectionIntro
         title="Voyez comment chaque opération s’enchaîne."
-        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’Opti Solution, puis demandez une démonstration centrée sur vos priorités."
+        text="Parcourez la fiche client, la correction et l’achat fournisseur à partir des interfaces d’OptiSolution, puis demandez une démonstration centrée sur vos priorités."
       />
       <div class="os-split">
         <VideoPlaceholder
           title="De la fiche client à la correction"
           description="Création de la fiche, saisie des valeurs OD/OG et contrôle avant validation."
-          poster="/product/tablet/optical-correction.webp"
+          poster="/product/evidence-safe/optometry-reference.png"
         />
         <ScreenshotFrame
-          src="/product/tablet/purchase-order.webp"
-          alt="Demande de prix fournisseur dans Odoo."
-          label="Aperçu logiciel"
-          caption="Une demande de prix fournisseur issue du parcours actuel"
-          href="/product/tablet/purchase-order.webp"
-          aspect="tablet"
+          src="/product/evidence-safe/supplier-origin.png"
+          alt="Extrait validé montrant l’origine d’un document fournisseur de démonstration."
+          label="Extrait validé"
+          caption="Origine du document fournisseur, sans données personnelles"
+          href="/product/evidence-safe/supplier-origin.png"
+          fit="contain"
         />
       </div>
       <div class="os-actions">

@@ -4,11 +4,12 @@ import PageHero from '~/components/site/PageHero.astro';
 import SectionIntro from '~/components/site/SectionIntro.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 import { workflow } from '~/data/optic-site';
 
 const metadata = {
   title: 'Fonctionnement',
-  description: 'Suivez le parcours Opti Solution de la fiche client au règlement, étape par étape.',
+  description: 'Suivez le parcours OptiSolution de la fiche client au règlement, étape par étape.',
 };
 ---
 
@@ -24,12 +25,12 @@ const metadata = {
   >
     <ScreenshotFrame
       slot="visual"
-      src="/product/tablet/optical-correction.webp"
-      alt="Fiche de correction Opti Solution avec valeurs OD et OG."
-      label="Étape clé"
-      caption="Correction validée avant la préparation de la suite"
-      href="/product/tablet/optical-correction.webp"
-      aspect="tablet"
+      src="/product/evidence-safe/optometry-reference.png"
+      alt="Extrait validé montrant une référence optométrique de démonstration."
+      label="Extrait validé"
+      caption="Référence optométrique validée avant la suite du parcours"
+      href="/product/evidence-safe/optometry-reference.png"
+      fit="contain"
     />
   </PageHero>
 
@@ -75,14 +76,18 @@ const metadata = {
                   <p>{step.detail}</p>
                 </>
               </div>
-              <ScreenshotFrame
-                src={step.image}
-                alt={`Écran de démonstration pour l’étape ${step.title}.`}
-                label={`Étape ${step.number}`}
-                caption={step.short}
-                href={step.image}
-                aspect="tablet"
-              />
+              {step.image ? (
+                <ScreenshotFrame
+                  src={step.image}
+                  alt={step.imageAlt}
+                  label={`Étape ${step.number} · extrait validé`}
+                  caption={step.short}
+                  href={step.image}
+                  fit="contain"
+                />
+              ) : (
+                <EvidencePlaceholder label={`Étape ${step.number} · démonstration guidée`} title={step.title} />
+              )}
             </article>
           ))
         }

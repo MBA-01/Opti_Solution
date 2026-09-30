@@ -1,6 +1,7 @@
 ---
 import Button from '~/components/ui/Button.astro';
 import OpticalStill from '~/components/brand/OpticalStill.astro';
+import { CALENDLY_URL } from '~/data/contact';
 
 interface Props {
   title: string;
@@ -17,12 +18,13 @@ const {
   title,
   text,
   primaryText = 'Demander une démo',
-  primaryHref = '/demo#demande',
+  primaryHref = CALENDLY_URL,
   secondaryText,
   secondaryHref,
   chapter,
   compact = false,
 } = Astro.props;
+const primaryTarget = primaryHref.startsWith('http') ? '_blank' : undefined;
 ---
 
 <section class:list={['os-page-hero', { 'os-page-hero--compact': compact }]}>
@@ -32,7 +34,13 @@ const {
       <h1>{title}</h1>
       <p class="os-lead">{text}</p>
       <div class="os-actions">
-        <Button variant="primary" href={primaryHref} text={primaryText} icon="tabler:arrow-right" />
+        <Button
+          variant="primary"
+          href={primaryHref}
+          text={primaryText}
+          icon="tabler:arrow-right"
+          target={primaryTarget}
+        />
         {secondaryText && secondaryHref && <Button variant="secondary" href={secondaryHref} text={secondaryText} />}
       </div>
     </div>

@@ -1,4 +1,5 @@
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
@@ -7,16 +8,56 @@ import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
+import yaml from 'js-yaml';
 
 import astrowind from './vendor/integration';
+import type { Config } from './vendor/integration/utils/configBuilder';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const configuredSiteUrl = process.env.PUBLIC_SITE_URL?.trim();
+const indexRequested = process.env.PUBLIC_INDEX_SITE?.trim().toLowerCase() === 'true';
+const parsedSiteUrl = configuredSiteUrl ? new URL(configuredSiteUrl) : undefined;
+
+if (parsedSiteUrl && !['http:', 'https:'].includes(parsedSiteUrl.protocol)) {
+  throw new Error('PUBLIC_SITE_URL must use HTTP or HTTPS.');
+}
+if (indexRequested && parsedSiteUrl?.protocol !== 'https:') {
+  throw new Error('PUBLIC_INDEX_SITE=true requires a valid HTTPS PUBLIC_SITE_URL.');
+}
+
+const indexingEnabled = indexRequested && parsedSiteUrl?.protocol === 'https:';
+const siteConfig = yaml.load(fs.readFileSync(path.join(__dirname, 'src/config.yaml'), 'utf8')) as Config;
+
+siteConfig.site = {
+  name: siteConfig.site?.name || 'OptiSolution',
+  ...siteConfig.site,
+  site: configuredSiteUrl || 'https://optisolution.invalid',
+};
+siteConfig.metadata = {
+  ...siteConfig.metadata,
+  robots: { index: indexingEnabled, follow: indexingEnabled },
+};
+
+const releaseRobots = (): AstroIntegration => ({
+  name: 'optisolution-release-robots',
+  hooks: {
+    'astro:build:done': ({ dir }) => {
+      const sitemapLine = indexingEnabled ? `Sitemap: ${new URL('sitemap-index.xml', parsedSiteUrl!).href}\n` : '';
+      fs.writeFileSync(
+        new URL('robots.txt', dir),
+        `User-agent: *\n${indexingEnabled ? 'Allow: /' : 'Disallow: /'}\n${sitemapLine}`
+      );
+    },
+  },
+});
 
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
@@ -34,6 +75,7 @@ export default defineConfig({
   },
 
   integrations: [
+    ...(indexingEnabled ? [sitemap()] : []),
     mdx(),
     icon({
       // Local SVG icons (used as <Icon name="file-name" />) live next to the other assets.
@@ -77,9 +119,8 @@ export default defineConfig({
       Logger: 1,
     }),
 
-    astrowind({
-      config: './src/config.yaml',
-    }),
+    astrowind({ config: siteConfig }),
+    releaseRobots(),
   ],
 
   image: {

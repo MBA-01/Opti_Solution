@@ -1,6 +1,7 @@
 site:
-  name: Opti Solution
-  site: 'http://127.0.0.1:4321'
+  name: OptiSolution
+  # Safe review fallback. PUBLIC_SITE_URL replaces this value at build time.
+  site: 'https://optisolution.invalid'
   base: '/'
   trailingSlash: false
 
@@ -9,14 +10,14 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Opti Solution
-    template: '%s — Opti Solution'
+    default: OptiSolution
+    template: '%s — OptiSolution'
   description: 'Découvrez une solution Odoo pour suivre clients, corrections optiques, devis, achats fournisseurs, stock et facturation. Demandez une démonstration adaptée à votre magasin.'
   robots:
     index: false
     follow: false
   openGraph:
-    site_name: Opti Solution
+    site_name: OptiSolution
     images: []
     type: website
   twitter:

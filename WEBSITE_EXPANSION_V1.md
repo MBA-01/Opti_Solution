@@ -1,4 +1,4 @@
-# Opti Solution website expansion — iteration 1
+# OptiSolution website expansion — iteration 1
 
 This document records the multi-page design iteration created from the website growth prompt. It complements `DESIGN_SYSTEM.md`, which remains the source for visual tokens and component behavior.
 
@@ -30,7 +30,7 @@ The implemented homepage follows this sequence:
 3. Problems the visitor can recognize from store operations.
 4. Six-step workflow summary.
 5. Three core capability groups with a link to the full page.
-6. Opti Solution differentiation and claim boundaries.
+6. OptiSolution differentiation and claim boundaries.
 7. Calculator teaser.
 8. Managed implementation summary.
 9. Demo preview.
@@ -159,4 +159,4 @@ Avoid free-floating spheres, decorative glass blobs, or objects that obscure the
 5. **Treat video as a proof system.** Short, reviewed workflow demonstrations are more credible than a generic product montage.
 6. **Publish resources selectively.** Each resource should answer a real operational question and connect to the product only when relevant.
 7. **Retain `/homes/saas` as an alias during the draft stage.** Existing review links continue to work while `/` becomes the canonical information-architecture entry point.
-8. **Keep the site `noindex` until release gates are complete.** Working screenshots, legal information, form delivery, domain, and commercial terms still require approval.
+8. **Keep the site `noindex` until release gates are complete.** The build requires a final `PUBLIC_SITE_URL` plus explicit `PUBLIC_INDEX_SITE=true`; legal information, public media, domain, and commercial terms still require approval.

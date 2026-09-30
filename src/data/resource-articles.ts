@@ -16,7 +16,7 @@ export interface ResourceArticle {
   description: string;
   reading: string;
   updated: string;
-  image: string;
+  image?: string;
   imageAlt: string;
   imageLabel: string;
   imageCaption: string;
@@ -39,8 +39,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Un cadre pratique pour retrouver plus facilement montures, verres et accessoires dans les opérations de vente, d’achat et de stock.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/products.webp',
-    imageAlt: 'Fiche produit Opti Solution présentant une référence utilisée en vente, achat et stock.',
+    imageAlt: 'Fiche produit OptiSolution présentant une référence utilisée en vente, achat et stock.',
     imageLabel: 'Catalogue produit',
     imageCaption: 'Une fiche claire commence par des références et catégories cohérentes',
     sections: [
@@ -81,7 +80,7 @@ export const resourceArticles: ResourceArticle[] = [
       },
     ],
     capability: {
-      title: 'Produits & stock dans Opti Solution',
+      title: 'Produits & stock dans OptiSolution',
       text: 'Découvrez comment les fiches produits, marques, catégories et quantités s’insèrent dans les parcours de vente et d’achat.',
       href: '/fonctionnalites#produits-stock',
       linkText: 'Voir le domaine Produits & stock',
@@ -96,8 +95,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Les questions techniques et opérationnelles à poser avant de retenir un mode de déploiement pour le magasin.',
     reading: '7 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/sales-dashboard.webp',
-    imageAlt: 'Interface Opti Solution consultée depuis un navigateur.',
+    imageAlt: 'Interface OptiSolution consultée depuis un navigateur.',
     imageLabel: 'Environnement de travail',
     imageCaption: 'Le choix du déploiement dépend de l’organisation et des contraintes du magasin',
     sections: [
@@ -132,7 +130,7 @@ export const resourceArticles: ResourceArticle[] = [
           'Le mode retenu, les responsabilités et les services associés doivent être décrits dans la proposition. Cette clarification évite de confondre l’accès au logiciel avec l’hébergement, la maintenance ou le support.',
         ],
         note: {
-          title: 'Périmètre Opti Solution',
+          title: 'Périmètre OptiSolution',
           text: 'Une option VPS/cloud ou locale peut être étudiée. Le choix et les services associés sont confirmés selon l’environnement technique et le budget.',
         },
       },
@@ -153,8 +151,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Une méthode simple pour savoir quels devis préparer, vérifier, confirmer ou reprendre avec le client.',
     reading: '5 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/quotations.webp',
-    imageAlt: 'Liste des devis clients dans Opti Solution sur tablette.',
+    imageAlt: 'Liste des devis clients dans OptiSolution sur tablette.',
     imageLabel: 'Vente & devis',
     imageCaption: 'Le suivi commence par un document vérifiable et un prochain geste clairement identifié',
     sections: [
@@ -188,7 +185,7 @@ export const resourceArticles: ResourceArticle[] = [
       },
     ],
     capability: {
-      title: 'Ventes & devis dans Opti Solution',
+      title: 'Ventes & devis dans OptiSolution',
       text: 'Voyez comment l’équipe prépare les documents commerciaux, contrôle leur contenu et suit la vente.',
       href: '/fonctionnalites#ventes-devis',
       linkText: 'Explorer Ventes & devis',
@@ -203,8 +200,7 @@ export const resourceArticles: ResourceArticle[] = [
       'Définissez qui consulte, prépare, contrôle ou confirme chaque opération avant de configurer les utilisateurs.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/lens-configuration.webp',
-    imageAlt: 'Écran de configuration de caractéristiques optiques dans Opti Solution.',
+    imageAlt: 'Écran de configuration de caractéristiques optiques dans OptiSolution.',
     imageLabel: 'Configuration & gestion',
     imageCaption: 'Les accès deviennent plus simples à définir lorsque les responsabilités sont explicites',
     sections: [
@@ -261,7 +257,6 @@ export const resourceArticles: ResourceArticle[] = [
       'Nettoyez la structure, les identifiants et les valeurs de vos fichiers avant d’évaluer une reprise de données.',
     reading: '7 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/products.webp',
     imageAlt: 'Fiche produit illustrant les champs à préparer avant un import.',
     imageLabel: 'Préparation des données',
     imageCaption: 'Un fichier régulier permet d’évaluer plus précisément les données à reprendre',
@@ -317,10 +312,10 @@ export const resourceArticles: ResourceArticle[] = [
       'Clarifiez les documents, les contrôles et les responsabilités entre le besoin d’achat et la réception des produits.',
     reading: '6 min',
     updated: 'Septembre 2026',
-    image: '/product/tablet/purchase-order.webp',
-    imageAlt: 'Commande fournisseur Opti Solution avec suivi de la réception.',
-    imageLabel: 'Fournisseurs & achats',
-    imageCaption: 'La commande et la réception restent deux moments distincts du suivi fournisseur',
+    image: '/product/evidence-safe/supplier-origin.png',
+    imageAlt: 'Extrait validé montrant l’origine d’un document fournisseur de démonstration.',
+    imageLabel: 'Fournisseurs & achats · extrait validé',
+    imageCaption: 'L’origine du document reste visible sans exposer de données personnelles',
     sections: [
       {
         title: 'Identifier l’origine du besoin',
@@ -354,7 +349,7 @@ export const resourceArticles: ResourceArticle[] = [
       },
     ],
     capability: {
-      title: 'Fournisseurs & achats dans Opti Solution',
+      title: 'Fournisseurs & achats dans OptiSolution',
       text: 'Suivez le travail fournisseur depuis la demande de prix jusqu’à la réception, avec un contrôle à chaque confirmation.',
       href: '/fonctionnalites#fournisseurs-achats',
       linkText: 'Explorer Fournisseurs & achats',

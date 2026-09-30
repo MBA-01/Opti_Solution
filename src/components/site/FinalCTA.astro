@@ -1,5 +1,6 @@
 ---
 import Button from '~/components/ui/Button.astro';
+import { CALENDLY_URL, WHATSAPP_URL } from '~/data/contact';
 
 interface Props {
   title?: string;
@@ -9,10 +10,10 @@ interface Props {
 }
 
 const {
-  title = 'Voyez Opti Solution sur les parcours qui comptent pour vous.',
+  title = 'Voyez OptiSolution sur les parcours qui comptent pour vous.',
   text = 'Indiquez-nous vos priorités. Nous préparerons une démonstration guidée pour évaluer l’adéquation avec votre magasin et préciser le périmètre à étudier.',
   secondaryText = 'Écrire sur WhatsApp',
-  secondaryHref = 'https://wa.me/212620169713',
+  secondaryHref = WHATSAPP_URL,
 } = Astro.props;
 ---
 
@@ -23,7 +24,13 @@ const {
       <p>{text}</p>
     </div>
     <div class="os-actions">
-      <Button variant="primary" href="/demo#demande" text="Demander une démo" icon="tabler:arrow-right" />
+      <Button
+        variant="primary"
+        href={CALENDLY_URL}
+        text="Planifier une démo"
+        icon="tabler:arrow-right"
+        target="_blank"
+      />
       <Button variant="secondary" href={secondaryHref} text={secondaryText} target="_blank" />
     </div>
   </div>

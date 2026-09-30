@@ -1,7 +1,7 @@
 ---
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
-import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import EvidencePlaceholder from '~/components/site/EvidencePlaceholder.astro';
 
 const metadata = {
   title: 'Préparer les données avant une migration',
@@ -21,13 +21,10 @@ const metadata = {
         des propriétaires et des informations réellement utiles au futur système.
       </p>
       <div class="mt-10">
-        <ScreenshotFrame
-          src="/product/tablet/products.webp"
-          alt="Exemple de fiche produit qui illustre les données à préparer."
-          label="Exemple produit"
-          caption="Références et catégories doivent être clarifiées avant l’évaluation d’un import"
-          href="/product/tablet/products.webp"
-          aspect="tablet"
+        <EvidencePlaceholder
+          label="Préparation des données"
+          title="Un fichier régulier avant tout import"
+          text="Références et catégories doivent être clarifiées avant l’évaluation. Aucune donnée réelle n’est nécessaire pour ce premier cadrage."
         />
       </div>
     </header>
@@ -86,7 +83,7 @@ const metadata = {
       </p>
       <div class="os-callout">
         <strong>Capacité liée</strong><p>
-          Voir comment Opti Solution organise les <a class="os-text-link" href="/fonctionnalites#produits-stock"
+          Voir comment OptiSolution organise les <a class="os-text-link" href="/fonctionnalites#produits-stock"
             >produits et le stock</a
           >, puis préparer les questions à poser pendant la démo.
         </p>

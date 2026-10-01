@@ -2039,18 +2039,25 @@
 
   :where(.btn, .btn-primary, .btn-secondary, .btn-tertiary) {
     min-height: 3rem;
-    transition-property: color, background-color, border-color, box-shadow, scale;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    box-shadow: var(--os-shadow-raised);
+    transition-property: color, background-color, border-color, box-shadow, scale, translate;
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  :where(.btn, .btn-primary, .btn-secondary, .btn-tertiary):hover:not(:disabled) {
+    box-shadow: var(--os-shadow-hover);
+    translate: 0 -1px;
   }
 
   :where(.btn, .btn-primary, .btn-secondary, .btn-tertiary):active:not(:disabled) {
+    box-shadow: var(--os-shadow-pressed);
     scale: 0.96;
     translate: 0;
   }
 
   :where(.btn, .btn-primary, .btn-secondary) [astro-icon] {
-    transition: transform 150ms var(--os-ease);
+    transition: transform var(--os-motion-subtle-enter) var(--os-ease-enter);
   }
 
   :where(.btn, .btn-primary, .btn-secondary):hover [astro-icon] {
@@ -2061,12 +2068,12 @@
     text-decoration-thickness: 0.06rem;
     text-underline-offset: 0.2rem;
     transition-property: color, text-decoration-color;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
   }
 
   .os-text-link > span:last-child {
-    transition: transform 150ms var(--os-ease);
+    transition: transform var(--os-motion-subtle-enter) var(--os-ease-enter);
   }
 
   .os-text-link:hover > span:last-child {
@@ -2086,12 +2093,16 @@
     border-color: rgb(15 61 50 / 0.09);
   }
 
+  #header.scroll > div:first-child {
+    box-shadow: var(--os-shadow-sticky);
+  }
+
   #header nav > ul > li > a,
   #header nav > ul > li > button {
     position: relative;
     transition-property: color;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
   }
 
   #header nav > ul > li > a::after,
@@ -2106,7 +2117,7 @@
     border-radius: 999px;
     background: var(--os-gold-400);
     content: '';
-    transition: transform 150ms var(--os-ease);
+    transition: transform var(--os-motion-standard-enter) var(--os-ease-enter);
   }
 
   #header nav > ul > li > a:hover::after,
@@ -2118,15 +2129,41 @@
   #header .dropdown-menu {
     overflow: hidden;
     border-radius: var(--os-radius-sm);
-    outline: 1px solid oklch(0 0 0 / 0.08);
+    outline: var(--os-edge-dropdown);
     outline-offset: -1px;
-    box-shadow: var(--os-shadow-md);
+    box-shadow: var(--os-shadow-dropdown);
   }
 
   #header .dropdown-menu a {
     transition-property: color, background-color;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  @media (min-width: 64rem) {
+    #header .dropdown-menu {
+      display: block;
+      transform: translateY(-0.35rem) scale(0.985);
+      transform-origin: top center;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition-property: opacity, transform, visibility;
+      transition-duration: var(--os-motion-standard-exit), var(--os-motion-standard-exit), 0s;
+      transition-delay: 0s, 0s, var(--os-motion-standard-exit);
+      transition-timing-function: var(--os-ease-exit);
+    }
+
+    #header .dropdown:hover .dropdown-menu,
+    #header .dropdown:focus-within .dropdown-menu {
+      transform: translateY(0) scale(1);
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transition-duration: var(--os-motion-standard-enter), var(--os-motion-standard-enter), 0s;
+      transition-delay: 0s;
+      transition-timing-function: var(--os-ease-enter);
+    }
   }
 
   .os-section--cream {
@@ -2183,7 +2220,7 @@
   .os-product-stack__main,
   .os-product-stack__side {
     border: 0;
-    outline: 1px solid oklch(0 0 0 / 0.1);
+    outline: var(--os-edge-raised);
     outline-offset: -1px;
     box-shadow: var(--os-shadow-lg);
   }
@@ -2198,7 +2235,7 @@
 
   .os-proof-label {
     border: 0;
-    outline: 1px solid oklch(0 0 0 / 0.09);
+    outline: var(--os-edge-raised);
     outline-offset: -1px;
     box-shadow: var(--os-shadow-sm);
   }
@@ -2225,19 +2262,36 @@
   .os-problem-list article {
     border-radius: 0.55rem;
     padding-inline: 0.75rem;
-    transition: background-color 150ms var(--os-ease);
+    transition:
+      background-color var(--os-motion-subtle-enter) var(--os-ease-enter),
+      transform var(--os-motion-standard-enter) var(--os-ease-enter);
   }
 
   .os-problem-list article:hover {
+    transform: translateX(0.25rem);
     background: rgb(230 239 234 / 0.48);
   }
 
   .os-workflow-rail article {
-    transition: background-color 150ms var(--os-ease);
+    transition:
+      background-color var(--os-motion-subtle-enter) var(--os-ease-enter),
+      transform var(--os-motion-standard-enter) var(--os-ease-enter);
   }
 
   .os-workflow-rail article:hover {
+    transform: translateY(-0.2rem);
     background: rgb(248 245 237 / 0.045);
+  }
+
+  .os-workflow-rail article::before {
+    transition-property: transform, box-shadow;
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  .os-workflow-rail article:hover::before {
+    transform: scale(1.28);
+    box-shadow: 0 0 0 0.3rem rgb(201 169 107 / 0.14);
   }
 
   .os-capability-preview article {
@@ -2245,7 +2299,16 @@
     border-radius: var(--os-radius-md);
     outline: 1px solid oklch(0 0 0 / 0.1);
     outline-offset: -1px;
-    box-shadow: var(--os-shadow-sm);
+    box-shadow: var(--os-shadow-raised);
+    transition-property: transform, box-shadow, outline-color;
+    transition-duration: var(--os-motion-standard-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  .os-capability-preview article:hover {
+    transform: translateY(-0.2rem);
+    outline-color: rgb(15 61 50 / 0.18);
+    box-shadow: var(--os-shadow-hover);
   }
 
   .os-capability-preview__image {
@@ -2256,7 +2319,7 @@
 
   .os-capability-preview img,
   .os-video-card__media img {
-    transition: transform 150ms var(--os-ease);
+    transition: transform var(--os-motion-standard-enter) var(--os-ease-enter);
   }
 
   .os-capability-preview article:hover img,
@@ -2327,9 +2390,18 @@
     position: relative;
     border: 0;
     border-radius: var(--os-radius-sm);
-    outline: 1px solid oklch(0 0 0 / 0.09);
+    outline: var(--os-edge-raised);
     outline-offset: -1px;
-    box-shadow: var(--os-shadow-sm);
+    box-shadow: var(--os-shadow-raised);
+    transition-property: transform, box-shadow, outline-color;
+    transition-duration: var(--os-motion-standard-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  .os-offer-steps article:hover {
+    transform: translateY(-0.16rem);
+    outline-color: rgb(15 61 50 / 0.17);
+    box-shadow: var(--os-shadow-hover);
   }
 
   .os-offer-steps article::after {
@@ -2348,16 +2420,16 @@
     border-radius: var(--os-radius-md);
     outline: 1px solid oklch(0 0 0 / 0.09);
     outline-offset: -1px;
-    box-shadow: var(--os-shadow-sm);
+    box-shadow: var(--os-shadow-raised);
     transition-property: transform, box-shadow, outline-color;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    transition-duration: var(--os-motion-standard-enter);
+    transition-timing-function: var(--os-ease-enter);
   }
 
   .os-resource-card:hover {
     transform: translateY(-0.22rem);
     outline-color: rgb(15 61 50 / 0.2);
-    box-shadow: var(--os-shadow-md);
+    box-shadow: var(--os-shadow-hover);
   }
 
   .os-resource-card:focus-visible {
@@ -2473,9 +2545,18 @@
   .os-video-card {
     border: 0;
     border-radius: var(--os-radius-md);
-    outline: 1px solid oklch(0 0 0 / 0.1);
+    outline: var(--os-edge-raised);
     outline-offset: -1px;
-    box-shadow: var(--os-shadow-sm);
+    box-shadow: var(--os-shadow-raised);
+    transition-property: transform, box-shadow, outline-color;
+    transition-duration: var(--os-motion-standard-enter);
+    transition-timing-function: var(--os-ease-enter);
+  }
+
+  .os-video-card:hover {
+    transform: translateY(-0.18rem);
+    outline-color: rgb(15 61 50 / 0.17);
+    box-shadow: var(--os-shadow-hover);
   }
 
   .os-video-card__cue {
@@ -2524,7 +2605,7 @@
 
   .os-offer-row {
     padding: 1.45rem 1.6rem;
-    transition: background-color 150ms var(--os-ease);
+    transition: background-color var(--os-motion-subtle-enter) var(--os-ease-enter);
   }
 
   .os-offer-row:last-child {
@@ -2573,8 +2654,8 @@
   .os-form-grid textarea {
     border-color: rgb(15 61 50 / 0.18);
     transition-property: border-color, box-shadow, background-color;
-    transition-duration: 150ms;
-    transition-timing-function: var(--os-ease);
+    transition-duration: var(--os-motion-subtle-enter);
+    transition-timing-function: var(--os-ease-enter);
   }
 
   .os-calc-row input:hover,
@@ -2603,7 +2684,7 @@
   }
 
   .os-calc-bars i::after {
-    transition: width 150ms var(--os-ease);
+    transition: width var(--os-motion-subtle-enter) var(--os-ease-enter);
   }
 
   .os-article-shell > header.os-article {
@@ -2835,7 +2916,13 @@
   :where(.btn, .btn-primary, .btn-secondary) [astro-icon],
   .os-text-link,
   .os-text-link > span:last-child,
+  .os-problem-list article,
+  .os-workflow-rail article,
+  .os-workflow-rail article::before,
   .os-resource-card,
+  .os-capability-preview article,
+  .os-offer-steps article,
+  .os-video-card,
   .os-capability-preview img,
   .os-video-card__media img,
   .os-calc-bars i::after {
@@ -2850,5 +2937,21 @@
   :where(.btn, .btn-primary, .btn-secondary, .btn-tertiary):active:not(:disabled) {
     scale: 1;
     translate: 0;
+  }
+
+  :where(.btn, .btn-primary, .btn-secondary, .btn-tertiary):hover:not(:disabled),
+  .os-problem-list article:hover,
+  .os-workflow-rail article:hover {
+    transform: none;
+    translate: 0;
+  }
+
+  .os-workflow-rail article:hover::before {
+    transform: none;
+    box-shadow: none;
+  }
+
+  #header .dropdown-menu {
+    transition: none;
   }
 }

@@ -1,9 +1,29 @@
 <dialog class="os-lightbox" data-product-lightbox aria-labelledby="product-lightbox-caption">
   <div class="os-lightbox__panel">
-    <button class="os-lightbox__close" type="button" data-product-lightbox-close aria-label="Fermer l’aperçu">
-      <span>Fermer</span>
-      <span aria-hidden="true">×</span>
-    </button>
+    <div class="os-lightbox__controls">
+      <button
+        class="os-lightbox__sound"
+        type="button"
+        data-product-lightbox-sound
+        aria-label="Activer les sons d’interface"
+        aria-pressed="false"
+      >
+        <span class="os-lightbox__icon-slot" aria-hidden="true">
+          <svg data-sound-icon="off" data-active="true" viewBox="0 0 24 24" fill="none">
+            <path d="M11 5 6.8 8.5H4v7h2.8L11 19V5Z"></path>
+            <path d="m16 9 5 5m0-5-5 5"></path>
+          </svg>
+          <svg data-sound-icon="on" data-active="false" viewBox="0 0 24 24" fill="none">
+            <path d="M11 5 6.8 8.5H4v7h2.8L11 19V5Z"></path>
+            <path d="M15 9.5a4 4 0 0 1 0 5M17.5 7a7 7 0 0 1 0 10"></path>
+          </svg>
+        </span>
+      </button>
+      <button class="os-lightbox__close" type="button" data-product-lightbox-close aria-label="Fermer l’aperçu">
+        <span>Fermer</span>
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
     <figure>
       <img data-product-lightbox-image src="" alt="" />
       <figcaption id="product-lightbox-caption" data-product-lightbox-caption></figcaption>
@@ -18,12 +38,34 @@
     const image = dialog.querySelector<HTMLImageElement>('[data-product-lightbox-image]');
     const caption = dialog.querySelector<HTMLElement>('[data-product-lightbox-caption]');
     const closeButton = dialog.querySelector<HTMLButtonElement>('[data-product-lightbox-close]');
+    const soundButton = dialog.querySelector<HTMLButtonElement>('[data-product-lightbox-sound]');
     let activeTrigger: HTMLElement | null = null;
     let audioContext: AudioContext | null = null;
+    let closeTimer: number | null = null;
+    let soundEnabled = false;
 
-    // Warm, low-volume surface cues based on https://www.beeps.studio/.
-    // They only play after a deliberate action—never on hover or scroll.
-    const playSurfaceSound = (kind: 'open' | 'close') => {
+    try {
+      soundEnabled = localStorage.getItem('opti-ui-sound') === 'on';
+    } catch {
+      soundEnabled = false;
+    }
+
+    const updateSoundControl = () => {
+      if (!soundButton) return;
+      soundButton.setAttribute('aria-pressed', String(soundEnabled));
+      soundButton.setAttribute(
+        'aria-label',
+        soundEnabled ? 'Désactiver les sons d’interface' : 'Activer les sons d’interface'
+      );
+      soundButton.querySelectorAll<SVGElement>('[data-sound-icon]').forEach((icon) => {
+        icon.dataset.active = String((icon.dataset.soundIcon === 'on') === soundEnabled);
+      });
+    };
+
+    // Warm, low-volume cues based on Beeps. Muted by default and only created
+    // inside a user gesture after an explicit opt-in.
+    const playSurfaceSound = (kind: 'open' | 'close' | 'toggle.on' | 'toggle.off', force = false) => {
+      if ((!soundEnabled && !force) || document.visibilityState !== 'visible') return;
       const AudioContextConstructor =
         window.AudioContext ??
         (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
@@ -31,39 +73,63 @@
 
       audioContext ??= new AudioContextConstructor();
       const context = audioContext;
+      if (context.state === 'suspended') void context.resume();
       const now = context.currentTime;
-      const isOpen = kind === 'open';
-      const startFrequency = isOpen ? 879 : 663;
-      const endFrequency = isOpen ? 1144 : 509;
+      const spec = {
+        open: { start: 879, end: 1144, cutoff: 581, sweep: 0.068, duration: 0.149 },
+        close: { start: 663, end: 509, cutoff: 1025, sweep: 0.068, duration: 0.149 },
+        'toggle.on': { start: 1170, end: 1360, cutoff: 820, sweep: 0.019, duration: 0.125 },
+        'toggle.off': { start: 996, end: 857, cutoff: 820, sweep: 0.019, duration: 0.125 },
+      }[kind];
       const filter = context.createBiquadFilter();
       const output = context.createGain();
 
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(isOpen ? 581 : 1025, now);
+      filter.frequency.setValueAtTime(spec.cutoff, now);
       filter.Q.setValueAtTime(0.5, now);
       output.gain.setValueAtTime(0.0001, now);
       output.gain.exponentialRampToValueAtTime(0.013, now + 0.014);
-      output.gain.exponentialRampToValueAtTime(0.0001, now + 0.149);
+      output.gain.exponentialRampToValueAtTime(0.0001, now + spec.duration);
       filter.connect(output);
       output.connect(context.destination);
 
-      [-5, 0, 5].forEach((detune) => {
+      [-12, 0, 12].forEach((detune) => {
         const oscillator = context.createOscillator();
         oscillator.type = 'sine';
         oscillator.detune.setValueAtTime(detune, now);
-        oscillator.frequency.setValueAtTime(startFrequency, now);
-        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, now + 0.068);
+        oscillator.frequency.setValueAtTime(spec.start, now);
+        oscillator.frequency.exponentialRampToValueAtTime(spec.end, now + spec.sweep);
         oscillator.connect(filter);
         oscillator.start(now);
-        oscillator.stop(now + 0.149);
+        oscillator.stop(now + spec.duration);
       });
     };
 
     const closePreview = () => {
-      if (!dialog.open) return;
+      if (!dialog.open || dialog.classList.contains('is-closing')) return;
       playSurfaceSound('close');
-      dialog.close();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        dialog.close();
+        return;
+      }
+
+      dialog.classList.add('is-closing');
+      closeTimer = window.setTimeout(() => dialog.close(), 196);
     };
+
+    soundButton?.addEventListener('click', () => {
+      if (soundEnabled) playSurfaceSound('toggle.off', true);
+      soundEnabled = !soundEnabled;
+      try {
+        localStorage.setItem('opti-ui-sound', soundEnabled ? 'on' : 'off');
+      } catch {
+        // The control still works for this visit when storage is unavailable.
+      }
+      updateSoundControl();
+      if (soundEnabled) playSurfaceSound('toggle.on', true);
+    });
+
+    updateSoundControl();
 
     document.querySelectorAll<HTMLElement>('[data-product-preview]').forEach((trigger) => {
       trigger.addEventListener('click', () => {
@@ -75,6 +141,7 @@
         image.alt = trigger.dataset.alt ?? '';
         caption.textContent = trigger.dataset.caption ?? trigger.dataset.alt ?? '';
         document.documentElement.classList.add('os-lightbox-open');
+        dialog.classList.remove('is-closing');
         dialog.showModal();
         playSurfaceSound('open');
       });
@@ -84,8 +151,14 @@
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) closePreview();
     });
-    dialog.addEventListener('cancel', () => playSurfaceSound('close'));
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closePreview();
+    });
     dialog.addEventListener('close', () => {
+      if (closeTimer !== null) window.clearTimeout(closeTimer);
+      closeTimer = null;
+      dialog.classList.remove('is-closing');
       document.documentElement.classList.remove('os-lightbox-open');
       image?.removeAttribute('src');
       activeTrigger?.focus();
@@ -124,6 +197,14 @@
     backdrop-filter: blur(0.35rem);
   }
 
+  .os-lightbox[open]::backdrop {
+    animation: os-lightbox-backdrop-enter var(--os-motion-emphasized-enter) var(--os-ease-enter) both;
+  }
+
+  .os-lightbox.is-closing::backdrop {
+    animation: os-lightbox-backdrop-exit var(--os-motion-emphasized-exit) var(--os-ease-exit) both;
+  }
+
   .os-lightbox__panel {
     position: relative;
     border-radius: var(--os-radius-md);
@@ -137,6 +218,10 @@
     animation: os-lightbox-enter var(--os-motion-emphasized-enter) var(--os-ease-enter) both;
   }
 
+  .os-lightbox.is-closing .os-lightbox__panel {
+    animation: os-lightbox-exit var(--os-motion-emphasized-exit) var(--os-ease-exit) both;
+  }
+
   .os-lightbox figure {
     margin: 0;
   }
@@ -145,7 +230,7 @@
     display: block;
     width: 100%;
     max-height: calc(94vh - 5.5rem);
-    border-radius: calc(var(--os-radius-md) - 0.3rem);
+    border-radius: calc(var(--os-radius-md) - 0.65rem);
     outline: 1px solid oklch(1 0 0 / 0.1);
     outline-offset: -1px;
     background: var(--os-cream-50);
@@ -160,18 +245,26 @@
     line-height: 1.45;
   }
 
-  .os-lightbox__close {
+  .os-lightbox__controls {
     position: absolute;
     z-index: 2;
     top: 1.1rem;
     right: 1.1rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  .os-lightbox__sound,
+  .os-lightbox__close {
     display: inline-flex;
     gap: 0.55rem;
     align-items: center;
-    min-height: 2.6rem;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
     border: 0;
     border-radius: 999px;
-    padding: 0.55rem 0.8rem 0.55rem 0.95rem;
     color: var(--os-forest-900);
     background: rgb(255 255 255 / 0.94);
     box-shadow: var(--os-shadow-sm);
@@ -179,16 +272,62 @@
     font-size: 0.75rem;
     font-weight: 750;
     transition:
-      background-color 120ms var(--os-ease),
-      transform 120ms var(--os-ease);
+      background-color var(--os-motion-subtle-enter) var(--os-ease-enter),
+      box-shadow var(--os-motion-subtle-enter) var(--os-ease-enter),
+      scale var(--os-motion-subtle-enter) var(--os-ease-enter);
   }
 
+  .os-lightbox__sound {
+    padding: 0;
+  }
+
+  .os-lightbox__close {
+    padding: 0.55rem 0.8rem 0.55rem 0.95rem;
+  }
+
+  .os-lightbox__sound:hover,
   .os-lightbox__close:hover {
     background: white;
+    box-shadow: var(--os-shadow-hover);
   }
 
+  .os-lightbox__sound:active,
   .os-lightbox__close:active {
-    transform: scale(0.96);
+    scale: 0.96;
+    box-shadow: var(--os-shadow-pressed);
+  }
+
+  .os-lightbox__icon-slot {
+    position: relative;
+    display: inline-grid;
+    width: 1.15rem;
+    height: 1.15rem;
+    place-items: center;
+  }
+
+  .os-lightbox__icon-slot svg {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition-property: opacity, scale, filter;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .os-lightbox__icon-slot svg[data-active='false'] {
+    opacity: 0;
+    scale: 0.25;
+    filter: blur(4px);
+  }
+
+  .os-lightbox__icon-slot svg[data-active='true'] {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
   }
 
   .os-lightbox__close span:last-child {
@@ -206,6 +345,38 @@
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes os-lightbox-exit {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(0.25rem) scale(0.985);
+    }
+  }
+
+  @keyframes os-lightbox-backdrop-enter {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes os-lightbox-backdrop-exit {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
     }
   }
 
@@ -234,8 +405,15 @@
 
   @media (prefers-reduced-motion: reduce) {
     .os-lightbox__panel,
+    .os-lightbox[open]::backdrop,
+    .os-lightbox.is-closing::backdrop,
+    .os-lightbox__sound,
     .os-lightbox__close {
       animation: none;
+      transition: none;
+    }
+
+    .os-lightbox__icon-slot svg {
       transition: none;
     }
   }

@@ -56,10 +56,13 @@ const dimensions =
   .os-screen {
     overflow: hidden;
     border-radius: var(--os-radius-md);
-    outline: 1px solid oklch(0 0 0 / 0.1);
+    outline: var(--os-edge-raised);
     outline-offset: -1px;
     background: var(--os-surface);
     box-shadow: var(--os-shadow-md);
+    transition-property: box-shadow, transform;
+    transition-duration: var(--os-motion-standard-enter);
+    transition-timing-function: var(--os-ease-enter);
   }
   .os-screen__bar {
     display: flex;
@@ -104,7 +107,7 @@ const dimensions =
     height: 100%;
     object-fit: cover;
     object-position: top;
-    transition: transform 150ms var(--os-ease);
+    transition: transform var(--os-motion-standard-enter) var(--os-ease-enter);
   }
   figcaption {
     display: flex;
@@ -126,7 +129,7 @@ const dimensions =
     text-decoration: underline;
     text-underline-offset: 0.16rem;
     transition-property: color, text-decoration-color;
-    transition-duration: 150ms;
+    transition-duration: var(--os-motion-subtle-enter);
     transition-timing-function: var(--os-ease);
   }
   figcaption button:focus-visible {
@@ -135,11 +138,19 @@ const dimensions =
     outline-offset: 3px;
   }
   .os-screen:hover .os-screen__viewport img {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.006);
+  }
+  .os-screen:hover {
+    box-shadow: var(--os-shadow-hover);
   }
   @media (prefers-reduced-motion: reduce) {
+    .os-screen,
     .os-screen__viewport img {
       transition: none;
+    }
+
+    .os-screen:hover .os-screen__viewport img {
+      transform: none;
     }
   }
 </style>

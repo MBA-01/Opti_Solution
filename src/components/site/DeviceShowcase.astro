@@ -149,6 +149,9 @@ import Button from '~/components/ui/Button.astro';
       0 1px 2px rgb(0 0 0 / 0.14),
       0 1rem 2.5rem rgb(0 0 0 / 0.2);
     cursor: zoom-in;
+    transition:
+      transform var(--os-motion-emphasized-enter) var(--os-ease-enter),
+      box-shadow var(--os-motion-standard-enter) var(--os-ease-enter);
   }
 
   .os-device-showcase__preview:focus-visible {
@@ -160,6 +163,16 @@ import Button from '~/components/ui/Button.astro';
     display: block;
     width: 100%;
     height: auto;
+    transition: transform var(--os-motion-emphasized-enter) var(--os-ease-enter);
+  }
+
+  .os-device-showcase__preview:hover {
+    transform: translateY(-0.2rem) scale(1.005);
+    box-shadow: var(--os-shadow-modal);
+  }
+
+  .os-device-showcase__preview:hover img {
+    transform: scale(1.012);
   }
 
   @media (max-width: 1023px) {
@@ -179,6 +192,18 @@ import Button from '~/components/ui/Button.astro';
       --os-frame-radius: 1.2rem;
 
       box-shadow: 0 1.4rem 3rem rgb(0 0 0 / 0.28);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .os-device-showcase__preview,
+    .os-device-showcase__preview img {
+      transition: none;
+    }
+
+    .os-device-showcase__preview:hover,
+    .os-device-showcase__preview:hover img {
+      transform: none;
     }
   }
 </style>

@@ -219,7 +219,12 @@
     private prepare(el: HTMLElement, direction: RevealDirection, index = 0) {
       if (el.hasAttribute('data-os-reveal')) return;
       el.setAttribute('data-os-reveal', direction);
-      el.style.setProperty('--os-reveal-delay', `${Math.min(index, 3) * 70}ms`);
+      const configuredStagger = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--os-motion-stagger')
+      );
+      const stagger = Number.isFinite(configuredStagger) ? configuredStagger : 40;
+      const delay = index === 0 ? 0 : Math.round(stagger * index ** 0.85);
+      el.style.setProperty('--os-reveal-delay', `${delay}ms`);
     }
 
     private start() {

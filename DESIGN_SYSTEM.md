@@ -33,6 +33,13 @@ Implementation:
 
 The source of truth is `src/components/CustomStyles.astro`. AstroWind's theme variables are mapped to these tokens so its Header, Hero, FAQ, Button, and Footer components share the same palette.
 
+## Elevation, motion, and feedback
+
+- Elevation uses the [Depths soft preset](https://www.depths.studio/) with semantic raised, hover, sticky, dropdown, modal, toast, and pressed levels. Hairline edge tokens carry separation where a shadow alone is too subtle.
+- Motion uses the [Springs semantic set](https://www.springs.studio/): 140ms for state changes, 200ms for lists and dropdowns, and 280ms for emphasized entrances. Mobile scroll entrances use a calmer 420ms duration. Exits use the mirrored curve and finish at 70% of the entrance duration.
+- Group entrances stagger with the Springs falloff formula instead of a fixed linear delay, using a 40ms desktop step and a 55ms mobile step. Every motion treatment has a `prefers-reduced-motion` fallback.
+- Product-preview sound follows the [Beeps warm preset](https://www.beeps.studio/) and is muted by default. It runs only after an explicit opt-in, persists that preference locally, and never plays on load, hover, focus, scroll, or navigation.
+
 ## Typography
 
 - Display: Instrument Serif or a licensed equivalent. The current build uses Georgia and Times New Roman as local fallbacks, avoiding a remote font request.
@@ -73,6 +80,7 @@ Reusable additions:
 - The page begins with a skip link and contains one main heading.
 - Form errors appear inline, remain linked with `aria-describedby`, and set `aria-invalid`.
 - FAQ content uses native disclosure controls.
+- Page links use browser-native navigation so in-site page changes are recorded as normal entries for browser and phone Back actions.
 - The active navigation item is updated as sections enter the viewport.
 - The mobile demo action appears after the hero and yields near the contact section or while a field has focus.
 - Motion is restrained and disabled when `prefers-reduced-motion: reduce` is active.

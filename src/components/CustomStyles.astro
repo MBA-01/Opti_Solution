@@ -18,10 +18,29 @@
     --os-radius-sm: 0.72rem;
     --os-radius-md: 1.15rem;
     --os-radius-lg: 1.65rem;
-    --os-shadow-sm: 0 0.08rem 0.18rem rgb(11 46 38 / 0.08), 0 0.55rem 1.4rem rgb(11 46 38 / 0.06);
-    --os-shadow-md: 0 0.12rem 0.35rem rgb(11 46 38 / 0.08), 0 1.25rem 3.5rem rgb(11 46 38 / 0.1);
-    --os-shadow-lg: 0 0.2rem 0.6rem rgb(11 46 38 / 0.08), 0 2rem 5rem rgb(11 46 38 / 0.14);
+    /* Soft elevation ramp generated from https://www.depths.studio/. */
+    --os-shadow-raised: 0 1px 2.6px rgb(0 0 0 / 0.07), 0 0.4px 5.7px rgb(0 0 0 / 0.046);
+    --os-shadow-hover: 0 1.9px 4.9px rgb(0 0 0 / 0.067), 0 0.7px 10.9px rgb(0 0 0 / 0.043);
+    --os-shadow-dropdown: 0 3.6px 9.4px rgb(0 0 0 / 0.063), 0 1.3px 20.6px rgb(0 0 0 / 0.041);
+    --os-shadow-modal: 0 6.9px 17.8px rgb(0 0 0 / 0.06), 0 2.4px 39.2px rgb(0 0 0 / 0.039);
+    --os-shadow-toast: 0 13px 33.9px rgb(0 0 0 / 0.057), 0 4.6px 74.5px rgb(0 0 0 / 0.037);
+    --os-shadow-pressed: inset 0 0.8px 2.5px rgb(0 0 0 / 0.091);
+    --os-shadow-sm: var(--os-shadow-raised);
+    --os-shadow-md: var(--os-shadow-dropdown);
+    --os-shadow-lg: var(--os-shadow-modal);
+
+    /* Entrance/exit curves and semantic durations from https://www.springs.studio/. */
     --os-ease: cubic-bezier(0.2, 0, 0, 1);
+    --os-ease-enter: cubic-bezier(0.2, 0, 0, 1);
+    --os-ease-exit: cubic-bezier(1, 0, 0.8, 1);
+    --os-motion-subtle-enter: 140ms;
+    --os-motion-subtle-exit: 98ms;
+    --os-motion-standard-enter: 200ms;
+    --os-motion-standard-exit: 140ms;
+    --os-motion-emphasized-enter: 280ms;
+    --os-motion-emphasized-exit: 196ms;
+    --os-motion-scroll-enter: 640ms;
+    --os-motion-stagger: 70ms;
 
     --aw-font-sans: Inter, system-ui, sans-serif;
     --aw-font-serif: Georgia, 'Times New Roman', serif;

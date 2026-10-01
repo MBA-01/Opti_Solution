@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import ProductLightbox from '~/components/ui/ProductLightbox.astro';
+import ScrollMotion from '~/components/common/ScrollMotion.astro';
 import { primaryNav, footerLinks } from '~/data/optic-site';
 import '~/assets/styles/optic-site.css';
 import type { MetaData } from '~/types';
@@ -26,6 +27,7 @@ const pageName =
   />
   <main id="main" class="os-main" data-page={pageName}><slot /></main>
   <ProductLightbox />
+  <ScrollMotion />
   <Footer
     links={footerLinks}
     secondaryLinks={[{ text: 'Confidentialité', href: '/confidentialite' }]}

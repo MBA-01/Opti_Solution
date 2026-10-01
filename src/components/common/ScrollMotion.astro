@@ -1,0 +1,275 @@
+---
+// Viewport-driven motion for the Opti Solution marketing pages. Elements are
+// enhanced at runtime so the semantic page remains fully visible without JS.
+---
+
+<os-scroll-motion aria-hidden="true"><span></span></os-scroll-motion>
+
+<style is:global>
+  os-scroll-motion {
+    position: fixed;
+    z-index: 70;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    height: 0.16rem;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  os-scroll-motion > span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(var(--os-page-progress, 0));
+    transform-origin: left;
+    border-radius: 0 999px 999px 0;
+    background: linear-gradient(90deg, var(--os-gold-400), #e6d2a4);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .os-motion-ready [data-os-reveal]:not([data-os-revealed]) {
+      opacity: 0;
+      translate: var(--os-reveal-x, 0) var(--os-reveal-y, 1.35rem);
+      scale: var(--os-reveal-scale, 1);
+    }
+
+    .os-motion-ready [data-os-reveal][data-os-revealed] {
+      animation: os-scroll-reveal var(--os-motion-scroll-enter) var(--os-ease-enter) both;
+      animation-delay: var(--os-reveal-delay, 0ms);
+    }
+
+    .os-motion-ready [data-os-reveal='left'] {
+      --os-reveal-x: -1.4rem;
+      --os-reveal-y: 0;
+    }
+
+    .os-motion-ready [data-os-reveal='right'] {
+      --os-reveal-x: 1.4rem;
+      --os-reveal-y: 0;
+    }
+
+    .os-motion-ready [data-os-reveal='scale'] {
+      --os-reveal-y: 0.7rem;
+      --os-reveal-scale: 0.975;
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel:not([data-os-revealed]) .os-teaser-bars i::after {
+      transform: scaleX(0);
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel[data-os-revealed] .os-teaser-bars i::after {
+      transform: scaleX(1);
+      transition-duration: 760ms;
+      transition-timing-function: var(--os-ease-enter);
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel[data-os-revealed] .os-teaser-bars div:nth-child(2) i::after {
+      transition-delay: 70ms;
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel[data-os-revealed] .os-teaser-bars div:nth-child(3) i::after {
+      transition-delay: 120ms;
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel[data-os-revealed] .os-teaser-bars div:nth-child(4) i::after {
+      transition-delay: 165ms;
+    }
+
+    .os-motion-ready .os-calculator-teaser__panel[data-os-revealed] .os-teaser-bars div:nth-child(5) i::after {
+      transition-delay: 205ms;
+    }
+
+    .os-teaser-bars i::after,
+    .os-calc-bars i::after {
+      transform-origin: left;
+    }
+
+    .os-workflow-rail article[data-os-reveal]::before,
+    .os-offer-steps article[data-os-reveal]::after,
+    .os-proof-band__grid > div[data-os-reveal]::before {
+      transition-property: scale, opacity;
+      transition-duration: var(--os-motion-emphasized-enter);
+      transition-timing-function: var(--os-ease-enter);
+    }
+
+    .os-workflow-rail article[data-os-reveal]:not([data-os-revealed])::before,
+    .os-offer-steps article[data-os-reveal]:not([data-os-revealed])::after,
+    .os-proof-band__grid > div[data-os-reveal]:not([data-os-revealed])::before {
+      opacity: 0;
+      scale: 0;
+    }
+
+    @keyframes os-scroll-reveal {
+      from {
+        opacity: 0;
+        translate: var(--os-reveal-x, 0) var(--os-reveal-y, 1.35rem);
+        scale: var(--os-reveal-scale, 1);
+      }
+
+      to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+      }
+    }
+  }
+
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+    .os-motion-ready [data-os-reveal='left'],
+    .os-motion-ready [data-os-reveal='right'] {
+      --os-reveal-x: 0;
+      --os-reveal-y: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    os-scroll-motion {
+      display: none;
+    }
+
+    [data-os-reveal] {
+      animation: none !important;
+      opacity: 1 !important;
+      translate: none !important;
+      scale: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  type RevealDirection = 'up' | 'left' | 'right' | 'scale';
+
+  const standalone: Array<[string, RevealDirection]> = [
+    ['.os-home-hero__copy', 'left'],
+    ['.os-home-hero__aside', 'scale'],
+    ['.os-page-hero__copy', 'left'],
+    ['.os-page-hero__visual', 'scale'],
+    ['.os-section-intro', 'up'],
+    ['.os-device-showcase__copy', 'left'],
+    ['.os-device-showcase__visual', 'scale'],
+    ['.os-problem-statement', 'left'],
+    ['.os-difference__statement', 'left'],
+    ['.os-calculator-teaser > :first-child', 'left'],
+    ['.os-calculator-teaser__panel', 'scale'],
+    ['.os-offer-preview > :first-child', 'left'],
+    ['.os-contact-grid > :first-child', 'left'],
+    ['.os-contact-form', 'scale'],
+    ['.os-privacy-hero__grid > :first-child', 'left'],
+    ['.os-privacy-summary', 'scale'],
+    ['.os-privacy-nav', 'left'],
+    ['.os-final-cta__inner > :first-child', 'left'],
+    ['.os-final-cta__inner > .os-actions', 'right'],
+  ];
+
+  const groups: Array<[string, string, RevealDirection]> = [
+    ['.os-proof-band__grid', ':scope > div', 'up'],
+    ['.os-problem-list', ':scope > article, :scope > .os-text-link', 'up'],
+    ['.os-workflow-rail', ':scope > article', 'up'],
+    ['.os-capability-preview', ':scope > article', 'scale'],
+    ['.os-difference__notes', ':scope > div', 'right'],
+    ['.os-offer-steps', ':scope > article', 'up'],
+    ['.os-split', ':scope > *', 'scale'],
+    ['.os-resource-grid', ':scope > *', 'up'],
+    ['.os-feature-band', ':scope > *', 'up'],
+    ['.os-sequence-item', ':scope > *', 'up'],
+    ['.os-video-grid', ':scope > *', 'scale'],
+    ['.os-offer-table', ':scope > *', 'up'],
+    ['.os-calculator', ':scope > *', 'up'],
+    ['.os-privacy-content', ':scope > section', 'up'],
+    ['.os-article-shell > header.os-article', ':scope > *', 'up'],
+    ['.os-prose', ':scope > section, :scope > .os-callout', 'up'],
+  ];
+
+  class OsScrollMotion extends HTMLElement {
+    private observer: IntersectionObserver | null = null;
+    private frame = 0;
+    private progress = this.querySelector<HTMLElement>('span');
+    private reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    connectedCallback() {
+      this.start();
+      window.addEventListener('scroll', this.queueProgress, { passive: true });
+      window.addEventListener('resize', this.queueProgress, { passive: true });
+      this.reducedMotion.addEventListener('change', this.restart);
+      this.queueProgress();
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+      window.removeEventListener('scroll', this.queueProgress);
+      window.removeEventListener('resize', this.queueProgress);
+      this.reducedMotion.removeEventListener('change', this.restart);
+      cancelAnimationFrame(this.frame);
+    }
+
+    private restart = () => this.start();
+
+    private queueProgress = () => {
+      cancelAnimationFrame(this.frame);
+      this.frame = requestAnimationFrame(() => {
+        const available = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = available > 0 ? Math.min(1, Math.max(0, window.scrollY / available)) : 0;
+        this.style.setProperty('--os-page-progress', progress.toFixed(4));
+        if (this.progress) this.progress.hidden = available <= 0;
+      });
+    };
+
+    private prepare(el: HTMLElement, direction: RevealDirection, index = 0) {
+      if (el.hasAttribute('data-os-reveal')) return;
+      el.setAttribute('data-os-reveal', direction);
+      el.style.setProperty('--os-reveal-delay', `${Math.min(index, 3) * 70}ms`);
+    }
+
+    private start() {
+      this.observer?.disconnect();
+
+      if (this.reducedMotion.matches || !('IntersectionObserver' in window)) {
+        document.documentElement.classList.remove('os-motion-ready');
+        document
+          .querySelectorAll<HTMLElement>('[data-os-reveal]')
+          .forEach((el) => el.setAttribute('data-os-revealed', ''));
+        return;
+      }
+
+      const main = document.querySelector<HTMLElement>('.os-main');
+      if (!main) return;
+
+      standalone.forEach(([selector, direction]) => {
+        main.querySelectorAll<HTMLElement>(selector).forEach((el) => this.prepare(el, direction));
+      });
+
+      groups.forEach(([containerSelector, childSelector, direction]) => {
+        main.querySelectorAll<HTMLElement>(containerSelector).forEach((container) => {
+          container
+            .querySelectorAll<HTMLElement>(childSelector)
+            .forEach((el, index) => this.prepare(el, direction, index));
+        });
+      });
+
+      const elements = Array.from(main.querySelectorAll<HTMLElement>('[data-os-reveal]'));
+      document.documentElement.classList.add('os-motion-ready');
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const target = entry.target as HTMLElement;
+            target.setAttribute('data-os-revealed', '');
+            this.observer?.unobserve(target);
+          });
+        },
+        { rootMargin: '0px 0px -9% 0px', threshold: 0.08 }
+      );
+
+      elements.forEach((el) => {
+        if (!el.hasAttribute('data-os-revealed')) this.observer?.observe(el);
+      });
+    }
+  }
+
+  if (!customElements.get('os-scroll-motion')) {
+    customElements.define('os-scroll-motion', OsScrollMotion);
+  }
+</script>

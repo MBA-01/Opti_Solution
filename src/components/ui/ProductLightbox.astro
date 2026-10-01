@@ -19,8 +19,51 @@
     const caption = dialog.querySelector<HTMLElement>('[data-product-lightbox-caption]');
     const closeButton = dialog.querySelector<HTMLButtonElement>('[data-product-lightbox-close]');
     let activeTrigger: HTMLElement | null = null;
+    let audioContext: AudioContext | null = null;
 
-    const closePreview = () => dialog.close();
+    // Warm, low-volume surface cues based on https://www.beeps.studio/.
+    // They only play after a deliberate action—never on hover or scroll.
+    const playSurfaceSound = (kind: 'open' | 'close') => {
+      const AudioContextConstructor =
+        window.AudioContext ??
+        (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioContextConstructor) return;
+
+      audioContext ??= new AudioContextConstructor();
+      const context = audioContext;
+      const now = context.currentTime;
+      const isOpen = kind === 'open';
+      const startFrequency = isOpen ? 879 : 663;
+      const endFrequency = isOpen ? 1144 : 509;
+      const filter = context.createBiquadFilter();
+      const output = context.createGain();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(isOpen ? 581 : 1025, now);
+      filter.Q.setValueAtTime(0.5, now);
+      output.gain.setValueAtTime(0.0001, now);
+      output.gain.exponentialRampToValueAtTime(0.013, now + 0.014);
+      output.gain.exponentialRampToValueAtTime(0.0001, now + 0.149);
+      filter.connect(output);
+      output.connect(context.destination);
+
+      [-5, 0, 5].forEach((detune) => {
+        const oscillator = context.createOscillator();
+        oscillator.type = 'sine';
+        oscillator.detune.setValueAtTime(detune, now);
+        oscillator.frequency.setValueAtTime(startFrequency, now);
+        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, now + 0.068);
+        oscillator.connect(filter);
+        oscillator.start(now);
+        oscillator.stop(now + 0.149);
+      });
+    };
+
+    const closePreview = () => {
+      if (!dialog.open) return;
+      playSurfaceSound('close');
+      dialog.close();
+    };
 
     document.querySelectorAll<HTMLElement>('[data-product-preview]').forEach((trigger) => {
       trigger.addEventListener('click', () => {
@@ -33,6 +76,7 @@
         caption.textContent = trigger.dataset.caption ?? trigger.dataset.alt ?? '';
         document.documentElement.classList.add('os-lightbox-open');
         dialog.showModal();
+        playSurfaceSound('open');
       });
     });
 
@@ -40,6 +84,7 @@
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) closePreview();
     });
+    dialog.addEventListener('cancel', () => playSurfaceSound('close'));
     dialog.addEventListener('close', () => {
       document.documentElement.classList.remove('os-lightbox-open');
       image?.removeAttribute('src');
@@ -86,7 +131,10 @@
     outline: 1px solid oklch(1 0 0 / 0.14);
     outline-offset: -1px;
     background: #111b18;
-    box-shadow: 0 2rem 7rem rgb(0 0 0 / 0.48);
+    box-shadow:
+      var(--os-shadow-modal),
+      0 2rem 7rem rgb(0 0 0 / 0.42);
+    animation: os-lightbox-enter var(--os-motion-emphasized-enter) var(--os-ease-enter) both;
   }
 
   .os-lightbox figure {
@@ -149,6 +197,18 @@
     line-height: 1;
   }
 
+  @keyframes os-lightbox-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.45rem) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
   @media (max-width: 639px) {
     .os-lightbox {
       width: calc(100vw - 1rem);
@@ -173,7 +233,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .os-lightbox__panel,
     .os-lightbox__close {
+      animation: none;
       transition: none;
     }
   }

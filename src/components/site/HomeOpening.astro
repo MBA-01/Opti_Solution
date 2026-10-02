@@ -64,9 +64,19 @@ const sideAlt =
       <h1 id="home-title" set:html={content.title} />
       <p class="os-lead">{content.text}</p>
       <div class="os-actions">
-        <Button variant="primary" href="/demo#demande" text="Demander une démo" icon="tabler:arrow-right" />
+        <Button
+          variant="primary"
+          href="/demo#demande"
+          text="Demander une démo"
+          icon="tabler:arrow-right"
+          data-analytics-event="cta_click"
+          data-analytics-label="hero_demo"
+        />
         <Button variant="secondary" href={content.secondaryHref} text={content.secondary} />
       </div>
+      <p class="os-cta-assurance">
+        <span aria-hidden="true"></span> Réponse sous 1 jour ouvré · échange sans engagement
+      </p>
     </div>
     <div class="os-home-hero__aside">
       <div class="os-product-stack">

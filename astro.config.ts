@@ -7,6 +7,7 @@ import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
@@ -22,12 +23,21 @@ const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
+const isPublicSitemapPage = (page: string) => {
+  const pathname = new URL(page).pathname;
+  return !['/404', '/merci', '/homes/saas'].includes(pathname) && !pathname.startsWith('/concepts/');
+};
+
 export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
 
   integrations: [
     mdx(),
+    sitemap({
+      filter: isPublicSitemapPage,
+      namespaces: { news: false, xhtml: false, video: false },
+    }),
     icon({
       // Local SVG icons (used as <Icon name="file-name" />) live next to the other assets.
       iconDir: 'src/assets/icons',

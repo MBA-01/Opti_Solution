@@ -1,0 +1,88 @@
+---
+import { ANALYTICS } from 'astrowind:config';
+
+const configuredId = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.googleAnalytics.id) : '';
+const id = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || configuredId;
+---
+
+{
+  id && (
+    <aside
+      class="os-consent-panel"
+      data-analytics-consent
+      role="dialog"
+      aria-labelledby="analytics-consent-title"
+      aria-describedby="analytics-consent-copy"
+      hidden
+    >
+      <div>
+        <strong id="analytics-consent-title">Mesure d’audience</strong>
+        <p id="analytics-consent-copy">
+          Avec votre accord, Google Analytics nous aide à comprendre quels contenus conduisent à une demande de démo.
+          Aucun outil publicitaire n’est activé.
+        </p>
+        <a href="/confidentialite#cookies">En savoir plus</a>
+      </div>
+      <div class="os-consent-panel__actions">
+        <button type="button" class="btn-secondary" data-analytics-deny>
+          Refuser
+        </button>
+        <button type="button" class="btn-primary" data-analytics-accept>
+          Accepter
+        </button>
+      </div>
+    </aside>
+  )
+}
+
+<script>
+  const initAnalyticsConsent = () => {
+    const panel = document.querySelector<HTMLElement>('[data-analytics-consent]');
+    if (!panel || panel.dataset.ready === 'true') return;
+    panel.dataset.ready = 'true';
+
+    const analytics = (
+      window as typeof window & {
+        optiAnalytics?: { grant: () => void; deny: () => void; reset: () => void };
+      }
+    ).optiAnalytics;
+    const consent = (() => {
+      try {
+        return localStorage.getItem('opti-analytics-consent');
+      } catch {
+        return null;
+      }
+    })();
+
+    const show = () => {
+      panel.hidden = false;
+      requestAnimationFrame(() => panel.setAttribute('data-visible', ''));
+    };
+    const hide = () => {
+      panel.removeAttribute('data-visible');
+      window.setTimeout(() => {
+        panel.hidden = true;
+      }, 160);
+    };
+
+    if (!consent) show();
+    panel.querySelector('[data-analytics-accept]')?.addEventListener('click', () => {
+      analytics?.grant();
+      hide();
+    });
+    panel.querySelector('[data-analytics-deny]')?.addEventListener('click', () => {
+      analytics?.deny();
+      hide();
+    });
+    document.querySelectorAll('[data-analytics-manage]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        analytics?.reset();
+        show();
+        panel.querySelector<HTMLElement>('[data-analytics-accept]')?.focus();
+      });
+    });
+  };
+
+  initAnalyticsConsent();
+</script>

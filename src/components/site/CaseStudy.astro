@@ -1,0 +1,70 @@
+---
+import Button from '~/components/ui/Button.astro';
+import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+
+const stages = [
+  ['01', 'Retrouver le client', 'Ouvrir une fiche unique avant de préparer une nouvelle opération.'],
+  ['02', 'Contrôler la correction', 'Relire les valeurs OD/OG et les caractéristiques de verres avant validation.'],
+  ['03', 'Préparer la suite', 'Créer les documents utiles sans confondre vente, achat fournisseur et réception.'],
+];
+---
+
+<section class="os-section os-case-study" id="cas-usage" aria-labelledby="case-study-title">
+  <div class="os-container">
+    <div class="os-case-study__heading">
+      <div>
+        <p class="os-eyebrow">Étude de cas produit · scénario de démonstration</p>
+        <h2 id="case-study-title">Quand une correction doit rester reliée à l’opération suivante.</h2>
+      </div>
+      <p>
+        Ce scénario ne présente pas un résultat client inventé. Il montre concrètement les contrôles qu’un magasin peut
+        vérifier pendant une démonstration d’Opti Solution.
+      </p>
+    </div>
+
+    <div class="os-case-study__grid">
+      <div class="os-case-study__media">
+        <ScreenshotFrame
+          src="/product/tablet/optical-correction.webp"
+          alt="Correction optique avec les valeurs OD et OG dans Opti Solution."
+          label="Point de départ"
+          caption="Correction optique prête à être relue avant validation"
+          href="/product/tablet/optical-correction.webp"
+          aspect="tablet"
+        />
+        <div class="os-case-study__question">
+          <span>Question à vérifier</span>
+          <strong>L’équipe retrouve-t-elle la bonne information sans reconstruire le parcours&nbsp;?</strong>
+        </div>
+      </div>
+
+      <div class="os-case-study__story">
+        <p class="os-kicker">Le parcours observé</p>
+        <ol>
+          {
+            stages.map(([number, title, text]) => (
+              <li>
+                <span>{number}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="os-case-study__outcome">
+          <strong>Ce que la démonstration permet d’évaluer</strong>
+          <p>
+            La continuité des informations, les validations laissées à l’équipe et les réglages nécessaires pour votre
+            organisation réelle.
+          </p>
+        </div>
+        <div class="os-actions">
+          <Button variant="primary" href="/demo#demande" text="Tester ce scénario" icon="tabler:arrow-right" />
+          <Button variant="secondary" href="/fonctionnement" text="Voir les six étapes" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

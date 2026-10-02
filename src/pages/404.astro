@@ -3,7 +3,13 @@ import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import Button from '~/components/ui/Button.astro';
 ---
 
-<MarketingLayout metadata={{ title: 'Page introuvable — Opti Solution', robots: { index: false, follow: false } }}>
+<MarketingLayout
+  metadata={{
+    title: 'Page introuvable',
+    description: 'Cette adresse ne correspond à aucune page du site Opti Solution.',
+    robots: { index: false, follow: true },
+  }}
+>
   <section class="os-page-hero os-page-hero--compact">
     <div class="os-container os-page-hero__grid">
       <div class="os-page-hero__copy">
@@ -17,6 +23,12 @@ import Button from '~/components/ui/Button.astro';
           <Button variant="primary" href="/" text="Retour à l’accueil" icon="tabler:arrow-right" />
           <Button variant="secondary" href="/fonctionnement" text="Découvrir le fonctionnement" />
         </div>
+        <nav class="os-404-links" aria-label="Pages utiles">
+          <span>Pages utiles</span>
+          <a href="/solution">La solution</a>
+          <a href="/fonctionnalites">Les fonctionnalités</a>
+          <a href="/demo">La démonstration</a>
+        </nav>
       </div>
       <div class="os-page-hero__visual" aria-hidden="true">
         <div class="os-calculator-teaser__panel">

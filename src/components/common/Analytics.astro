@@ -1,21 +1,96 @@
 ---
 import { ANALYTICS } from 'astrowind:config';
 
-const id = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.googleAnalytics.id) : '';
-const partytown = !!ANALYTICS?.vendors?.googleAnalytics?.partytown;
-const scriptType = partytown ? 'text/partytown' : undefined;
+const configuredId = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.googleAnalytics.id) : '';
+const id = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || configuredId;
 ---
 
-{id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} type={scriptType} />}
+<script is:inline define:vars={{ id }}>
+  (() => {
+    if (!id) return;
+    const consentKey = 'opti-analytics-consent';
+    let loaded = false;
 
-<script is:inline id="ga-init" data-id={id} type={id ? scriptType : undefined}>
-  if (document.getElementById('ga-init').dataset.id) {
-    var d = document.getElementById('ga-init').dataset.id;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      dataLayer.push(arguments);
+    const readConsent = () => {
+      try {
+        return localStorage.getItem(consentKey);
+      } catch {
+        return null;
+      }
     };
-    window.gtag('js', new Date());
-    window.gtag('config', d);
-  }
+
+    const writeConsent = (value) => {
+      try {
+        localStorage.setItem(consentKey, value);
+      } catch {
+        // The preference remains valid for the current page when storage is unavailable.
+      }
+    };
+
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag =
+        window.gtag ||
+        function () {
+          window.dataLayer.push(arguments);
+        };
+      window.gtag('js', new Date());
+      window.gtag('consent', 'default', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+      window.gtag('config', id, {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      });
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+      document.head.append(script);
+    };
+
+    const analytics = {
+      enabled: true,
+      granted: () => readConsent() === 'granted',
+      grant: () => {
+        writeConsent('granted');
+        load();
+        document.dispatchEvent(new CustomEvent('opti:analytics-consent-changed', { detail: 'granted' }));
+      },
+      deny: () => {
+        writeConsent('denied');
+        document.dispatchEvent(new CustomEvent('opti:analytics-consent-changed', { detail: 'denied' }));
+      },
+      reset: () => {
+        try {
+          localStorage.removeItem(consentKey);
+        } catch {
+          // The consent panel can still reopen for the current page.
+        }
+        document.dispatchEvent(new CustomEvent('opti:analytics-consent-changed', { detail: 'unset' }));
+      },
+      track: (eventName, parameters = {}) => {
+        if (readConsent() !== 'granted') return;
+        load();
+        window.gtag('event', eventName, parameters);
+      },
+    };
+
+    window.optiAnalytics = analytics;
+    if (analytics.granted()) load();
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target instanceof Element ? event.target.closest('[data-analytics-event]') : null;
+      if (!(trigger instanceof HTMLElement)) return;
+      analytics.track(trigger.dataset.analyticsEvent, {
+        link_text: trigger.dataset.analyticsLabel || trigger.textContent.trim(),
+        page_path: window.location.pathname,
+      });
+    });
+  })();
 </script>

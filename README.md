@@ -22,8 +22,14 @@ The working Odoo screenshots in `public/working/` are compressed copies of `../l
 
 ## Form and publication gate
 
-The form accepts a `PUBLIC_DEMO_FORM_ENDPOINT` environment variable. It POSTs JSON with `name`, `shop`, `city`, `email`, optional `phone`, and optional `need`. The success state appears only after an HTTP 2xx response. Without an endpoint, the page directs visitors to the sourced email and WhatsApp contact links.
+The form accepts a `PUBLIC_DEMO_FORM_ENDPOINT` environment variable. It POSTs JSON with `name`, `shop`, `city`, `email`, optional `phone`, and optional `need`. After an HTTP 2xx response, it records the GA4 `generate_lead` event when consented and redirects to `/merci`. Without an endpoint, the page directs visitors to the sourced email and WhatsApp contact links.
 
-The preview is `noindex` and `robots.txt` disallows crawling. The site URL is set to localhost and sitemap output is off. Before public release, confirm the legal controller and retention notice, configure and test a real lead delivery endpoint with spam protection, approve screenshots, set the real domain and social image, review commercial terms, then restore sitemap output and indexing.
+Set `PUBLIC_SITE_URL` to the canonical production domain. The default currently points to the supplied Vercel deployment; production builds generate `robots.txt`, `sitemap-index.xml`, and a filtered sitemap that excludes utility and concept routes.
+
+Google Analytics remains disabled until `PUBLIC_GOOGLE_ANALYTICS_ID` contains a GA4 measurement ID. When enabled, the site uses basic consent mode: the Google tag is not requested until the visitor accepts measurement. CTA clicks and successful demo requests are then measured without sending form-field values.
+
+Organization structured data is emitted on the homepage. Add the complete `PUBLIC_BUSINESS_STREET`, `PUBLIC_BUSINESS_CITY`, and `PUBLIC_BUSINESS_POSTAL_CODE` values to activate the more specific `ProfessionalService`/LocalBusiness schema; no address is inferred or fabricated.
+
+Before public release, confirm the legal controller and retention notice, configure and test the lead endpoint with spam protection, approve screenshots, replace the Vercel URL with the final domain, validate the social image and structured data, and review the response-time commitment.
 
 AstroWind is MIT licensed; see `LICENSE.md` and the retained upstream documentation in `reference/ASTROWIND_README.md`.

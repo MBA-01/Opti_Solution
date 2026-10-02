@@ -94,7 +94,15 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
         </span>
       </label>
       <small class="os-field-error" id="demo-privacy-consent-error"></small>
-      <button class="btn-primary" type="submit">Préparer ma démonstration →</button>
+      <button
+        class="btn-primary"
+        type="submit"
+        data-analytics-event="form_submit_attempt"
+        data-analytics-label="demo_request">Préparer ma démonstration →</button
+      >
+      <p class="os-cta-assurance">
+        <span aria-hidden="true"></span> Réponse sous 1 jour ouvré · échange sans engagement
+      </p>
       <p class="os-form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -167,7 +175,19 @@ const endpoint = import.meta.env.PUBLIC_DEMO_FORM_ENDPOINT || '';
           });
           if (!response.ok) throw new Error('Request failed');
           form.reset();
-          if (status) status.textContent = 'Merci, votre demande a bien été envoyée.';
+          const analytics = (
+            window as typeof window & {
+              optiAnalytics?: { track: (eventName: string, parameters?: Record<string, string>) => void };
+            }
+          ).optiAnalytics;
+          analytics?.track('generate_lead', { lead_source: 'website_demo_form' });
+          try {
+            sessionStorage.setItem('opti-demo-request-sent', 'true');
+          } catch {
+            // The thank-you page remains available when session storage is unavailable.
+          }
+          window.location.assign('/merci');
+          return;
         } catch {
           if (status) status.textContent = 'L’envoi a échoué. Réessayez ou utilisez l’e-mail ou WhatsApp.';
         } finally {

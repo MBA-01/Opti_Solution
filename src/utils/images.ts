@@ -34,7 +34,7 @@ export const findImage = async (
   if (!imagePath.startsWith('~/assets/images')) return imagePath;
 
   const images = loadLocalImages();
-  const key = imagePath.replace('~/', '/src');
+  const key = imagePath.replace('~/', '/src/');
   const loader = images[key];
 
   if (typeof loader !== 'function') return null;
@@ -42,7 +42,7 @@ export const findImage = async (
 };
 
 const OG_WIDTH = 1200;
-const OG_HEIGHT = 626;
+const OG_HEIGHT = 630;
 
 /**
  * Adapt OpenGraph images to absolute, optimized URLs.

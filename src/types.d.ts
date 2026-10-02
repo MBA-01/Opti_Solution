@@ -483,6 +483,8 @@ export interface StickyCTA {
   showAfter?: number;
   /** Hide on md screens and up (default true). */
   mobileOnly?: boolean;
+  /** Comma-separated selectors that hide the CTA while visible (for example the form and footer). */
+  hideWhen?: string;
 }
 
 export interface Integration {

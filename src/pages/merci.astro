@@ -1,0 +1,45 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import Button from '~/components/ui/Button.astro';
+
+const metadata = {
+  title: 'Demande envoyée',
+  description: 'Votre demande de démonstration Opti Solution a bien été transmise.',
+  robots: { index: false, follow: true },
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <section class="os-thank-you" aria-labelledby="thank-you-title">
+    <div class="os-container os-thank-you__grid">
+      <div class="os-thank-you__copy">
+        <div class="os-success-mark" aria-hidden="true">✓</div>
+        <p class="os-eyebrow">Demande bien reçue</p>
+        <h1 id="thank-you-title">Merci. Nous préparons la suite avec vous.</h1>
+        <p class="os-lead">
+          Votre demande a été transmise. Nous vous répondrons sous 1 jour ouvré pour préciser vos priorités et convenir
+          du format de la démonstration.
+        </p>
+        <div class="os-actions">
+          <Button variant="primary" href="/fonctionnement" text="Voir le parcours" icon="tabler:arrow-right" />
+          <Button variant="secondary" href="/" text="Retour à l’accueil" />
+        </div>
+      </div>
+
+      <aside class="os-thank-you__next" aria-labelledby="next-steps-title">
+        <p class="os-kicker">Pendant ce temps</p>
+        <h2 id="next-steps-title">Préparez une démonstration plus utile.</h2>
+        <ol>
+          <li><span>01</span><p>Choisissez les deux ou trois opérations à voir en priorité.</p></li>
+          <li>
+            <span>02</span><p>
+              Notez les outils ou fichiers utilisés aujourd’hui, sans transmettre de données patient.
+            </p>
+          </li>
+          <li><span>03</span><p>Identifiez les rôles qui préparent, vérifient et confirment chaque document.</p></li>
+        </ol>
+        <a class="os-text-link" href="/ressources">Consulter les guides de préparation →</a>
+      </aside>
+    </div>
+  </section>
+</MarketingLayout>

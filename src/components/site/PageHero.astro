@@ -23,6 +23,7 @@ const {
   chapter,
   compact = false,
 } = Astro.props;
+const showResponsePromise = primaryHref.includes('/demo') || primaryHref.startsWith('#demande');
 ---
 
 <section class:list={['os-page-hero', { 'os-page-hero--compact': compact }]}>
@@ -32,9 +33,23 @@ const {
       <h1>{title}</h1>
       <p class="os-lead">{text}</p>
       <div class="os-actions">
-        <Button variant="primary" href={primaryHref} text={primaryText} icon="tabler:arrow-right" />
+        <Button
+          variant="primary"
+          href={primaryHref}
+          text={primaryText}
+          icon="tabler:arrow-right"
+          data-analytics-event={showResponsePromise ? 'cta_click' : undefined}
+          data-analytics-label={showResponsePromise ? 'page_hero_demo' : undefined}
+        />
         {secondaryText && secondaryHref && <Button variant="secondary" href={secondaryHref} text={secondaryText} />}
       </div>
+      {
+        showResponsePromise && (
+          <p class="os-cta-assurance">
+            <span aria-hidden="true" /> Réponse sous 1 jour ouvré · échange sans engagement
+          </p>
+        )
+      }
     </div>
     <div class="os-page-hero__visual">
       <slot name="visual">

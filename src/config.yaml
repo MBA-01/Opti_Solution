@@ -1,6 +1,6 @@
 site:
   name: Opti Solution
-  site: 'http://127.0.0.1:4321'
+  site: 'https://opti-solution-4cju7gwps-mohamed-el-bachriouis-projects.vercel.app'
   base: '/'
   trailingSlash: false
 
@@ -13,14 +13,17 @@ metadata:
     template: '%s — Opti Solution'
   description: 'Découvrez une solution Odoo pour suivre clients, corrections optiques, devis, achats fournisseurs, stock et facturation. Demandez une démonstration adaptée à votre magasin.'
   robots:
-    index: false
-    follow: false
+    index: true
+    follow: true
   openGraph:
     site_name: Opti Solution
-    images: []
+    images:
+      - url: '~/assets/images/opti-solution-share.png'
+        width: 1200
+        height: 630
     type: website
   twitter:
-    cardType: summary
+    cardType: summary_large_image
 
 i18n:
   language: fr

@@ -4,7 +4,13 @@ import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import ProductLightbox from '~/components/ui/ProductLightbox.astro';
 import ScrollMotion from '~/components/common/ScrollMotion.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import AnalyticsConsent from '~/components/common/AnalyticsConsent.astro';
+import StickyCTA from '~/components/widgets/StickyCTA.astro';
 import { primaryNav, footerLinks } from '~/data/optic-site';
+import { getCanonical } from '~/utils/permalinks';
+import shareImage from '~/assets/images/opti-solution-share.png';
 import '~/assets/styles/optic-site.css';
 import type { MetaData } from '~/types';
 
@@ -13,11 +19,89 @@ interface Props {
 }
 
 const { metadata = {} } = Astro.props;
-const pageName =
-  Astro.url.pathname === '/' ? 'home' : Astro.url.pathname.replace(/^\/+|\/+$/g, '').replaceAll('/', '-');
+const pathname = Astro.url.pathname;
+const pageName = pathname === '/' ? 'home' : pathname.replace(/^\/+|\/+$/g, '').replaceAll('/', '-');
+const pageTitle = typeof metadata.title === 'string' ? metadata.title.replace(/\s+—\s+Opti Solution$/, '') : '';
+
+const routeLabels: Record<string, string> = {
+  solution: 'Solution',
+  fonctionnement: 'Fonctionnement',
+  fonctionnalites: 'Fonctionnalités',
+  demo: 'Démonstration',
+  calculateur: 'Calculateur',
+  'mise-en-place': 'Mise en place',
+  ressources: 'Ressources',
+  confidentialite: 'Confidentialité',
+  merci: 'Demande envoyée',
+};
+const segments = pathname.split('/').filter(Boolean);
+const showBreadcrumbs =
+  pathname !== '/' &&
+  !pathname.startsWith('/concepts/') &&
+  !pathname.startsWith('/homes/') &&
+  !pageTitle.startsWith('Page introuvable');
+const breadcrumbItems: Array<{ text: string; href?: string; icon?: string }> = [
+  { text: 'Accueil', href: '/', icon: 'tabler:home' },
+];
+let breadcrumbHref = '';
+segments.forEach((segment, index) => {
+  breadcrumbHref += `/${segment}`;
+  const isCurrent = index === segments.length - 1;
+  breadcrumbItems.push({
+    text: isCurrent && pageTitle ? pageTitle : routeLabels[segment] || segment.replaceAll('-', ' '),
+    ...(isCurrent ? {} : { href: breadcrumbHref }),
+  });
+});
+
+const businessStreet = import.meta.env.PUBLIC_BUSINESS_STREET?.trim();
+const businessCity = import.meta.env.PUBLIC_BUSINESS_CITY?.trim();
+const businessPostalCode = import.meta.env.PUBLIC_BUSINESS_POSTAL_CODE?.trim();
+const businessCountry = import.meta.env.PUBLIC_BUSINESS_COUNTRY?.trim() || 'MA';
+const hasLocalAddress = Boolean(businessStreet && businessCity && businessPostalCode);
+const canonicalHome = String(getCanonical('/'));
+const socialImage = String(new URL(shareImage.src, Astro.site));
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': hasLocalAddress ? 'ProfessionalService' : 'Organization',
+      '@id': `${canonicalHome}#organization`,
+      name: 'Opti Solution',
+      url: canonicalHome,
+      image: socialImage,
+      email: 'hello@opvibe.com',
+      telephone: '+212620169713',
+      areaServed: { '@type': 'Country', name: 'Maroc' },
+      ...(hasLocalAddress
+        ? {
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: businessStreet,
+              addressLocality: businessCity,
+              postalCode: businessPostalCode,
+              addressCountry: businessCountry,
+            },
+          }
+        : {}),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${canonicalHome}#website`,
+      url: canonicalHome,
+      name: 'Opti Solution',
+      inLanguage: 'fr',
+      publisher: { '@id': `${canonicalHome}#organization` },
+    },
+  ],
+};
+const showStickyCta =
+  !['/demo', '/merci', '/confidentialite'].includes(pathname) &&
+  !pathname.startsWith('/concepts/') &&
+  !pageTitle.startsWith('Page introuvable');
 ---
 
 <Layout metadata={metadata}>
+  {pathname === '/' && <StructuredData slot="head" schema={businessSchema} />}
   <a class="os-skip" href="#main">Aller au contenu</a>
   <Header
     links={primaryNav}
@@ -25,9 +109,23 @@ const pageName =
     mobileAction={{ variant: 'primary', text: 'Démo', href: '/demo#demande' }}
     isSticky
   />
-  <main id="main" class="os-main" data-page={pageName}><slot /></main>
+  <main id="main" class="os-main" data-page={pageName}>
+    {showBreadcrumbs && <Breadcrumbs items={breadcrumbItems} bar />}
+    <slot />
+  </main>
   <ProductLightbox />
   <ScrollMotion />
+  {
+    showStickyCta && (
+      <StickyCTA
+        text="Demander une démo"
+        href="/demo#demande"
+        label="Réponse sous 1 jour ouvré"
+        showAfter={520}
+        hideWhen="#demande, footer"
+      />
+    )
+  }
   <Footer
     links={footerLinks}
     secondaryLinks={[{ text: 'Confidentialité', href: '/confidentialite' }]}
@@ -35,4 +133,5 @@ const pageName =
     footNote="Opti Solution · La gestion reliée au métier de l’optique."
     theme="dark"
   />
+  <AnalyticsConsent />
 </Layout>

@@ -1,5 +1,11 @@
 ---
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import { ANALYTICS } from 'astrowind:config';
+
+const configuredAnalyticsId = ANALYTICS?.vendors?.googleAnalytics?.id
+  ? String(ANALYTICS.vendors.googleAnalytics.id)
+  : '';
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || configuredAnalyticsId);
 
 const metadata = {
   title: 'Politique de confidentialité',
@@ -31,7 +37,7 @@ const sections = [
           Cette politique décrit les données traitées lorsque vous consultez le site Opti Solution ou demandez une
           démonstration, ainsi que les choix et les droits dont vous disposez.
         </p>
-        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : 29 septembre 2026</p>
+        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : 1 octobre 2026</p>
       </div>
       <dl class="os-privacy-summary" aria-label="Résumé de la politique de confidentialité">
         <div>
@@ -44,7 +50,13 @@ const sections = [
         </div>
         <div>
           <dt>Mesure d’audience</dt>
-          <dd>Aucun outil d’analyse non essentiel n’est activé actuellement.</dd>
+          <dd>
+            {
+              analyticsEnabled
+                ? 'Google Analytics est chargé uniquement après votre accord.'
+                : 'Aucun outil d’analyse non essentiel n’est activé actuellement.'
+            }
+          </dd>
         </div>
         <div>
           <dt>Contact</dt>
@@ -208,15 +220,42 @@ const sections = [
         <section id="cookies">
           <span class="os-privacy-section-number">07</span>
           <h2>Cookies et mesure d’audience</h2>
-          <p>
-            Le site n’active actuellement aucun outil de publicité, de profilage ou de mesure d’audience non essentiel.
-            Il peut utiliser des mécanismes techniques strictement nécessaires à la navigation, à la sécurité ou au bon
-            fonctionnement du service. Ils ne servent pas à vous suivre sur d’autres sites.
-          </p>
-          <p>
-            Si un outil non essentiel est ajouté ultérieurement, cette politique sera mise à jour et votre accord sera
-            demandé avant son dépôt ou son activation lorsque la réglementation l’exige.
-          </p>
+          {
+            analyticsEnabled ? (
+              <>
+                <p>
+                  Google Analytics est proposé pour mesurer les pages consultées, les clics vers une demande de démo et
+                  l’envoi réussi du formulaire. Le tag Google n’est pas chargé avant votre accord et aucun signal
+                  publicitaire n’est activé par cette intégration.
+                </p>
+                <p>
+                  Après acceptation, Google Analytics peut traiter un identifiant de navigateur, des informations sur
+                  l’appareil et le navigateur, des statistiques de session et une localisation approximative. Les
+                  cookies <code>_ga</code> et <code>_ga_*</code> peuvent être utilisés pour distinguer les visites et
+                  les sessions. Aucune donnée saisie dans le formulaire n’est envoyée à Google Analytics.
+                </p>
+                <p>
+                  Vous pouvez retirer ou modifier votre choix à tout moment. Le refus n’empêche pas l’utilisation du
+                  site ni l’envoi d’une demande de démonstration.
+                </p>
+                <button type="button" class="btn-secondary" data-analytics-manage>
+                  Gérer mon choix de mesure d’audience
+                </button>
+              </>
+            ) : (
+              <>
+                <p>
+                  Le site n’active actuellement aucun outil de publicité, de profilage ou de mesure d’audience non
+                  essentiel. Il peut utiliser des mécanismes techniques strictement nécessaires à la navigation, à la
+                  sécurité ou au bon fonctionnement du service. Ils ne servent pas à vous suivre sur d’autres sites.
+                </p>
+                <p>
+                  Si un outil non essentiel est ajouté ultérieurement, cette politique sera mise à jour et votre accord
+                  sera demandé avant son dépôt ou son activation lorsque la réglementation l’exige.
+                </p>
+              </>
+            )
+          }
         </section>
 
         <section id="securite">

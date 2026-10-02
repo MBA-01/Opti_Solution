@@ -27,6 +27,8 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
 
         const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
         const { SITE, I18N, METADATA, APP_BLOG, UI, ANALYTICS } = configBuilder(rawJsonConfig);
+        const deployedSite = process.env.PUBLIC_SITE_URL?.trim();
+        if (deployedSite) SITE.site = deployedSite;
 
         updateConfig({
           site: SITE.site,
@@ -93,7 +95,12 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
           const sitemapExists = fs.existsSync(sitemapFile);
 
           if (hasIntegration && sitemapExists) {
-            const robotsTxt = fs.readFileSync(robotsTxtFile, { encoding: 'utf8', flag: 'a+' });
+            const robotsSource = fs.existsSync(robotsTxtFileInOut)
+              ? robotsTxtFileInOut
+              : fs.existsSync(robotsTxtFile)
+                ? robotsTxtFile
+                : null;
+            const robotsTxt = robotsSource ? fs.readFileSync(robotsSource, { encoding: 'utf8' }) : '';
             const sitemapUrl = new URL(sitemapName, String(new URL(cfg.base, cfg.site)));
             const pattern = /^Sitemap:(.*)$/m;
 

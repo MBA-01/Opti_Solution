@@ -8,7 +8,9 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import Button from '~/components/ui/Button.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
 import DeviceShowcase from '~/components/site/DeviceShowcase.astro';
+import CaseStudy from '~/components/site/CaseStudy.astro';
 import { workflow, capabilityGroups, offerStages, resources, faqs } from '~/data/optic-site';
+import { getCanonical } from '~/utils/permalinks';
 
 interface Props {
   variant?: 'a' | 'b' | 'c';
@@ -16,11 +18,16 @@ interface Props {
 }
 
 const { variant = 'a', conceptMode = false } = Astro.props;
+const isLegacyHomeAlias = Astro.url.pathname === '/homes/saas';
 const metadata = {
   title: conceptMode
     ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
-    : 'Opti Solution — Gestion pour magasins d’optique',
+    : isLegacyHomeAlias
+      ? 'Accueil logiciel pour opticiens — Opti Solution'
+      : 'Opti Solution — Gestion pour magasins d’optique',
   ignoreTitleTemplate: true,
+  ...(isLegacyHomeAlias ? { canonical: String(getCanonical('/')), robots: { index: false, follow: true } } : {}),
+  ...(conceptMode ? { robots: { index: false, follow: true } } : {}),
   description:
     'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
 };
@@ -123,6 +130,8 @@ const problems = [
       <a class="os-text-link mt-8 !text-[var(--os-cream-50)]" href="/fonctionnement">Découvrir le fonctionnement →</a>
     </div>
   </section>
+
+  <CaseStudy />
 
   <section class="os-section">
     <div class="os-container">
@@ -314,7 +323,7 @@ const problems = [
     id="questions"
     title="Vos questions avant une démonstration"
     subtitle="Retrouvez les premières réponses sur le périmètre, le déploiement, la formation et la reprise de données."
-    items={faqs.slice(0, 4)}
+    items={faqs.slice(0, 5)}
     collapsible
     defaultOpen={0}
     schema

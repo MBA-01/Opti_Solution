@@ -1,0 +1,21 @@
+{
+  "name": "Opti Solution",
+  "short_name": "Opti Solution",
+  "description": "Gestion connectée pour magasins d’optique.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f5ed",
+  "theme_color": "#0f3d32",
+  "icons": [
+    {
+      "src": "/brand/opti-solution-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/opti-solution-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

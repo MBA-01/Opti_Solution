@@ -18,6 +18,7 @@ import astrowind from './vendor/integration';
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const canonicalSiteUrl = process.env.PUBLIC_SITE_URL?.trim() || 'https://opti-solution.vercel.app';
 
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
@@ -25,17 +26,23 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 const isPublicSitemapPage = (page: string) => {
   const pathname = new URL(page).pathname;
-  return !['/404', '/merci', '/homes/saas'].includes(pathname) && !pathname.startsWith('/concepts/');
+  return (
+    !['/404', '/merci', '/homes/saas', '/image-sitemap.xml'].includes(pathname) && !pathname.startsWith('/concepts/')
+  );
 };
 
 export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
+  redirects: {
+    '/homes/saas': '/',
+  },
 
   integrations: [
     mdx(),
     sitemap({
       filter: isPublicSitemapPage,
+      customSitemaps: [new URL('/image-sitemap.xml', canonicalSiteUrl).href],
       namespaces: { news: false, xhtml: false, video: false },
     }),
     icon({

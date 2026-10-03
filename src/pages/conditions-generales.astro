@@ -1,0 +1,68 @@
+---
+import LegalPage, { type LegalSection } from '~/components/site/LegalPage.astro';
+
+const sections: LegalSection[] = [
+  {
+    title: 'Objet et documents applicables',
+    paragraphs: [
+      'Les présentes conditions présentent le cadre général dans lequel Opti Solution peut fournir une démonstration, une étude, une configuration, un déploiement, une formation, un support ou une adaptation logicielle à un client professionnel.',
+      'Elles sont complétées par le devis ou la proposition accepté(e), qui précise le périmètre, le calendrier, le prix, les responsabilités et les conditions propres au projet. En cas de différence, le document contractuel signé prévaut pour le service concerné.',
+    ],
+  },
+  {
+    title: 'Identification et contact',
+    paragraphs: [
+      'Le service Opti Solution est représenté par Mohamed El Bachrioui. Toute question précontractuelle ou demande relative à une prestation peut être adressée à hello@opvibe.com ou au +212 620 169 713.',
+      'Les échanges commerciaux doivent permettre d’identifier clairement le client professionnel, la personne autorisée à valider le périmètre et les coordonnées de facturation utiles.',
+    ],
+  },
+  {
+    title: 'Commande et périmètre',
+    paragraphs: [
+      'Une prestation commence après acceptation écrite de la proposition et, lorsqu’il est prévu, réception de l’acompte. Aucun élément n’est réputé inclus uniquement parce qu’il a été évoqué pendant une démonstration.',
+      'Les demandes nouvelles ou les contraintes découvertes après validation font l’objet d’une évaluation. Elles peuvent entraîner un avenant, un nouveau délai ou un devis séparé avant leur réalisation.',
+    ],
+  },
+  {
+    title: 'Prix et paiement',
+    paragraphs: [
+      'Les prix, taxes, échéances et moyens de paiement applicables figurent dans le devis. Les services initiaux et les services récurrents sont identifiés séparément lorsque les deux sont proposés.',
+      'Un retard de paiement peut suspendre une intervention non encore réalisée ou un service récurrent, après information du client et selon les conditions figurant dans les documents contractuels.',
+    ],
+  },
+  {
+    title: 'Obligations du client',
+    paragraphs: [
+      'Le client fournit des informations exactes, désigne les personnes capables de valider le fonctionnement et organise l’accès aux éléments nécessaires au projet. Il reste responsable de ses décisions métier, de la licéité des données traitées et des contrôles effectués avant confirmation des documents.',
+    ],
+    list: [
+      'Préparer et vérifier les données confiées pour une éventuelle reprise.',
+      'Valider les rôles, les accès, les référentiels et les scénarios de test.',
+      'Protéger les identifiants remis aux utilisateurs autorisés.',
+      'Signaler rapidement une anomalie avec les éléments nécessaires à sa reproduction.',
+    ],
+  },
+  {
+    title: 'Logiciel, propriété et services tiers',
+    paragraphs: [
+      'Opti Solution s’appuie sur Odoo Community et sur des composants logiciels soumis à leurs licences respectives. La proposition précise les modules, configurations et développements livrés ainsi que les droits applicables.',
+      'Les services d’hébergement, de messagerie ou d’infrastructure fournis par des tiers restent soumis à leurs propres conditions. Leur disponibilité ne peut être présentée comme un engagement d’Opti Solution au-delà du niveau de service expressément convenu.',
+    ],
+  },
+  {
+    title: 'Responsabilité et fin de la prestation',
+    paragraphs: [
+      'Chaque partie répond de ses obligations dans les limites prévues par le droit applicable et le contrat signé. Opti Solution ne remplace ni le contrôle professionnel d’une correction ni la validation commerciale, comptable ou réglementaire des opérations du magasin.',
+      'Les conditions de résiliation, de restitution des éléments et de réversibilité sont définies dans la proposition lorsqu’un service récurrent ou un hébergement est retenu. Les dispositions qui, par leur nature, doivent survivre à la fin du contrat restent applicables.',
+    ],
+  },
+];
+---
+
+<LegalPage
+  title="Conditions générales"
+  description="Conditions générales applicables aux démonstrations, études et services professionnels proposés autour d’Opti Solution."
+  eyebrow="Informations contractuelles · Professionnels"
+  intro="Ce document présente le cadre commun des prestations Opti Solution. Le devis accepté reste le document de référence pour le périmètre, les prix et les engagements de votre projet."
+  sections={sections}
+/>

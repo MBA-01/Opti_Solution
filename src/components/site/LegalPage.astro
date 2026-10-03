@@ -1,0 +1,87 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import Button from '~/components/ui/Button.astro';
+
+export interface LegalSection {
+  title: string;
+  paragraphs: string[];
+  list?: string[];
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  intro: string;
+  updated?: string;
+  sections: LegalSection[];
+}
+
+const { title, description, eyebrow, intro, updated = '2 octobre 2026', sections } = Astro.props;
+---
+
+<MarketingLayout metadata={{ title, description }}>
+  <header class="os-privacy-hero">
+    <div class="os-container os-privacy-hero__grid">
+      <div>
+        <span class="os-chapter">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p class="os-lead">{intro}</p>
+        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : {updated}</p>
+      </div>
+      <div class="os-legal-summary" role="note">
+        <strong>Une question sur ce document&nbsp;?</strong>
+        <p>
+          Écrivez-nous avant toute commande ou signature. La proposition commerciale précise le périmètre applicable à
+          chaque projet.
+        </p>
+        <a href="mailto:hello@opvibe.com">hello@opvibe.com</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="os-privacy-shell">
+    <div class="os-container os-privacy-layout">
+      <aside class="os-privacy-nav" aria-label={`Sommaire : ${title}`}>
+        <p>Dans ce document</p>
+        <ol>
+          {
+            sections.map((section, index) => (
+              <li>
+                <a href={`#section-${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  {section.title}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </aside>
+
+      <article class="os-privacy-content">
+        {
+          sections.map((section, index) => (
+            <section id={`section-${index + 1}`}>
+              <span class="os-privacy-section-number">{String(index + 1).padStart(2, '0')}</span>
+              <h2>{section.title}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.list && (
+                <ul>
+                  {section.list.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))
+        }
+        <div class="os-privacy-closing">
+          <p>Besoin de clarifier une condition avant de poursuivre&nbsp;?</p>
+          <Button variant="primary" href="/contact" text="Nous contacter" icon="tabler:arrow-right" />
+        </div>
+      </article>
+    </div>
+  </section>
+</MarketingLayout>

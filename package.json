@@ -16,6 +16,8 @@
     "preview:lan": "astro preview --host 0.0.0.0 --port 4321",
     "astro": "astro",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "audit:site": "npm run build && npm run audit:seo",
     "check:astro": "astro check",
     "check:eslint": "eslint .",
     "check:prettier": "prettier --check .",

@@ -1,0 +1,134 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+
+const principles = [
+  [
+    'Le métier avant l’écran',
+    'Nous partons des responsabilités du magasin, des documents réellement utilisés et des décisions qui doivent rester visibles.',
+  ],
+  [
+    'La preuve avant la promesse',
+    'Les démonstrations s’appuient sur des parcours du produit. Nous séparons les fonctions existantes, la configuration et les besoins à étudier.',
+  ],
+  [
+    'Le contrôle avant l’automatisme',
+    'Une correction, un devis, une commande ou une facture doit pouvoir être relu avant sa confirmation.',
+  ],
+  [
+    'Un périmètre écrit',
+    'Déploiement, données, formation, support et adaptations sont précisés dans la proposition retenue.',
+  ],
+];
+
+const metadata = {
+  title: 'À propos d’Opti Solution',
+  description:
+    'Découvrez la mission, l’approche et les principes qui guident Opti Solution pour les magasins d’optique.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="À propos · Une approche métier"
+    title="Relier les opérations sans retirer le contrôle à l’équipe."
+    text="Opti Solution est né d’une idée simple : un magasin d’optique doit pouvoir suivre la fiche client, la correction, la vente, l’achat et la facturation sans perdre le contexte entre les outils."
+    primaryText="Découvrir la solution"
+    primaryHref="/solution"
+    secondaryText="Nous contacter"
+    secondaryHref="/contact"
+  />
+
+  <section class="os-section">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Notre mission</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.6rem)] leading-none font-serif tracking-[-0.045em]">
+          Rendre le parcours du magasin plus lisible.
+        </h2>
+      </div>
+      <div class="os-prose">
+        <p>
+          Nous concevons un environnement de gestion pour les magasins d’optique qui veulent structurer leurs
+          informations clients, leurs références optiques et leurs documents commerciaux dans un cadre commun.
+        </p>
+        <p>
+          Le produit s’appuie sur <a
+            class="os-text-link"
+            href="https://www.odoo.com/page/community"
+            target="_blank"
+            rel="noopener noreferrer">Odoo Community ↗</a
+          >, puis ajoute des parcours adaptés au métier de l’optique. Cette base permet de conserver des domaines
+          distincts — vente, achat, stock et facturation — tout en rapprochant les informations utiles à l’équipe.
+        </p>
+        <p>
+          Opti Solution est porté par Mohamed El Bachrioui. Le travail combine compréhension opérationnelle,
+          configuration fonctionnelle et développement, avec une priorité donnée à la traçabilité des décisions et à une
+          communication commerciale mesurée.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Nos principes"
+        title="Des choix qui protègent la clarté du projet."
+        text="Ces principes guident les écrans, la démonstration et la façon dont nous cadrons chaque intervention."
+      />
+      <div class="os-capability-preview os-capability-preview--roles">
+        {
+          principles.map(([title, text], index) => (
+            <article class="!bg-transparent !border-white/15">
+              <div class="os-capability-preview__copy">
+                <p class="os-kicker">Principe 0{index + 1}</p>
+                <h3 class="!text-white">{title}</h3>
+                <p class="!text-white/65">{text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--cream">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Confiance & données</p><h2
+          class="text-[clamp(2.3rem,5vw,4.3rem)] leading-none font-serif tracking-[-0.045em]"
+        >
+          Un cadre à construire avec responsabilité.
+        </h2>
+      </div>
+      <div class="os-prose">
+        <p>
+          Les informations optiques et les données clients demandent une attention particulière. Les responsabilités,
+          les accès et les conditions d’hébergement doivent être définis pour chaque déploiement. Le site public ne
+          demande jamais de données de patient.
+        </p>
+        <p>
+          Notre politique de confidentialité s’inscrit dans le cadre marocain de protection des données personnelles.
+          Vous pouvez consulter la <a
+            class="os-text-link"
+            href="https://www.cndp.ma/images/lois/Loi-09-08-Fr.pdf"
+            target="_blank"
+            rel="noopener noreferrer">loi n° 09-08 publiée par la CNDP ↗</a
+          > et notre <a class="os-text-link" href="/confidentialite">politique de confidentialité</a>.
+        </p>
+        <p>
+          Cette transparence s’applique aussi au produit : la démonstration distingue les données préparées, les
+          possibilités existantes et les éléments qui nécessitent encore une validation métier ou technique.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    title="Parlons de la réalité de votre magasin."
+    text="Une démonstration permet d’examiner vos parcours prioritaires et de vérifier où Opti Solution peut réellement vous aider."
+  />
+</MarketingLayout>

@@ -2,18 +2,45 @@
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { getCanonical } from '~/utils/permalinks';
 
 const metadata = {
   title: 'Préparer les données avant une migration',
   description: 'Guide pour rassembler et clarifier les données d’un magasin d’optique avant d’évaluer leur reprise.',
+  openGraph: {
+    type: 'article',
+    article: {
+      publishedTime: '2026-10-02',
+      modifiedTime: '2026-10-02',
+      authors: [String(getCanonical('/a-propos'))],
+      section: 'Migration',
+    },
+  },
+};
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  headline: 'Préparer les données d’un magasin avant une migration',
+  description: metadata.description,
+  datePublished: '2026-10-02',
+  dateModified: '2026-10-02',
+  inLanguage: 'fr',
+  mainEntityOfPage: String(getCanonical('/ressources/preparer-migration')),
+  image: String(new URL('/product/tablet/products.webp', Astro.site)),
+  author: { '@type': 'Person', name: 'Mohamed El Bachrioui', url: String(getCanonical('/a-propos')) },
+  publisher: { '@type': 'Organization', name: 'Opti Solution', url: String(getCanonical('/')) },
 };
 ---
 
 <MarketingLayout metadata={metadata}>
+  <StructuredData slot="head" schema={articleSchema} />
   <article class="os-article-shell">
     <header class="os-article">
       <div class="os-article__meta">
-        <span>Guide · Migration</span><span>7 min de lecture</span><span>Mis à jour en septembre 2026</span>
+        <span>Guide · Migration</span><span>7 min de lecture</span><span>
+          Publié le <time datetime="2026-10-02">2 octobre 2026</time>
+        </span><span>Mis à jour le <time datetime="2026-10-02">2 octobre 2026</time></span>
       </div>
       <h1>Préparer les données d’un magasin avant une migration</h1>
       <p class="os-article__intro">
@@ -100,6 +127,19 @@ const metadata = {
         <li>Historique indispensable et historique archivable.</li>
         <li>Personne responsable de la validation métier.</li>
       </ol>
+
+      <aside class="os-author-card" aria-label="À propos de l’auteur">
+        <div class="os-author-card__monogram" aria-hidden="true">ME</div>
+        <div>
+          <p class="os-kicker">À propos de l’auteur</p>
+          <h2>Mohamed El Bachrioui</h2>
+          <p>
+            Fondateur d’Opti Solution, Mohamed travaille sur la conception, la configuration et le développement de
+            parcours Odoo adaptés aux opérations des magasins d’optique.
+          </p>
+          <a class="os-text-link" href="/a-propos">Découvrir l’approche d’Opti Solution →</a>
+        </div>
+      </aside>
     </div>
   </article>
   <section class="os-section os-section--soft">

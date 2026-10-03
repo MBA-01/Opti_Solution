@@ -1,0 +1,61 @@
+---
+import LegalPage, { type LegalSection } from '~/components/site/LegalPage.astro';
+
+const sections: LegalSection[] = [
+  {
+    title: 'Ce que couvre la garantie',
+    paragraphs: [
+      'Pendant la période précisée dans la proposition, Opti Solution examine les anomalies reproductibles qui empêchent une fonction livrée d’exécuter le comportement décrit dans le périmètre accepté.',
+      'Lorsqu’une anomalie couverte est confirmée, nous pouvons proposer une correction, une solution de contournement ou une reprise du paramétrage concerné. La méthode dépend de la gravité, du contexte technique et des risques pour les données.',
+    ],
+  },
+  {
+    title: 'Conditions de prise en charge',
+    paragraphs: [
+      'La demande doit concerner une version, un environnement et un usage prévus par le contrat. Elle doit fournir assez d’éléments pour reproduire le problème sans transmettre d’informations personnelles non nécessaires.',
+    ],
+    list: [
+      'Décrire le résultat obtenu et le résultat attendu.',
+      'Indiquer les étapes réalisées avant l’apparition du problème.',
+      'Préciser l’environnement, le navigateur et les utilisateurs concernés.',
+      'Joindre une capture anonymisée lorsque cela aide au diagnostic.',
+    ],
+  },
+  {
+    title: 'Ce qui n’est pas une anomalie couverte',
+    paragraphs: [
+      'Une nouvelle fonction, une modification de règle métier, une extension du périmètre, un import supplémentaire ou une adaptation à un service tiers ne constitue pas automatiquement une correction sous garantie.',
+      'Sont également exclus les incidents provoqués par une intervention non autorisée, une infrastructure hors du périmètre géré, des identifiants compromis, une mauvaise utilisation ou des données incorrectes fournies par le client.',
+    ],
+  },
+  {
+    title: 'Contrôles et responsabilités métier',
+    paragraphs: [
+      'Opti Solution aide à structurer des informations et des documents, mais ne remplace pas la compétence des utilisateurs. Les corrections optiques, références, quantités, prix, taxes, factures et paiements doivent être vérifiés par les personnes habilitées avant confirmation.',
+      'Aucun écran ou automatisme ne constitue une garantie de conformité clinique, comptable, fiscale ou réglementaire. Le magasin définit ses procédures et conserve la responsabilité de ses décisions professionnelles.',
+    ],
+  },
+  {
+    title: 'Disponibilité et services tiers',
+    paragraphs: [
+      'Un engagement de disponibilité, de délai de réponse ou de reprise après incident n’existe que s’il figure explicitement dans la proposition de support ou d’hébergement. Les pannes d’un fournisseur tiers sont traitées selon le service contractuellement retenu.',
+      'Le client doit conserver les moyens d’accès et les sauvegardes qui relèvent de sa responsabilité. Les responsabilités de sauvegarde, de restauration et de mise à jour sont confirmées avant la mise en service.',
+    ],
+  },
+  {
+    title: 'Signaler un incident',
+    paragraphs: [
+      'Envoyez la demande à hello@opvibe.com avec la référence du projet et le niveau d’impact observé. Pour un incident bloquant, indiquez les opérations impossibles, le nombre d’utilisateurs concernés et l’existence d’une solution temporaire.',
+      'Ne transmettez jamais de mot de passe, d’ordonnance, de correction réelle ou de donnée de patient par un canal non convenu. Nous vous indiquerons, si nécessaire, le moyen sécurisé à utiliser pour poursuivre le diagnostic.',
+    ],
+  },
+];
+---
+
+<LegalPage
+  title="Garantie et support"
+  description="Cadre de garantie, de correction des anomalies et de support pour les prestations et déploiements Opti Solution."
+  eyebrow="Qualité de service · Anomalies & assistance"
+  intro="La garantie porte sur le périmètre livré et accepté. Cette page distingue une anomalie couverte d’une évolution, d’un problème de données ou d’une responsabilité d’infrastructure."
+  sections={sections}
+/>

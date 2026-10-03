@@ -2,7 +2,7 @@ export const primaryNav = [
   { text: 'Solution', href: '/solution' },
   { text: 'Fonctionnement', href: '/fonctionnement' },
   { text: 'Fonctionnalités', href: '/fonctionnalites' },
-  { text: 'Démo', href: '/demo' },
+  { text: 'Services', href: '/services' },
   {
     text: 'Ressources',
     href: '/ressources',
@@ -11,9 +11,9 @@ export const primaryNav = [
       { text: 'Articles & guides', href: '/ressources#guides' },
       { text: 'Vidéos', href: '/ressources/videos' },
       { text: 'Calculateur', href: '/calculateur' },
+      { text: 'À propos', href: '/a-propos' },
     ],
   },
-  { text: 'Mise en place', href: '/mise-en-place' },
 ];
 
 export const footerLinks = [
@@ -27,20 +27,30 @@ export const footerLinks = [
     ],
   },
   {
-    title: 'Découvrir',
+    title: 'Services',
     links: [
-      { text: 'Ressources', href: '/ressources' },
-      { text: 'Calculateur de temps', href: '/calculateur' },
+      { text: 'Nos services', href: '/services' },
       { text: 'Mise en place', href: '/mise-en-place' },
-      { text: 'Questions fréquentes', href: '/#questions' },
+      { text: 'Demander une démo', href: '/demo#demande' },
+      { text: 'Ressources', href: '/ressources' },
     ],
   },
   {
-    title: 'Contact',
+    title: 'Entreprise',
     links: [
-      { text: 'Demander une démo', href: '/demo#demande' },
+      { text: 'À propos', href: '/a-propos' },
+      { text: 'Nous contacter', href: '/contact' },
       { text: 'hello@opvibe.com', href: 'mailto:hello@opvibe.com' },
       { text: 'WhatsApp', href: 'https://wa.me/212620169713' },
+    ],
+  },
+  {
+    title: 'Informations légales',
+    links: [
+      { text: 'Confidentialité', href: '/confidentialite' },
+      { text: 'Conditions générales', href: '/conditions-generales' },
+      { text: 'Politique de retours', href: '/politique-retours' },
+      { text: 'Garantie & support', href: '/garantie' },
     ],
   },
 ];

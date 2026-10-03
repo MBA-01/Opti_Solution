@@ -2,8 +2,10 @@
 import MarketingLayout from '~/layouts/MarketingLayout.astro';
 import FinalCTA from '~/components/site/FinalCTA.astro';
 import ScreenshotFrame from '~/components/ui/ScreenshotFrame.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
 import type { ResourceArticle } from '~/data/resource-articles';
 import { resourceArticles } from '~/data/resource-articles';
+import { getCanonical } from '~/utils/permalinks';
 
 interface Props {
   article: ResourceArticle;
@@ -14,16 +16,47 @@ const related = resourceArticles.filter((item) => item.slug !== article.slug).sl
 const metadata = {
   title: article.title,
   description: article.description,
+  openGraph: {
+    type: 'article',
+    article: {
+      publishedTime: article.published,
+      modifiedTime: article.modified,
+      authors: [String(getCanonical('/a-propos'))],
+      section: article.category,
+    },
+  },
+};
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': article.type === 'Article' ? 'Article' : 'HowTo',
+  headline: article.title,
+  description: article.description,
+  datePublished: article.published,
+  dateModified: article.modified,
+  inLanguage: 'fr',
+  mainEntityOfPage: String(getCanonical(`/ressources/${article.slug}`)),
+  image: String(new URL(article.image, Astro.site)),
+  author: {
+    '@type': 'Person',
+    name: article.author,
+    url: String(getCanonical('/a-propos')),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Opti Solution',
+    url: String(getCanonical('/')),
+  },
 };
 ---
 
 <MarketingLayout metadata={metadata}>
+  <StructuredData slot="head" schema={articleSchema} />
   <article class="os-article-shell">
     <header class="os-article">
       <div class="os-article__meta">
-        <span>{article.type} · {article.category}</span><span>{article.reading} de lecture</span><span
-          >Mis à jour en {article.updated}</span
-        >
+        <span>{article.type} · {article.category}</span><span>{article.reading} de lecture</span><span>
+          Publié le <time datetime={article.published}>2 octobre 2026</time>
+        </span><span>Mis à jour le <time datetime={article.modified}>{article.updated}</time></span>
       </div>
       <h1>{article.title}</h1>
       <p class="os-article__intro">{article.description}</p>
@@ -69,6 +102,19 @@ const metadata = {
         <p>{article.capability.text}</p>
         <a class="os-text-link" href={article.capability.href}>{article.capability.linkText} →</a>
       </div>
+
+      <aside class="os-author-card" aria-label="À propos de l’auteur">
+        <div class="os-author-card__monogram" aria-hidden="true">ME</div>
+        <div>
+          <p class="os-kicker">À propos de l’auteur</p>
+          <h2>{article.author}</h2>
+          <p>
+            Fondateur d’Opti Solution, Mohamed travaille sur la conception, la configuration et le développement de
+            parcours Odoo adaptés aux opérations des magasins d’optique.
+          </p>
+          <a class="os-text-link" href="/a-propos">Découvrir l’approche d’Opti Solution →</a>
+        </div>
+      </aside>
     </div>
   </article>
 

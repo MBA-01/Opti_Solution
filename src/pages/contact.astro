@@ -1,0 +1,55 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import DemoRequest from '~/components/site/DemoRequest.astro';
+
+const metadata = {
+  title: 'Contacter Opti Solution',
+  description:
+    'Contactez Opti Solution par e-mail, téléphone ou WhatsApp et préparez une démonstration adaptée à votre magasin.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="Contact · Maroc"
+    title="Parlons des opérations que vous voulez clarifier."
+    text="Expliquez-nous brièvement votre organisation, vos priorités et les outils que vous utilisez aujourd’hui. Nous vous répondrons pour préparer un échange utile, sans vous demander de données de patient."
+    primaryText="Écrire par e-mail"
+    primaryHref="mailto:hello@opvibe.com"
+    secondaryText="WhatsApp"
+    secondaryHref="https://wa.me/212620169713"
+    compact
+  />
+
+  <section class="os-section">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Contact direct</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.4rem)] leading-none font-serif tracking-[-0.045em]">
+          Choisissez le canal qui vous convient.
+        </h2>
+      </div>
+      <div class="os-prose">
+        <p>
+          <strong>Mohamed El Bachrioui</strong> répond aux demandes concernant la démonstration, le périmètre fonctionnel,
+          le déploiement et les services associés à Opti Solution.
+        </p>
+        <p>
+          E-mail : <a class="os-text-link" href="mailto:hello@opvibe.com">hello@opvibe.com</a><br />Téléphone et
+          WhatsApp : <a class="os-text-link" href="tel:+212620169713">+212 620 169 713</a>
+        </p>
+        <p>
+          Pour préparer l’échange, indiquez le nombre d’utilisateurs, les opérations prioritaires et les données que
+          vous envisagez de reprendre. Un exemple anonymisé suffit pour une première discussion sur les fichiers.
+        </p>
+        <p>
+          Le formulaire ci-dessous est réservé aux demandes professionnelles. N’y ajoutez aucune ordonnance, correction
+          optique, information médicale ou donnée permettant d’identifier un patient.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <DemoRequest />
+</MarketingLayout>

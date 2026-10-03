@@ -1,6 +1,6 @@
 site:
   name: Opti Solution
-  site: 'https://opti-solution-4cju7gwps-mohamed-el-bachriouis-projects.vercel.app'
+  site: 'https://opti-solution.vercel.app'
   base: '/'
   trailingSlash: false
 

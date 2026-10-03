@@ -16,6 +16,9 @@ export interface ResourceArticle {
   description: string;
   reading: string;
   updated: string;
+  published: string;
+  modified: string;
+  author: string;
   image: string;
   imageAlt: string;
   imageLabel: string;
@@ -38,7 +41,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Un cadre pratique pour retrouver plus facilement montures, verres et accessoires dans les opérations de vente, d’achat et de stock.',
     reading: '6 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/products.webp',
     imageAlt: 'Fiche produit Opti Solution présentant une référence utilisée en vente, achat et stock.',
     imageLabel: 'Catalogue produit',
@@ -95,7 +101,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Les questions techniques et opérationnelles à poser avant de retenir un mode de déploiement pour le magasin.',
     reading: '7 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/sales-dashboard.webp',
     imageAlt: 'Interface Opti Solution consultée depuis un navigateur.',
     imageLabel: 'Environnement de travail',
@@ -152,7 +161,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Une méthode simple pour savoir quels devis préparer, vérifier, confirmer ou reprendre avec le client.',
     reading: '5 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/quotations.webp',
     imageAlt: 'Liste des devis clients dans Opti Solution sur tablette.',
     imageLabel: 'Vente & devis',
@@ -202,7 +214,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Définissez qui consulte, prépare, contrôle ou confirme chaque opération avant de configurer les utilisateurs.',
     reading: '6 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/lens-configuration.webp',
     imageAlt: 'Écran de configuration de caractéristiques optiques dans Opti Solution.',
     imageLabel: 'Configuration & gestion',
@@ -260,7 +275,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Nettoyez la structure, les identifiants et les valeurs de vos fichiers avant d’évaluer une reprise de données.',
     reading: '7 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/products.webp',
     imageAlt: 'Fiche produit illustrant les champs à préparer avant un import.',
     imageLabel: 'Préparation des données',
@@ -316,7 +334,10 @@ export const resourceArticles: ResourceArticle[] = [
     description:
       'Clarifiez les documents, les contrôles et les responsabilités entre le besoin d’achat et la réception des produits.',
     reading: '6 min',
-    updated: 'Septembre 2026',
+    updated: '2 octobre 2026',
+    published: '2026-10-02',
+    modified: '2026-10-02',
+    author: 'Mohamed El Bachrioui',
     image: '/product/tablet/purchase-order.webp',
     imageAlt: 'Commande fournisseur Opti Solution avec suivi de la réception.',
     imageLabel: 'Fournisseurs & achats',

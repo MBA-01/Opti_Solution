@@ -6,6 +6,8 @@ This is an AstroWind-based working site for the French B2B optical-shop landing 
 
 Use Node.js 22.22.3 or newer, then run `npm ci` and `npm run dev`. Build with `npm run build`; validate with `npm run check`.
 
+Run `npm run audit:site` for a production build followed by the local SEO crawl. The audit fails on broken internal links or anchors, orphan indexable pages, missing canonicals or descriptions, duplicate main content, missing image alternative text, absent sitemap files, and indexable pages with fewer than 200 words.
+
 ## Open on the local network
 
 Run `npm run dev:lan` to expose the development site on port 4321. Find this computer's LAN address with `hostname -I`, then open `http://LAN_IP:4321/homes/saas` from another device connected to the same network.
@@ -24,7 +26,9 @@ The working Odoo screenshots in `public/working/` are compressed copies of `../l
 
 The form accepts a `PUBLIC_DEMO_FORM_ENDPOINT` environment variable. It POSTs JSON with `name`, `shop`, `city`, `email`, optional `phone`, and optional `need`. After an HTTP 2xx response, it records the GA4 `generate_lead` event when consented and redirects to `/merci`. Without an endpoint, the page directs visitors to the sourced email and WhatsApp contact links.
 
-Set `PUBLIC_SITE_URL` to the canonical production domain. The default currently points to the supplied Vercel deployment; production builds generate `robots.txt`, `sitemap-index.xml`, and a filtered sitemap that excludes utility and concept routes.
+Set `PUBLIC_SITE_URL` to the canonical production domain. The fallback points to the public `opti-solution.vercel.app` deployment; production builds generate `robots.txt`, `sitemap-index.xml`, an image sitemap, and a filtered page sitemap that excludes utility and concept routes.
+
+Search-engine verification tokens can be supplied with `PUBLIC_GOOGLE_SITE_VERIFICATION_ID` and `PUBLIC_BING_SITE_VERIFICATION_ID`. Official LinkedIn and Facebook company-page URLs can be supplied with `PUBLIC_LINKEDIN_URL` and `PUBLIC_FACEBOOK_URL`; configured profiles appear in the footer and Organization structured data. See `docs/seo-launch-checklist.md` for the account-level work that cannot be completed in source code.
 
 Google Analytics remains disabled until `PUBLIC_GOOGLE_ANALYTICS_ID` contains a GA4 measurement ID. When enabled, the site uses basic consent mode: the Google tag is not requested until the visitor accepts measurement. CTA clicks and successful demo requests are then measured without sending form-field values.
 

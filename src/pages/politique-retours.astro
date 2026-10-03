@@ -1,0 +1,56 @@
+---
+import LegalPage, { type LegalSection } from '~/components/site/LegalPage.astro';
+
+const sections: LegalSection[] = [
+  {
+    title: 'Nature de l’offre',
+    paragraphs: [
+      'Opti Solution fournit principalement des prestations et éléments numériques destinés à des professionnels : étude, configuration, déploiement, formation, support et, selon le projet, développements spécifiques. Il ne s’agit pas d’une boutique en ligne de produits physiques retournables.',
+      'La notion de retour doit donc être examinée selon l’état réel de la prestation, les livrables déjà remis et les conditions du devis accepté.',
+    ],
+  },
+  {
+    title: 'Avant le démarrage',
+    paragraphs: [
+      'Si vous souhaitez modifier ou annuler une demande avant le début des travaux, contactez-nous immédiatement. Nous confirmerons par écrit si la prestation a commencé, si des ressources ont déjà été engagées et quelles sommes peuvent être remboursées.',
+      'Lorsqu’aucun travail n’a commencé et qu’aucun coût irréversible n’a été engagé, les sommes reçues peuvent être remboursées selon le moyen de paiement disponible et les conditions du devis.',
+    ],
+  },
+  {
+    title: 'Travaux déjà commencés',
+    paragraphs: [
+      'Après le démarrage, les montants correspondant aux diagnostics, configurations, développements, réunions, préparations de données ou autres travaux déjà réalisés ne sont pas traités comme le retour d’un produit inutilisé.',
+      'Une demande d’arrêt fait l’objet d’un état des travaux et des éléments engagés. Le solde éventuel est calculé selon le contrat, les étapes acceptées et les livrables disponibles à la date de la demande.',
+    ],
+  },
+  {
+    title: 'Anomalie ou non-conformité',
+    paragraphs: [
+      'Si un livrable ne correspond pas au périmètre convenu, signalez-le par écrit avec une description précise, le contexte, les étapes permettant de reproduire le problème et, si possible, une capture sans donnée personnelle sensible.',
+      'Nous examinons d’abord une correction, une reprise ou une explication conforme au périmètre. Un remboursement éventuel n’est envisagé qu’après cette analyse et selon les obligations prévues dans le document contractuel applicable.',
+    ],
+  },
+  {
+    title: 'Services récurrents',
+    paragraphs: [
+      'L’hébergement, la maintenance ou le support récurrent peuvent être arrêtés selon le préavis et les modalités indiqués dans la proposition. Les périodes déjà commencées, ressources réservées et coûts de tiers sont traités conformément à ce document.',
+      'Avant la fermeture d’un environnement, les responsabilités relatives à l’export, à la conservation, à la suppression et à la remise des données doivent être confirmées par les personnes autorisées.',
+    ],
+  },
+  {
+    title: 'Demander un examen',
+    paragraphs: [
+      'Envoyez votre demande à hello@opvibe.com en indiquant le client, la référence du devis ou de la facture, le service concerné, la date de commande et le résultat attendu. N’envoyez pas de données de patient ou d’identifiants de connexion par e-mail.',
+      'Nous accusons réception de la demande et indiquons les informations nécessaires à son examen. Toute décision est confirmée par écrit afin que le calcul et la suite proposée puissent être vérifiés.',
+    ],
+  },
+];
+---
+
+<LegalPage
+  title="Politique de retours et remboursements"
+  description="Politique d’annulation, de retour et de remboursement applicable aux services professionnels Opti Solution."
+  eyebrow="Services numériques · Annulation & remboursement"
+  intro="Nos prestations sont configurées pour chaque projet. Cette politique explique comment demander un arrêt, signaler une non-conformité ou faire examiner un remboursement."
+  sections={sections}
+/>

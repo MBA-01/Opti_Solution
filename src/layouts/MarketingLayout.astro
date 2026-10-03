@@ -31,6 +31,12 @@ const routeLabels: Record<string, string> = {
   calculateur: 'Calculateur',
   'mise-en-place': 'Mise en place',
   ressources: 'Ressources',
+  services: 'Services',
+  'a-propos': 'À propos',
+  contact: 'Contact',
+  'conditions-generales': 'Conditions générales',
+  'politique-retours': 'Politique de retours',
+  garantie: 'Garantie & support',
   confidentialite: 'Confidentialité',
   merci: 'Demande envoyée',
 };
@@ -60,6 +66,10 @@ const businessCountry = import.meta.env.PUBLIC_BUSINESS_COUNTRY?.trim() || 'MA';
 const hasLocalAddress = Boolean(businessStreet && businessCity && businessPostalCode);
 const canonicalHome = String(getCanonical('/'));
 const socialImage = String(new URL(shareImage.src, Astro.site));
+const organizationSocialProfiles = [
+  import.meta.env.PUBLIC_LINKEDIN_URL?.trim(),
+  import.meta.env.PUBLIC_FACEBOOK_URL?.trim(),
+].filter((profile): profile is string => Boolean(profile));
 const businessSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -72,6 +82,7 @@ const businessSchema = {
       email: 'hello@opvibe.com',
       telephone: '+212620169713',
       areaServed: { '@type': 'Country', name: 'Maroc' },
+      ...(organizationSocialProfiles.length ? { sameAs: organizationSocialProfiles } : {}),
       ...(hasLocalAddress
         ? {
             address: {
@@ -95,9 +106,34 @@ const businessSchema = {
   ],
 };
 const showStickyCta =
-  !['/demo', '/merci', '/confidentialite'].includes(pathname) &&
+  ![
+    '/demo',
+    '/merci',
+    '/contact',
+    '/confidentialite',
+    '/conditions-generales',
+    '/politique-retours',
+    '/garantie',
+  ].includes(pathname) &&
   !pathname.startsWith('/concepts/') &&
   !pageTitle.startsWith('Page introuvable');
+const socialLinks = [
+  import.meta.env.PUBLIC_LINKEDIN_URL?.trim()
+    ? {
+        ariaLabel: 'Opti Solution sur LinkedIn',
+        icon: 'tabler:brand-linkedin',
+        href: import.meta.env.PUBLIC_LINKEDIN_URL.trim(),
+      }
+    : null,
+  import.meta.env.PUBLIC_FACEBOOK_URL?.trim()
+    ? {
+        ariaLabel: 'Opti Solution sur Facebook',
+        icon: 'tabler:brand-facebook',
+        href: import.meta.env.PUBLIC_FACEBOOK_URL.trim(),
+      }
+    : null,
+].filter((link): link is NonNullable<typeof link> => Boolean(link));
+const copyrightYear = new Date().getFullYear();
 ---
 
 <Layout metadata={metadata}>
@@ -128,9 +164,12 @@ const showStickyCta =
   }
   <Footer
     links={footerLinks}
-    secondaryLinks={[{ text: 'Confidentialité', href: '/confidentialite' }]}
-    socialLinks={[]}
-    footNote="Opti Solution · La gestion reliée au métier de l’optique."
+    secondaryLinks={[
+      { text: 'Contact', href: '/contact' },
+      { text: 'Confidentialité', href: '/confidentialite' },
+    ]}
+    socialLinks={socialLinks}
+    footNote={`© ${copyrightYear} Opti Solution · Tous droits réservés.`}
     theme="dark"
   />
   <AnalyticsConsent />

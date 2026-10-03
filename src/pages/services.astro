@@ -1,0 +1,143 @@
+---
+import MarketingLayout from '~/layouts/MarketingLayout.astro';
+import PageHero from '~/components/site/PageHero.astro';
+import SectionIntro from '~/components/site/SectionIntro.astro';
+import FinalCTA from '~/components/site/FinalCTA.astro';
+
+const services = [
+  [
+    '01',
+    'Diagnostic métier',
+    'Cartographier les rôles, les documents et les contrôles qui structurent le magasin avant de proposer une configuration.',
+  ],
+  [
+    '02',
+    'Configuration Opti Solution',
+    'Préparer les modules, référentiels optiques, catégories, droits d’accès et réglages inclus dans le périmètre validé.',
+  ],
+  [
+    '03',
+    'Déploiement',
+    'Étudier une installation locale ou hébergée et définir les responsabilités techniques, sauvegardes et accès attendus.',
+  ],
+  [
+    '04',
+    'Reprise de données',
+    'Examiner les fichiers disponibles, leur qualité et leurs relations avant de confirmer ce qui peut être repris et à quelles conditions.',
+  ],
+  [
+    '05',
+    'Formation',
+    'Faire pratiquer les parcours retenus aux utilisateurs concernés, avec des scénarios proches du travail quotidien du magasin.',
+  ],
+  [
+    '06',
+    'Support & évolutions',
+    'Définir un cadre de support puis étudier séparément les adaptations qui dépassent la configuration convenue.',
+  ],
+];
+
+const metadata = {
+  title: 'Services pour magasins d’optique',
+  description: 'Diagnostic, configuration, déploiement, migration, formation et support autour d’Opti Solution.',
+};
+---
+
+<MarketingLayout metadata={metadata}>
+  <PageHero
+    chapter="Services · Du diagnostic au support"
+    title="Un accompagnement cadré autour de votre magasin."
+    text="Opti Solution ne se résume pas à installer un logiciel. Nous définissons avec vous le périmètre, les données, les responsabilités et les conditions de mise en service avant de commencer."
+    primaryText="Décrire mon projet"
+    primaryHref="/contact"
+    secondaryText="Voir la mise en place"
+    secondaryHref="/mise-en-place"
+  />
+
+  <section class="os-section">
+    <div class="os-container">
+      <SectionIntro
+        eyebrow="Notre méthode"
+        title="Six services, une responsabilité claire à chaque étape."
+        text="Chaque intervention donne lieu à un périmètre explicite. Les éléments inclus, optionnels, récurrents ou à étudier séparément apparaissent dans la proposition."
+      />
+      <div class="os-offer-steps">
+        {
+          services.map(([number, title, text]) => (
+            <article>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--dark">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Ce que nous cadrons</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.5rem)] leading-none font-serif tracking-[-0.045em]">
+          Une proposition lisible avant tout engagement.
+        </h2>
+      </div>
+      <div class="os-problem-list">
+        <article>
+          <span>01</span><div>
+            <h3>Résultat attendu</h3><p>
+              Les parcours et les utilisateurs concernés sont nommés, avec les contrôles à conserver.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>02</span><div>
+            <h3>Responsabilités</h3><p>
+              Le magasin et Opti Solution savent qui prépare les données, valide les réglages et exploite
+              l’environnement.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>03</span><div>
+            <h3>Limites du périmètre</h3><p>
+              Une migration, un développement spécifique ou un service récurrent n’est jamais supposé inclus sans
+              mention explicite.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="os-section os-section--cream">
+    <div class="os-container os-split">
+      <div>
+        <p class="os-eyebrow">Avant de commencer</p>
+        <h2 class="text-[clamp(2.4rem,5vw,4.5rem)] leading-none font-serif tracking-[-0.045em]">
+          Préparez les bonnes informations.
+        </h2>
+      </div>
+      <div class="os-prose">
+        <p>
+          Un premier échange devient plus utile lorsque vous connaissez le nombre d’utilisateurs, les rôles présents
+          dans le magasin, les opérations prioritaires et les outils aujourd’hui utilisés.
+        </p>
+        <p>
+          Pour une reprise de données, préparez uniquement des exemples anonymisés au stade commercial. Les données
+          personnelles et optiques réelles ne doivent pas être envoyées par le formulaire du site.
+        </p>
+        <p>
+          La démonstration sert ensuite à confronter vos besoins aux écrans existants. Elle permet de distinguer ce qui
+          relève du produit, de la configuration et d’une éventuelle adaptation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA
+    title="Définissons le service adapté à votre périmètre."
+    text="Parlez-nous de votre organisation, de vos données et des parcours que vous souhaitez ouvrir en priorité."
+  />
+</MarketingLayout>

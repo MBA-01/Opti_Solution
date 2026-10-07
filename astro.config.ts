@@ -27,7 +27,8 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 const isPublicSitemapPage = (page: string) => {
   const pathname = new URL(page).pathname;
   return (
-    !['/404', '/merci', '/homes/saas', '/image-sitemap.xml'].includes(pathname) && !pathname.startsWith('/concepts/')
+    !['/404', '/merci', '/homes/saas', '/image-sitemap.xml', '/ressources/videos'].includes(pathname) &&
+    !pathname.startsWith('/concepts/')
   );
 };
 

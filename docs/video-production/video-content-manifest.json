@@ -1,0 +1,368 @@
+{
+  "schema_version": "1.0",
+  "captured_on": "2026-09-22",
+  "language": "fr",
+  "brand": {
+    "name": "Opti Solution",
+    "category": "Odoo Community-based management environment for optical stores",
+    "primary_promise": "Moins d'informations dispersées. Plus de contrôle sur votre magasin.",
+    "primary_conversion": {
+      "label": "Demander une démo",
+      "route": "/demo#demande"
+    },
+    "tone": ["calm", "precise", "credible", "operational", "transparent"],
+    "visual_principles": [
+      "Actual product UI is the main evidence",
+      "Editorial calm and optical precision",
+      "Restrained motion",
+      "Forest, cream, white, ink, and restrained gold palette",
+      "No decorative visuals that obscure the interface"
+    ]
+  },
+  "audiences": [
+    "Optical-store owners",
+    "Optical-store managers",
+    "Sales staff",
+    "Optometry staff",
+    "Purchasing and stock staff"
+  ],
+  "problem_statements": [
+    {
+      "title": "La fiche se fragmente",
+      "description": "Les coordonnées, la correction et les documents commerciaux finissent dans des outils différents."
+    },
+    {
+      "title": "La même information se répète",
+      "description": "Chaque ressaisie augmente le temps de recherche et demande un nouveau contrôle."
+    },
+    {
+      "title": "Les achats perdent leur contexte",
+      "description": "Il devient difficile de relier une demande de prix, une commande et sa réception au bon besoin."
+    },
+    {
+      "title": "Le suivi repose sur la mémoire",
+      "description": "Produits, stock, factures et règlements doivent être recherchés au lieu d'être suivis dans leur parcours."
+    }
+  ],
+  "workflow": [
+    {
+      "number": "01",
+      "title": "Client",
+      "goal": "Créer ou ouvrir la fiche client et retrouver le contexte utile.",
+      "control": "Confirmer la bonne fiche et contrôler les doublons.",
+      "asset": "public/working/01-client-record.webp"
+    },
+    {
+      "number": "02",
+      "title": "Correction optique",
+      "goal": "Saisir les valeurs de loin, de près ou de lentilles et les caractéristiques utiles.",
+      "control": "Relire les valeurs OD/OG avant validation.",
+      "asset": "public/working/05-prescription-review.webp"
+    },
+    {
+      "number": "03",
+      "title": "Devis",
+      "goal": "Ajouter produits, quantités, prix, remises et taxes.",
+      "control": "Relire le devis complet avant confirmation.",
+      "asset": null,
+      "capture_required": true
+    },
+    {
+      "number": "04",
+      "title": "Fournisseur",
+      "goal": "Préparer la demande de prix, confirmer la commande et suivre la réception si nécessaire.",
+      "control": "Vérifier fournisseur, références, quantités et montants.",
+      "assets": ["public/working/06-supplier-rfq.webp", "public/working/07-purchase-reception.webp"]
+    },
+    {
+      "number": "05",
+      "title": "Vente & livraison",
+      "goal": "Confirmer la vente et enregistrer la livraison selon le parcours retenu.",
+      "control": "Conserver vente et achat fournisseur comme opérations distinctes.",
+      "asset": null,
+      "capture_required": true
+    },
+    {
+      "number": "06",
+      "title": "Facture & règlement",
+      "goal": "Créer la facture, contrôler les montants et consulter le statut de règlement.",
+      "control": "Distinguer la facture de son paiement.",
+      "asset": null,
+      "capture_required": true,
+      "note": "The current supplier-bill still is not evidence of a customer invoice/payment flow."
+    }
+  ],
+  "capabilities": [
+    {
+      "slug": "clients-optometrie",
+      "title": "Clients & optométrie",
+      "tasks": [
+        "Créer et retrouver une fiche client",
+        "Saisir des corrections OD/OG",
+        "Renseigner types, matériaux et traitements",
+        "Valider une correction après contrôle"
+      ]
+    },
+    {
+      "slug": "ventes-devis",
+      "title": "Ventes & devis",
+      "tasks": [
+        "Préparer un devis",
+        "Ajouter les produits et quantités",
+        "Contrôler prix, remises et taxes",
+        "Suivre la vente et la livraison"
+      ]
+    },
+    {
+      "slug": "produits-stock",
+      "title": "Produits & stock",
+      "tasks": [
+        "Structurer les références produit",
+        "Retrouver marques et catégories",
+        "Consulter les quantités",
+        "Suivre les mouvements utiles"
+      ]
+    },
+    {
+      "slug": "fournisseurs-achats",
+      "title": "Fournisseurs & achats",
+      "tasks": [
+        "Gérer les fiches fournisseurs",
+        "Créer une demande de prix",
+        "Confirmer une commande",
+        "Enregistrer la réception"
+      ]
+    },
+    {
+      "slug": "facturation-paiements",
+      "title": "Facturation & paiements",
+      "tasks": [
+        "Créer une facture depuis le document source",
+        "Contrôler les montants",
+        "Enregistrer un paiement",
+        "Suivre les statuts de règlement"
+      ]
+    },
+    {
+      "slug": "configuration-gestion",
+      "title": "Configuration & gestion",
+      "tasks": [
+        "Définir les accès par rôle",
+        "Préparer les référentiels optiques",
+        "Configurer marques et catégories",
+        "Tester les parcours avant ouverture"
+      ]
+    }
+  ],
+  "video_topics": [
+    {
+      "priority": 1,
+      "title": "Film de présentation Opti Solution",
+      "format": "overview",
+      "duration_seconds": "60-90",
+      "funnel_stage": "awareness-to-consideration",
+      "question": "Comment garder le fil entre la fiche optique et les opérations du magasin ?"
+    },
+    {
+      "priority": 2,
+      "title": "De la fiche client au devis",
+      "format": "continuous proof flow",
+      "duration_seconds": "60-120",
+      "capture_required": true
+    },
+    {
+      "priority": 3,
+      "title": "De la correction à la réception fournisseur",
+      "format": "continuous proof flow",
+      "duration_seconds": "60-120",
+      "capture_required": true
+    },
+    {
+      "priority": 4,
+      "title": "Du devis au statut de règlement",
+      "format": "continuous proof flow",
+      "duration_seconds": "60-120",
+      "capture_required": true
+    },
+    {
+      "priority": 5,
+      "title": "Créer une fiche et saisir une correction",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#clients-optometrie"
+    },
+    {
+      "priority": 6,
+      "title": "Préparer un devis client",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#ventes-devis",
+      "capture_required": true
+    },
+    {
+      "priority": 7,
+      "title": "Lire une fiche produit",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#produits-stock"
+    },
+    {
+      "priority": 8,
+      "title": "Préparer une demande de prix fournisseur",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#fournisseurs-achats"
+    },
+    {
+      "priority": 9,
+      "title": "Suivre une réception fournisseur",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#fournisseurs-achats"
+    },
+    {
+      "priority": 10,
+      "title": "Retrouver une facture et son règlement",
+      "format": "task video",
+      "duration_seconds": "30-60",
+      "route": "/fonctionnalites#facturation-paiements",
+      "capture_required": true
+    }
+  ],
+  "current_assets": [
+    {
+      "id": "client-record",
+      "path": "public/working/01-client-record.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "product-catalog",
+      "path": "public/working/02-product-catalog.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "prescription-distance",
+      "path": "public/working/03-prescription-distance.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "lens-selection",
+      "path": "public/working/04-lens-selection.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "prescription-review",
+      "path": "public/working/05-prescription-review.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "supplier-rfq",
+      "path": "public/working/06-supplier-rfq.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "purchase-reception",
+      "path": "public/working/07-purchase-reception.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    },
+    {
+      "id": "supplier-bill",
+      "path": "public/working/08-supplier-bill.webp",
+      "dimensions": "1920x1080",
+      "status": "working-review-only"
+    }
+  ],
+  "educational_topics": [
+    {
+      "slug": "preparer-migration",
+      "title": "Préparer les données d'un magasin avant une migration",
+      "category": "Migration"
+    },
+    {
+      "slug": "organiser-references-produits",
+      "title": "Structurer les références produit et les catégories du magasin",
+      "category": "Stock"
+    },
+    {
+      "slug": "choisir-deploiement-local-ou-heberge",
+      "title": "Préparer le choix entre installation locale et environnement hébergé",
+      "category": "Déploiement"
+    },
+    {
+      "slug": "suivre-devis",
+      "title": "Suivre les devis avec des étapes et des statuts clairs",
+      "category": "Vente"
+    },
+    {
+      "slug": "preparer-roles-acces",
+      "title": "Préparer les rôles et les accès avant le déploiement",
+      "category": "Équipe"
+    },
+    {
+      "slug": "preparer-fichier-excel",
+      "title": "Préparer un fichier Excel avant une évaluation d'import",
+      "category": "Données"
+    },
+    {
+      "slug": "suivre-commande-fournisseur",
+      "title": "Suivre une commande fournisseur jusqu'à la réception",
+      "category": "Achats"
+    }
+  ],
+  "faq_truths": [
+    "The product is for optical stores, with the exact scope studied before proposal.",
+    "A demo is tailored around selected customer, correction, quotation, purchasing, stock, or invoicing flows.",
+    "Local or VPS/cloud deployment may be studied; it is not pre-guaranteed.",
+    "Training and support are scoped and described in the proposal.",
+    "Data migration depends on source quality and the validated scope.",
+    "Price depends on modules, configuration, hosting, migration, and adaptations."
+  ],
+  "implementation_stages": [
+    "Diagnostic",
+    "Configuration",
+    "Déploiement",
+    "Formation",
+    "Mise en service",
+    "Support & évolutions"
+  ],
+  "guardrails": {
+    "must_show": [
+      "Prepared demonstration data",
+      "Explicit human review before confirmation",
+      "Separate sale and supplier-purchase documents",
+      "Draft versus confirmed states where relevant"
+    ],
+    "must_not_claim": [
+      "Guaranteed time or cost savings",
+      "Fully automatic operations",
+      "Guaranteed data migration",
+      "Clinical or legal compliance",
+      "Fixed price or universally included services",
+      "Unverified customers, testimonials, certifications, integrations, or performance metrics"
+    ],
+    "privacy": [
+      "Never use real patient data",
+      "Use one coherent fictional dataset",
+      "Review every visible field before publication"
+    ]
+  },
+  "next_agent_required_outputs": [
+    "Prioritized video slate",
+    "One prospect question and one conversion objective per video",
+    "Recommended duration and aspect ratios",
+    "French narration and on-screen copy",
+    "Beat-by-beat UI shot list",
+    "Continuity and dataset checklist",
+    "Claim approval list",
+    "Accessibility requirements",
+    "CTA and destination route",
+    "Open production risks"
+  ]
+}

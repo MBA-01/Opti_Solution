@@ -32,6 +32,8 @@ Search-engine verification tokens can be supplied with `PUBLIC_GOOGLE_SITE_VERIF
 
 Google Analytics remains disabled until `PUBLIC_GOOGLE_ANALYTICS_ID` contains a GA4 measurement ID. When enabled, the site uses basic consent mode: the Google tag is not requested until the visitor accepts measurement. CTA clicks and successful demo requests are then measured without sending form-field values.
 
+Vercel Web Analytics is included once in the shared `src/layouts/Layout.astro` layout using `@vercel/analytics/astro`. It measures page views independently of the optional Google Analytics integration; no form-field values or custom events are sent by this integration. Enable **Web Analytics** for the existing `opti-solution` project in Vercel, deploy, and visit several production pages. Check the Analytics dashboard after at least 30 seconds. If no visits appear, check browser content blockers and the analytics script/page-view network requests. The privacy page describes both services. See [Vercel’s Astro setup instructions](https://vercel.com/docs/analytics/quickstart).
+
 Organization structured data is emitted on the homepage. Add the complete `PUBLIC_BUSINESS_STREET`, `PUBLIC_BUSINESS_CITY`, and `PUBLIC_BUSINESS_POSTAL_CODE` values to activate the more specific `ProfessionalService`/LocalBusiness schema; no address is inferred or fabricated.
 
 Before public release, confirm the legal controller and retention notice, configure and test the lead endpoint with spam protection, approve screenshots, replace the Vercel URL with the final domain, validate the social image and structured data, and review the response-time commitment.

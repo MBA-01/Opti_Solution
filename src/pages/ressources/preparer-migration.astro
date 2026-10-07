@@ -7,12 +7,13 @@ import { getCanonical } from '~/utils/permalinks';
 
 const metadata = {
   title: 'Préparer les données avant une migration',
-  description: 'Guide pour rassembler et clarifier les données d’un magasin d’optique avant d’évaluer leur reprise.',
+  description:
+    'Inventoriez les sources, séparez les familles de données et préparez des exemples anonymisés avant d’évaluer une reprise de données en magasin d’optique.',
   openGraph: {
     type: 'article',
     article: {
       publishedTime: '2026-10-02',
-      modifiedTime: '2026-10-02',
+      modifiedTime: '2026-10-06',
       authors: [String(getCanonical('/a-propos'))],
       section: 'Migration',
     },
@@ -20,16 +21,16 @@ const metadata = {
 };
 const articleSchema = {
   '@context': 'https://schema.org',
-  '@type': 'HowTo',
-  headline: 'Préparer les données d’un magasin avant une migration',
+  '@type': 'Article',
+  headline: 'Préparer les données avant une migration de logiciel en magasin d’optique',
   description: metadata.description,
   datePublished: '2026-10-02',
-  dateModified: '2026-10-02',
+  dateModified: '2026-10-06',
   inLanguage: 'fr',
   mainEntityOfPage: String(getCanonical('/ressources/preparer-migration')),
   image: String(new URL('/product/tablet/products.webp', Astro.site)),
   author: { '@type': 'Person', name: 'Mohamed El Bachrioui', url: String(getCanonical('/a-propos')) },
-  publisher: { '@type': 'Organization', name: 'Opti Solution', url: String(getCanonical('/')) },
+  publisher: { '@id': `${String(getCanonical('/'))}#organization` },
 };
 ---
 
@@ -38,95 +39,128 @@ const articleSchema = {
   <article class="os-article-shell">
     <header class="os-article">
       <div class="os-article__meta">
-        <span>Guide · Migration</span><span>7 min de lecture</span><span>
+        <span>Guide · Migration</span><span>4 min de lecture</span><span>
           Publié le <time datetime="2026-10-02">2 octobre 2026</time>
-        </span><span>Mis à jour le <time datetime="2026-10-02">2 octobre 2026</time></span>
+        </span><span>Mis à jour le <time datetime="2026-10-06">6 octobre 2026</time></span>
       </div>
-      <h1>Préparer les données d’un magasin avant une migration</h1>
+      <h1>Préparer les données avant une migration de logiciel en magasin d’optique</h1>
       <p class="os-article__intro">
-        Une reprise de données ne commence pas par un bouton d’import. Elle commence par une liste claire des sources,
-        des propriétaires et des informations réellement utiles au futur système.
+        Une migration ne commence pas par un bouton d’import. Elle commence par un inventaire des sources, des
+        responsables et des données utiles. L’équipe doit ensuite distinguer ce qui doit être repris, archivé ou
+        vérifié. La faisabilité reste à évaluer avant toute confirmation.
       </p>
       <div class="mt-10">
         <ScreenshotFrame
           src="/product/tablet/products.webp"
-          alt="Exemple de fiche produit qui illustre les données à préparer."
+          alt="Fiche produit Opti Solution utilisée comme exemple de données à préparer."
           label="Exemple produit"
-          caption="Références et catégories doivent être clarifiées avant l’évaluation d’un import"
+          caption="Les références et les catégories doivent être clarifiées avant l’évaluation d’un import"
           href="/product/tablet/products.webp"
           aspect="tablet"
         />
       </div>
     </header>
+
     <div class="os-article os-prose">
-      <h2>1. Faire l’inventaire des sources</h2>
-      <p>
-        Listez les fichiers Excel, logiciels, documents papier et exports qui contiennent les informations clients,
-        produits, fournisseurs ou stock. Pour chaque source, indiquez qui la maintient et à quelle date elle a été mise
-        à jour.
-      </p>
-      <div class="os-callout">
-        <strong>Principe utile</strong><p>
-          Ne transmettez pas de données réelles de patient dans un formulaire commercial. L’évaluation détaillée doit
-          suivre un canal et un cadre convenus.
+      <section>
+        <h2>1. Quelles sources faut-il inventorier ?</h2>
+        <p>
+          Listez les fichiers Excel, les exports, les logiciels et les documents qui contiennent des informations
+          utiles.
         </p>
-      </div>
+        <p>Pour chaque source, notez les éléments suivants :</p>
+        <ul>
+          <li>son format ;</li>
+          <li>la personne qui la maintient ;</li>
+          <li>la date de la dernière mise à jour connue ;</li>
+          <li>les données qu’elle contient ;</li>
+          <li>les autres sources auxquelles elle est liée.</li>
+        </ul>
+        <div class="os-callout">
+          <strong>Protégez les données personnelles</strong>
+          <p>
+            Ne transmettez pas de données personnelles réelles dans un formulaire commercial. Préparez d’abord un
+            échantillon fictif ou anonymisé dans un cadre convenu.
+          </p>
+        </div>
+      </section>
 
-      <h2>2. Séparer les familles de données</h2>
-      <h3>Clients</h3>
-      <p>
-        Identité, coordonnées, doublons possibles et informations que l’équipe doit réellement retrouver. Les données
-        optiques nécessitent une attention particulière aux accès.
-      </p>
-      <h3>Produits</h3>
-      <p>
-        Référence interne, nom, marque, catégorie, unité, prix et informations d’achat. Clarifiez les variantes et les
-        anciennes références avant de parler d’import.
-      </p>
-      <h3>Fournisseurs</h3>
-      <p>
-        Coordonnées, identifiants nécessaires et historique à conserver. Une liste propre facilite la préparation des
-        demandes de prix futures.
-      </p>
-
-      <h2>3. Identifier les référentiels</h2>
-      <p>
-        Les matériaux, types, traitements, bases, indices et géométries de verres peuvent servir de référentiels.
-        Vérifiez les valeurs déjà utilisées, leurs variantes orthographiques et les doublons.
-      </p>
-      <ul>
-        <li>Choisir un libellé de référence pour chaque valeur.</li>
-        <li>Marquer les valeurs encore actives.</li>
-        <li>Conserver une table de correspondance avec les anciens libellés.</li>
-      </ul>
-
-      <h2>4. Définir ce qui doit réellement être repris</h2>
-      <p>
-        Tout historique n’a pas forcément besoin d’être importé dans le nouvel environnement. Certains documents peuvent
-        rester dans une archive consultable. Cette décision dépend des besoins métier et du cadre convenu.
-      </p>
-
-      <h2>5. Préparer l’évaluation</h2>
-      <p>
-        La qualité, le format, le volume et les relations entre les fichiers déterminent l’effort de reprise. Leur
-        examen permet de définir un périmètre réaliste avant de confirmer la migration.
-      </p>
-      <div class="os-callout">
-        <strong>Capacité liée</strong><p>
-          Voir comment Opti Solution organise les <a class="os-text-link" href="/fonctionnalites#produits-stock"
-            >produits et le stock</a
-          >, puis préparer les questions à poser pendant la démo.
+      <section>
+        <h2>2. Comment séparer les familles de données ?</h2>
+        <p>Traitez chaque famille selon ses propres champs et contrôles.</p>
+        <h3>Clients</h3>
+        <p>
+          Vérifiez l’identité, les coordonnées, les doublons possibles et les informations que l’équipe doit retrouver.
+          Les informations optiques demandent un contrôle d’accès adapté au périmètre retenu.
         </p>
-      </div>
+        <h3>Produits</h3>
+        <p>
+          Vérifiez la référence interne, le nom, la marque, la catégorie, l’unité et les informations utiles aux ventes
+          et aux achats. Clarifiez les variantes et les anciennes références.
+        </p>
+        <h3>Fournisseurs</h3>
+        <p>Vérifiez les coordonnées, les identifiants nécessaires, les doublons et les valeurs manquantes.</p>
+        <h3>Documents opérationnels</h3>
+        <p>
+          Les devis, ventes, achats, réceptions, factures et règlements ne représentent pas le même état. Conservez
+          cette distinction pendant l’évaluation.
+        </p>
+      </section>
 
-      <h2>Checklist avant le premier échange</h2>
-      <ol>
-        <li>Inventaire des sources et formats.</li>
-        <li>Exemples anonymisés de chaque fichier.</li>
-        <li>Liste des doublons ou incohérences déjà connus.</li>
-        <li>Historique indispensable et historique archivable.</li>
-        <li>Personne responsable de la validation métier.</li>
-      </ol>
+      <section>
+        <h2>3. Quels référentiels faut-il clarifier ?</h2>
+        <p>
+          Les types, matériaux, traitements, bases, indices et géométries de verres peuvent servir de référentiels
+          opérationnels. Vérifiez les valeurs utilisées et leurs variantes d’écriture.
+        </p>
+        <ol>
+          <li>Choisir un libellé de référence.</li>
+          <li>Identifier les variantes existantes.</li>
+          <li>Indiquer si la valeur reste active.</li>
+          <li>Conserver une table de correspondance si nécessaire.</li>
+        </ol>
+        <p>Cette étape organise les données. Elle ne valide pas une information médicale.</p>
+      </section>
+
+      <section>
+        <h2>4. Que faut-il reprendre dans le nouvel environnement ?</h2>
+        <p>
+          Tout l’historique n’a pas nécessairement besoin d’être importé. Certaines informations peuvent rester dans une
+          archive consultable. La décision dépend du besoin métier, de la qualité des sources et du cadre convenu.
+        </p>
+        <p>Classez les données dans quatre groupes :</p>
+        <ul>
+          <li>à reprendre ;</li>
+          <li>à archiver ;</li>
+          <li>à corriger avant examen ;</li>
+          <li>à exclure après validation.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>5. Comment préparer l’évaluation ?</h2>
+        <p>
+          La qualité, le format, le volume et les relations entre les fichiers influencent l’effort de reprise. Préparez
+          les éléments suivants :
+        </p>
+        <ol>
+          <li>l’inventaire des sources ;</li>
+          <li>un exemple fictif ou anonymisé de chaque fichier ;</li>
+          <li>la liste des doublons ou incohérences connus ;</li>
+          <li>l’historique jugé indispensable ;</li>
+          <li>la personne responsable de la validation métier.</li>
+        </ol>
+        <div class="os-callout">
+          <strong>Périmètre à confirmer</strong>
+          <p>
+            Opti Solution peut inclure une reprise de données évaluée et définie séparément. La migration de toutes les
+            données n’est pas garantie.
+          </p>
+          <a class="os-text-link" href="/fonctionnalites#produits-stock">
+            Voir comment Opti Solution organise les produits et le stock →
+          </a>
+        </div>
+      </section>
 
       <aside class="os-author-card" aria-label="À propos de l’auteur">
         <div class="os-author-card__monogram" aria-hidden="true">ME</div>
@@ -142,28 +176,36 @@ const articleSchema = {
       </aside>
     </div>
   </article>
-  <section class="os-section os-section--soft">
+
+  <section class="os-section os-section--soft" aria-labelledby="related-title">
     <div class="os-container">
       <p class="os-eyebrow">À lire ensuite</p>
-      <div class="os-resource-grid">
-        <a class="os-resource-card" href="/ressources/preparer-roles-acces"
-          ><div class="os-resource-card__meta"><span>Guide · Déploiement</span><span>6 min</span></div><h3>
-            Préparer les rôles et accès
-          </h3><p>Définir qui peut consulter, préparer ou confirmer chaque document.</p><strong>Lire →</strong></a
-        >
-        <a class="os-resource-card" href="/fonctionnement"
-          ><div class="os-resource-card__meta"><span>Article · Parcours</span><span>5 min</span></div><h3>
-            Comprendre les six étapes
-          </h3><p>Voir le lien entre client, correction, vente, achat et facture.</p><strong>Lire →</strong></a
-        >
-        <a class="os-resource-card" href="/calculateur"
-          ><div class="os-resource-card__meta"><span>Outil · Diagnostic</span><span>Interactif</span></div><h3>
-            Estimer le temps administratif
-          </h3><p>Identifier les opérations qui concentrent l’effort déclaré.</p><strong>Calculer →</strong></a
-        >
+      <h2 id="related-title" class="text-[clamp(2rem,4vw,3.5rem)] leading-none font-serif tracking-[-0.04em]">
+        Poursuivez la préparation des données.
+      </h2>
+      <div class="os-resource-grid mt-10">
+        <a class="os-resource-card" href="/ressources/preparer-fichier-excel">
+          <div class="os-resource-card__meta"><span>Guide · Données</span><span>Article</span></div>
+          <h3>Préparer un fichier Excel pour l’import</h3>
+          <p>Structurez les colonnes, les lignes et les décisions avant l’évaluation.</p>
+          <strong>Lire la ressource →</strong>
+        </a>
+        <a class="os-resource-card" href="/ressources/organiser-references-produits">
+          <div class="os-resource-card__meta"><span>Article · Stock</span><span>Article</span></div>
+          <h3>Organiser les références produit</h3>
+          <p>Définissez des noms et des catégories cohérents avant une reprise.</p>
+          <strong>Lire la ressource →</strong>
+        </a>
+        <a class="os-resource-card" href="/ressources/preparer-roles-acces">
+          <div class="os-resource-card__meta"><span>Guide · Équipe</span><span>Article</span></div>
+          <h3>Définir les rôles et les accès</h3>
+          <p>Préparez les responsabilités avant la configuration des utilisateurs.</p>
+          <strong>Lire la ressource →</strong>
+        </a>
       </div>
     </div>
   </section>
+
   <FinalCTA
     title="Préparons l’évaluation de vos données."
     text="Un premier échange permet d’identifier les sources à examiner avant de confirmer une reprise."

@@ -17,7 +17,7 @@ This document separates repository work from actions that require the business o
 - Named author, publication date, modification date, Article/HowTo structured data, and author section on every resource article.
 - Dedicated Contact, Services, Privacy, Terms, Returns, and Warranty pages.
 - Copyright notice and Contact/Legal groups in the footer.
-- Social footer and Organization `sameAs` support, activated only when official URLs are configured.
+- Social footer and Organization `sameAs` links for the verified public profiles, with environment-variable overrides.
 - An automated check requiring at least 200 words of main content on every indexable page.
 
 ## Required before production launch
@@ -66,7 +66,7 @@ These require an authenticated owner and cannot be created safely from repositor
 
 1. Create or claim the official LinkedIn company page. Use the final domain, approved logo, short description, business category, location/service area, and a named owner account.
 2. Create or claim the official Facebook Page with the same public identity and contact details.
-3. Add the verified public URLs to `PUBLIC_LINKEDIN_URL` and `PUBLIC_FACEBOOK_URL` in the production environment, then redeploy.
+3. If an official profile URL changes, update the matching `PUBLIC_LINKEDIN_URL`, `PUBLIC_FACEBOOK_URL`, `PUBLIC_INSTAGRAM_URL`, `PUBLIC_X_URL`, or `PUBLIC_THREADS_URL` production variable, then redeploy.
 4. Confirm both footer icons open the correct official pages and that the Organization JSON-LD lists the same URLs.
 
 Official LinkedIn reference: [create a LinkedIn Page](https://www.linkedin.com/help/linkedin/answer/a543852).

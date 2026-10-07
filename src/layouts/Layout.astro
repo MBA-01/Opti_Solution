@@ -2,6 +2,7 @@
 import '~/assets/styles/tailwind.css';
 
 import { I18N } from 'astrowind:config';
+import Analytics from '@vercel/analytics/astro';
 
 import CommonMeta from '~/components/common/CommonMeta.astro';
 import Favicons from '~/components/Favicons.astro';
@@ -9,7 +10,7 @@ import CustomStyles from '~/components/CustomStyles.astro';
 import ApplyColorMode from '~/components/common/ApplyColorMode.astro';
 import Metadata from '~/components/common/Metadata.astro';
 import SiteVerification from '~/components/common/SiteVerification.astro';
-import Analytics from '~/components/common/Analytics.astro';
+import GoogleAnalytics from '~/components/common/Analytics.astro';
 import Intersect from '~/components/common/Intersect.astro';
 
 import type { MetaData as MetaDataType } from '~/types';
@@ -20,6 +21,7 @@ export interface Props {
 
 const { metadata = {} } = Astro.props;
 const { language, textDirection } = I18N;
+const vercelAnalyticsEnabled = process.env.VERCEL === '1';
 ---
 
 <!doctype html>
@@ -31,7 +33,8 @@ const { language, textDirection } = I18N;
     <ApplyColorMode />
     <Metadata {...metadata} />
     <SiteVerification />
-    <Analytics />
+    <GoogleAnalytics />
+    {vercelAnalyticsEnabled && <Analytics />}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Extra head content from pages: structured data, rel=prev/next, … -->

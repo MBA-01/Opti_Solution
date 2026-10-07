@@ -12,9 +12,42 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const related = resourceArticles.filter((item) => item.slug !== article.slug).slice(0, 3);
+const relatedCandidates = resourceArticles.filter((item) => item.slug !== article.slug);
+const related = (
+  article.relatedSlugs?.length
+    ? article.relatedSlugs
+        .map((slug) => resourceArticles.find((item) => item.slug === slug))
+        .filter((item): item is ResourceArticle => Boolean(item))
+    : [
+        ...relatedCandidates.filter((item) => item.category === article.category),
+        ...relatedCandidates.filter((item) => item.category !== article.category),
+      ]
+).slice(0, 3);
+const articleText = [
+  article.title,
+  article.intro || article.description,
+  ...article.sections.flatMap((section) => [
+    section.title,
+    ...(section.paragraphs || []),
+    ...(section.list || []),
+    ...(section.table?.headers || []),
+    ...(section.table?.rows.flat() || []),
+    section.note?.title || '',
+    section.note?.text || '',
+  ]),
+  article.capability.title,
+  article.capability.text,
+].join(' ');
+const readingMinutes = Math.max(
+  1,
+  Math.ceil((articleText.match(/[\p{L}\p{N}][\p{L}\p{N}'’.-]*/gu)?.length || 0) / 200)
+);
+const formatDate = (isoDate: string) =>
+  new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+    new Date(`${isoDate}T12:00:00Z`)
+  );
 const metadata = {
-  title: article.title,
+  title: article.seoTitle || article.title,
   description: article.description,
   openGraph: {
     type: 'article',
@@ -28,7 +61,7 @@ const metadata = {
 };
 const articleSchema = {
   '@context': 'https://schema.org',
-  '@type': article.type === 'Article' ? 'Article' : 'HowTo',
+  '@type': 'Article',
   headline: article.title,
   description: article.description,
   datePublished: article.published,
@@ -42,9 +75,7 @@ const articleSchema = {
     url: String(getCanonical('/a-propos')),
   },
   publisher: {
-    '@type': 'Organization',
-    name: 'Opti Solution',
-    url: String(getCanonical('/')),
+    '@id': `${String(getCanonical('/'))}#organization`,
   },
 };
 ---
@@ -54,12 +85,12 @@ const articleSchema = {
   <article class="os-article-shell">
     <header class="os-article">
       <div class="os-article__meta">
-        <span>{article.type} · {article.category}</span><span>{article.reading} de lecture</span><span>
-          Publié le <time datetime={article.published}>2 octobre 2026</time>
-        </span><span>Mis à jour le <time datetime={article.modified}>{article.updated}</time></span>
+        <span>{article.type} · {article.category}</span><span>{readingMinutes} min de lecture</span><span>
+          Publié le <time datetime={article.published}>{formatDate(article.published)}</time>
+        </span><span>Mis à jour le <time datetime={article.modified}>{formatDate(article.modified)}</time></span>
       </div>
       <h1>{article.title}</h1>
-      <p class="os-article__intro">{article.description}</p>
+      <p class="os-article__intro">{article.intro || article.description}</p>
       <div class="mt-10">
         <ScreenshotFrame
           src={article.image}
@@ -86,6 +117,28 @@ const articleSchema = {
                   <li>{item}</li>
                 ))}
               </ul>
+            )}
+            {section.table && (
+              <div class="os-table-wrap" tabindex="0" role="region" aria-label={`Tableau : ${section.title}`}>
+                <table>
+                  <thead>
+                    <tr>
+                      {section.table.headers.map((header) => (
+                        <th scope="col">{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {section.table.rows.map((row) => (
+                      <tr>
+                        {row.map((cell, cellIndex) =>
+                          cellIndex === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
             {section.note && (
               <div class="os-callout">
@@ -132,7 +185,7 @@ const articleSchema = {
                 <span>
                   {item.type} · {item.category}
                 </span>
-                <span>{item.reading}</span>
+                <span>Article</span>
               </div>
               <h3>{item.title}</h3>
               <p>{item.description}</p>

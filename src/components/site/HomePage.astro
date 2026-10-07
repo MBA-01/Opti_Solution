@@ -24,12 +24,12 @@ const metadata = {
     ? `Concept accueil ${variant.toUpperCase()} — Opti Solution`
     : isLegacyHomeAlias
       ? 'Accueil logiciel pour opticiens — Opti Solution'
-      : 'Opti Solution — Gestion pour magasins d’optique',
+      : 'Logiciel de gestion pour opticiens au Maroc | Opti Solution',
   ignoreTitleTemplate: true,
   ...(isLegacyHomeAlias ? { canonical: String(getCanonical('/')), robots: { index: false, follow: true } } : {}),
   ...(conceptMode ? { robots: { index: false, follow: true } } : {}),
   description:
-    'Gérez les fiches clients, corrections optiques, devis, achats fournisseurs, stock et facturation dans un environnement conçu pour votre magasin d’optique.',
+    'Opti Solution relie fiches clients, corrections optiques, devis, achats, stock, factures et règlements dans un logiciel pour magasins d’optique au Maroc.',
 };
 const problems = [
   [
@@ -326,7 +326,6 @@ const problems = [
     items={faqs.slice(0, 5)}
     collapsible
     defaultOpen={0}
-    schema
     classes={{ container: 'os-faq-shell', headline: { container: 'os-faq-heading' }, list: 'os-faq-list' }}
   />
   <FinalCTA />

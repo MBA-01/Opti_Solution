@@ -66,10 +66,15 @@ const businessCountry = import.meta.env.PUBLIC_BUSINESS_COUNTRY?.trim() || 'MA';
 const hasLocalAddress = Boolean(businessStreet && businessCity && businessPostalCode);
 const canonicalHome = String(getCanonical('/'));
 const socialImage = String(new URL(shareImage.src, Astro.site));
-const organizationSocialProfiles = [
-  import.meta.env.PUBLIC_LINKEDIN_URL?.trim(),
-  import.meta.env.PUBLIC_FACEBOOK_URL?.trim(),
-].filter((profile): profile is string => Boolean(profile));
+const organizationLogo = String(new URL('/brand/opti-solution-icon.png', Astro.site));
+const verifiedSocialProfiles = {
+  linkedin: import.meta.env.PUBLIC_LINKEDIN_URL?.trim() || 'https://www.linkedin.com/company/opti-solution-ma',
+  facebook: import.meta.env.PUBLIC_FACEBOOK_URL?.trim() || 'https://web.facebook.com/profile.php?id=61594629787401',
+  instagram: import.meta.env.PUBLIC_INSTAGRAM_URL?.trim() || 'https://www.instagram.com/solution.opti/',
+  x: import.meta.env.PUBLIC_X_URL?.trim() || 'https://x.com/OptiSolution01',
+  threads: import.meta.env.PUBLIC_THREADS_URL?.trim() || 'https://www.threads.com/@solution.opti?hl=en',
+};
+const organizationSocialProfiles = Object.values(verifiedSocialProfiles);
 const businessSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -78,6 +83,14 @@ const businessSchema = {
       '@id': `${canonicalHome}#organization`,
       name: 'Opti Solution',
       url: canonicalHome,
+      description: 'Logiciel de gestion et services Odoo pour magasins d\u2019optique au Maroc.',
+      logo: {
+        '@type': 'ImageObject',
+        url: organizationLogo,
+        contentUrl: organizationLogo,
+        width: 512,
+        height: 512,
+      },
       image: socialImage,
       email: 'hello@opvibe.com',
       telephone: '+212620169713',
@@ -100,7 +113,7 @@ const businessSchema = {
       '@id': `${canonicalHome}#website`,
       url: canonicalHome,
       name: 'Opti Solution',
-      inLanguage: 'fr',
+      inLanguage: 'fr-MA',
       publisher: { '@id': `${canonicalHome}#organization` },
     },
   ],
@@ -118,25 +131,32 @@ const showStickyCta =
   !pathname.startsWith('/concepts/') &&
   !pageTitle.startsWith('Page introuvable');
 const socialLinks = [
-  import.meta.env.PUBLIC_LINKEDIN_URL?.trim()
-    ? {
-        ariaLabel: 'Opti Solution sur LinkedIn',
-        icon: 'tabler:brand-linkedin',
-        href: import.meta.env.PUBLIC_LINKEDIN_URL.trim(),
-      }
-    : null,
-  import.meta.env.PUBLIC_FACEBOOK_URL?.trim()
-    ? {
-        ariaLabel: 'Opti Solution sur Facebook',
-        icon: 'tabler:brand-facebook',
-        href: import.meta.env.PUBLIC_FACEBOOK_URL.trim(),
-      }
-    : null,
-].filter((link): link is NonNullable<typeof link> => Boolean(link));
+  {
+    ariaLabel: 'Opti Solution sur LinkedIn',
+    icon: 'tabler:brand-linkedin',
+    href: verifiedSocialProfiles.linkedin,
+  },
+  {
+    ariaLabel: 'Opti Solution sur Facebook',
+    icon: 'tabler:brand-facebook',
+    href: verifiedSocialProfiles.facebook,
+  },
+  {
+    ariaLabel: 'Opti Solution sur Instagram',
+    icon: 'tabler:brand-instagram',
+    href: verifiedSocialProfiles.instagram,
+  },
+  {
+    ariaLabel: 'Opti Solution sur X',
+    icon: 'tabler:brand-x',
+    href: verifiedSocialProfiles.x,
+  },
+];
 const copyrightYear = new Date().getFullYear();
 ---
 
 <Layout metadata={metadata}>
+  <slot name="head" slot="head" />
   {pathname === '/' && <StructuredData slot="head" schema={businessSchema} />}
   <a class="os-skip" href="#main">Aller au contenu</a>
   <Header
@@ -156,7 +176,7 @@ const copyrightYear = new Date().getFullYear();
       <StickyCTA
         text="Demander une démo"
         href="/demo#demande"
-        label="Réponse sous 1 jour ouvré"
+        label="Échange autour de vos priorités"
         showAfter={520}
         hideWhen="#demande, footer"
       />

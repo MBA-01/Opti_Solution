@@ -2,6 +2,10 @@ export interface ResourceSection {
   title: string;
   paragraphs?: string[];
   list?: string[];
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
   note?: {
     title: string;
     text: string;
@@ -13,7 +17,9 @@ export interface ResourceArticle {
   type: 'Article' | 'Guide' | 'Tutoriel';
   category: string;
   title: string;
+  seoTitle?: string;
   description: string;
+  intro?: string;
   reading: string;
   updated: string;
   published: string;
@@ -24,6 +30,7 @@ export interface ResourceArticle {
   imageLabel: string;
   imageCaption: string;
   sections: ResourceSection[];
+  relatedSlugs?: string[];
   capability: {
     title: string;
     text: string;
@@ -37,58 +44,86 @@ export const resourceArticles: ResourceArticle[] = [
     slug: 'organiser-references-produits',
     type: 'Article',
     category: 'Stock',
-    title: 'Structurer les références produit et les catégories du magasin',
+    title: 'Comment organiser les références produit d’un magasin d’optique',
+    seoTitle: 'Références produit en magasin d’optique',
     description:
-      'Un cadre pratique pour retrouver plus facilement montures, verres et accessoires dans les opérations de vente, d’achat et de stock.',
-    reading: '6 min',
-    updated: '2 octobre 2026',
+      'Définissez des références, des noms et des catégories cohérents pour retrouver les montures, verres et accessoires dans les ventes, achats et stocks.',
+    intro:
+      'Une référence produit doit aider l’équipe à reconnaître le bon article sans hésitation. Elle doit aussi rester cohérente dans les ventes, les achats et le suivi du stock. Définissez d’abord les informations utiles. Appliquez ensuite une règle de nommage stable et testez-la sur des opérations réelles.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/products.webp',
-    imageAlt: 'Fiche produit Opti Solution présentant une référence utilisée en vente, achat et stock.',
+    imageAlt: 'Catalogue Opti Solution montrant des références produit, leurs catégories et les quantités disponibles.',
     imageLabel: 'Catalogue produit',
-    imageCaption: 'Une fiche claire commence par des références et catégories cohérentes',
+    imageCaption: 'Une fiche claire commence par des références et des catégories cohérentes',
     sections: [
       {
-        title: 'Commencer par l’usage, pas par le fichier',
+        title: 'Quelles informations l’équipe utilise-t-elle réellement ?',
         paragraphs: [
-          'Une référence produit doit aider l’équipe à identifier le bon article pendant une vente, un achat ou une consultation de stock. Avant de normaliser le catalogue, listez les informations réellement utilisées dans ces trois situations.',
-          'Le nom, la référence interne, la marque, la catégorie et l’unité forment généralement le premier niveau. Les informations supplémentaires doivent répondre à un besoin de recherche, de contrôle ou de commande clairement identifié.',
-        ],
-      },
-      {
-        title: 'Définir une règle de nommage stable',
-        paragraphs: [
-          'Choisissez une structure que l’équipe peut appliquer sans interprétation. Une règle utile reste courte, distingue les variantes nécessaires et évite d’intégrer dans le nom des informations déjà gérées dans un autre champ.',
+          'Commencez par observer trois situations : préparer une vente, préparer un achat et consulter le stock. Notez les informations dont l’équipe a besoin dans chaque situation.',
+          'Le premier niveau peut comprendre les éléments suivants :',
         ],
         list: [
-          'Utiliser une référence unique par article ou variante suivie.',
-          'Écrire les marques et catégories toujours de la même manière.',
-          'Séparer les produits actifs des anciennes références à conserver.',
-          'Documenter les abréviations autorisées pour l’équipe.',
+          'Une référence interne unique.',
+          'Un nom court et compréhensible.',
+          'La marque.',
+          'La catégorie.',
+          'L’unité utilisée.',
+          'Les variantes que l’équipe doit distinguer.',
+          'Ajoutez un champ seulement s’il facilite une recherche, un contrôle ou une commande. Évitez de répéter dans le nom une information déjà enregistrée dans un champ dédié.',
         ],
       },
       {
-        title: 'Limiter les catégories à des décisions utiles',
+        title: 'Comment définir une règle de nommage stable ?',
         paragraphs: [
-          'Une catégorie doit faciliter une action : chercher un produit, préparer un achat, lire un niveau de stock ou analyser une famille. Trop de niveaux rendent le classement difficile à maintenir; trop peu de niveaux mélangent des articles utilisés différemment.',
+          'Choisissez une structure que chaque membre de l’équipe peut appliquer de la même manière. La règle doit rester courte. Elle doit distinguer les variantes qui ont un effet sur l’opération.',
+          'Documentez les éléments suivants :',
         ],
-        note: {
-          title: 'Avant une reprise de données',
-          text: 'Repérez les doublons, les catégories presque identiques et les références sans responsable de validation. Ces points doivent être clarifiés avant l’évaluation d’un import.',
-        },
+        list: [
+          'L’ordre des éléments dans le nom.',
+          'Les abréviations autorisées.',
+          'La manière d’écrire les marques.',
+          'Le traitement des anciennes références.',
+          'La personne qui valide les cas ambigus.',
+          'Une règle écrite réduit les interprétations. Elle aide aussi les nouveaux utilisateurs à créer des fiches cohérentes.',
+        ],
       },
       {
-        title: 'Tester avec des opérations réelles',
+        title: 'Combien de catégories faut-il créer ?',
         paragraphs: [
-          'Prenez quelques ventes et commandes fournisseurs représentatives. Vérifiez que l’équipe retrouve la bonne référence, comprend son libellé et peut distinguer les variantes nécessaires. Cette vérification révèle rapidement les catégories trop vagues et les noms trop longs.',
+          'Une catégorie doit faciliter une décision. Elle peut aider à chercher un produit, préparer un achat, consulter une quantité ou regrouper une famille d’articles.',
+          'Trop de niveaux rendent le classement difficile à maintenir. Trop peu de niveaux mélangent des articles qui n’ont pas le même usage. Commencez avec les catégories utiles aujourd’hui. Ajoutez un niveau seulement lorsqu’il répond à une question précise.',
+        ],
+      },
+      {
+        title: 'Que faut-il vérifier avant une reprise de données ?',
+        paragraphs: [
+          'Repérez les doublons, les variantes orthographiques et les catégories presque identiques. Ne supprimez pas immédiatement les lignes proches. Deux fiches peuvent sembler identiques tout en représentant deux articles différents.',
+          'Préparez une liste de décision. Indiquez pour chaque cas : conserver, fusionner, archiver ou faire vérifier. Une reprise de données doit être évaluée avant d’être confirmée.',
+        ],
+      },
+      {
+        title: 'Comment tester l’organisation choisie ?',
+        paragraphs: [
+          'Sélectionnez quelques ventes et commandes fournisseurs représentatives. Demandez à l’équipe de retrouver la bonne référence et d’expliquer son choix.',
+          'Vérifiez ensuite quatre points :',
+        ],
+        list: [
+          'Le nom est compris au premier regard.',
+          'La variante utile est visible.',
+          'La catégorie aide à retrouver l’article.',
+          'La même règle fonctionne dans la vente, l’achat et le stock.',
+          'Ce test montre rapidement les noms trop longs, les catégories trop vagues et les informations manquantes.',
         ],
       },
     ],
+    relatedSlugs: ['preparer-fichier-excel', 'suivre-commande-fournisseur', 'suivre-devis'],
     capability: {
-      title: 'Produits & stock dans Opti Solution',
-      text: 'Découvrez comment les fiches produits, marques, catégories et quantités s’insèrent dans les parcours de vente et d’achat.',
+      title: 'Opti Solution et les références produit',
+      text: 'Opti Solution permet de structurer les fiches produits, les marques, les catégories et les quantités utiles aux opérations du magasin. Le périmètre exact dépend de la configuration retenue.',
       href: '/fonctionnalites#produits-stock',
       linkText: 'Voir le domaine Produits & stock',
     },
@@ -97,13 +132,16 @@ export const resourceArticles: ResourceArticle[] = [
     slug: 'choisir-deploiement-local-ou-heberge',
     type: 'Guide',
     category: 'Déploiement',
-    title: 'Préparer le choix entre installation locale et environnement hébergé',
+    title: 'Installation locale ou environnement hébergé : comment préparer le choix',
+    seoTitle: 'Installation locale ou hébergée : le choix',
     description:
-      'Les questions techniques et opérationnelles à poser avant de retenir un mode de déploiement pour le magasin.',
-    reading: '7 min',
-    updated: '2 octobre 2026',
+      'Comparez les responsabilités, les accès, les sauvegardes et le support avant de choisir une installation locale ou un environnement hébergé pour le magasin.',
+    intro:
+      'Le choix ne dépend pas d’une formule universelle. Il dépend des lieux de connexion, des responsabilités techniques, des sauvegardes, du support et des contraintes du magasin. Décrivez d’abord votre usage. Comparez ensuite les responsabilités associées à chaque option. Le mode retenu doit apparaître clairement dans la proposition.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/sales-dashboard.webp',
     imageAlt: 'Interface Opti Solution consultée depuis un navigateur.',
@@ -111,41 +149,80 @@ export const resourceArticles: ResourceArticle[] = [
     imageCaption: 'Le choix du déploiement dépend de l’organisation et des contraintes du magasin',
     sections: [
       {
-        title: 'Partir des conditions d’utilisation',
+        title: 'Quelles conditions d’utilisation faut-il décrire ?',
         paragraphs: [
-          'Le bon choix dépend des lieux de connexion, du nombre d’utilisateurs, de la qualité de l’accès internet, des compétences disponibles et des responsabilités prévues pour l’exploitation technique.',
-          'Décrivez d’abord qui utilise la solution, depuis quel lieu et à quels moments. Ajoutez les contraintes de continuité d’activité que le magasin considère comme prioritaires.',
+          'Listez les personnes qui utiliseront le logiciel. Indiquez aussi les lieux et les moments de connexion. Cette description aide à séparer le besoin d’accès du choix d’hébergement.',
+          'Préparez les informations suivantes :',
         ],
-      },
-      {
-        title: 'Questions à poser pour une installation locale',
         list: [
-          'Quel équipement hébergera l’environnement et qui pourra intervenir dessus ?',
-          'Comment les sauvegardes, mises à jour et restaurations seront-elles organisées ?',
-          'Un accès depuis l’extérieur du magasin est-il nécessaire ?',
-          'Que se passe-t-il en cas de panne de l’équipement ou du réseau local ?',
+          'Les lieux d’utilisation.',
+          'Le nombre d’utilisateurs à prévoir.',
+          'La qualité de la connexion disponible.',
+          'Les périodes où l’accès est prioritaire.',
+          'Les compétences techniques disponibles.',
+          'La personne responsable de chaque décision.',
         ],
       },
       {
-        title: 'Questions à poser pour un environnement hébergé',
-        list: [
-          'Quel périmètre d’hébergement et de maintenance est inclus dans la proposition ?',
-          'Qui gère les accès techniques, les mises à jour et les sauvegardes prévues ?',
-          'Quelles conditions de connexion sont disponibles dans le magasin ?',
-          'Comment sont organisés le support et les changements de configuration ?',
-        ],
-      },
-      {
-        title: 'Faire apparaître le choix dans la proposition',
+        title: 'Quelles questions poser pour une installation locale ?',
         paragraphs: [
-          'Le mode retenu, les responsabilités et les services associés doivent être décrits dans la proposition. Cette clarification évite de confondre l’accès au logiciel avec l’hébergement, la maintenance ou le support.',
+          'Une installation locale implique des décisions sur l’équipement et son exploitation. Posez ces questions avant de retenir cette option :',
         ],
-        note: {
-          title: 'Périmètre Opti Solution',
-          text: 'Une option VPS/cloud ou locale peut être étudiée. Le choix et les services associés sont confirmés selon l’environnement technique et le budget.',
+        list: [
+          'Quel équipement hébergera l’environnement ?',
+          'Qui pourra intervenir sur cet équipement ?',
+          'Comment les sauvegardes seront-elles organisées ?',
+          'Comment une restauration sera-t-elle testée ?',
+          'Comment les mises à jour seront-elles préparées ?',
+          'Un accès extérieur est-il nécessaire ?',
+          'Quelle procédure s’applique en cas de panne locale ?',
+        ],
+      },
+      {
+        title: 'Quelles questions poser pour un environnement hébergé ?',
+        paragraphs: [
+          'Un environnement hébergé ne définit pas à lui seul les services inclus. Demandez un périmètre précis :',
+        ],
+        list: [
+          'Qui gère les accès techniques ?',
+          'Quelles sauvegardes sont prévues ?',
+          'Qui prépare les mises à jour ?',
+          'Quel support est inclus ?',
+          'Comment les changements de configuration sont-ils traités ?',
+          'Quelles conditions de connexion sont nécessaires dans le magasin ?',
+        ],
+      },
+      {
+        title: 'Comment comparer les deux options ?',
+        paragraphs: ['Ce tableau sert à préparer la discussion. Il ne remplace pas une analyse technique du contexte.'],
+        table: {
+          headers: ['Point à confirmer', 'Installation locale', 'Environnement hébergé'],
+          rows: [
+            ['Équipement', 'Identifier l’équipement du magasin', 'Identifier l’environnement prévu'],
+            [
+              'Responsabilité technique',
+              'Nommer la personne ou le prestataire responsable',
+              'Définir les responsabilités du fournisseur et du magasin',
+            ],
+            [
+              'Sauvegardes',
+              'Définir la méthode et les contrôles',
+              'Définir ce qui est inclus et comment le contrôle est réalisé',
+            ],
+            ['Accès', 'Préciser les accès locaux et extérieurs', 'Préciser les conditions de connexion et les comptes'],
+            ['Support', 'Définir les interventions attendues', 'Définir le support inclus et ses limites'],
+          ],
         },
       },
+      {
+        title: 'Que doit contenir la proposition ?',
+        paragraphs: [
+          'La proposition doit nommer le mode de déploiement retenu. Elle doit aussi préciser les responsabilités, les services inclus et les éléments à traiter séparément.',
+          'Une option locale ou VPS/cloud peut être étudiée pour Opti Solution. Le choix final dépend de l’environnement technique, du périmètre et du budget convenus.',
+        ],
+      },
     ],
+    relatedSlugs: ['preparer-roles-acces', 'preparer-fichier-excel', 'organiser-references-produits'],
     capability: {
       title: 'Préparer la mise en place',
       text: 'Le diagnostic permet de cadrer le déploiement, les rôles, la formation et les services associés avant la proposition.',
@@ -157,13 +234,16 @@ export const resourceArticles: ResourceArticle[] = [
     slug: 'suivre-devis',
     type: 'Article',
     category: 'Vente',
-    title: 'Suivre les devis avec des étapes et des statuts clairs',
+    title: 'Comment suivre les devis d’un magasin d’optique',
+    seoTitle: 'Suivi des devis en magasin d’optique',
     description:
-      'Une méthode simple pour savoir quels devis préparer, vérifier, confirmer ou reprendre avec le client.',
-    reading: '5 min',
-    updated: '2 octobre 2026',
+      'Définissez des étapes, des responsables et un prochain geste pour suivre chaque devis sans le confondre avec la vente, la facture ou le règlement.',
+    intro:
+      'Un suivi utile doit répondre à trois questions : où en est le devis, qui doit agir et quelle information manque ? Définissez peu d’étapes. Associez ensuite un responsable et un prochain geste à chaque devis.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/quotations.webp',
     imageAlt: 'Liste des devis clients dans Opti Solution sur tablette.',
@@ -171,37 +251,70 @@ export const resourceArticles: ResourceArticle[] = [
     imageCaption: 'Le suivi commence par un document vérifiable et un prochain geste clairement identifié',
     sections: [
       {
-        title: 'Distinguer préparation, confirmation et suivi',
+        title: 'Quelles étapes faut-il distinguer ?',
         paragraphs: [
-          'Un devis en préparation ne demande pas la même action qu’un devis déjà présenté au client. Définissez des étapes compréhensibles par toute l’équipe et associez à chacune un prochain geste.',
-          'L’objectif est de pouvoir répondre rapidement à trois questions : où en est le document, qui doit agir et quelle information manque encore ?',
+          'Un devis en préparation ne demande pas la même action qu’un devis déjà présenté au client. Utilisez des étapes que toute l’équipe comprend.',
+          'Les libellés ci-dessous sont une proposition d’organisation. Les états visibles dans le produit doivent correspondre à la configuration réellement utilisée.',
         ],
-      },
-      {
-        title: 'Contrôler le contenu avant de confirmer',
         list: [
-          'Vérifier le client et la fiche concernée.',
-          'Relire les produits, quantités et références retenus.',
-          'Contrôler les prix, remises, taxes et total.',
-          'Confirmer les informations qui dépendent encore du client ou du fournisseur.',
+          'À préparer : des informations manquent encore.',
+          'À relire : le contenu doit être contrôlé.',
+          'Présenté au client : une réponse ou une précision est attendue.',
+          'À reprendre : un changement doit être intégré.',
+          'Décision enregistrée : l’équipe connaît la suite à donner.',
         ],
       },
       {
-        title: 'Donner un propriétaire à la prochaine action',
-        paragraphs: [
-          'Une relance reste fragile lorsque personne ne sait qui doit la faire. Attribuez clairement le suivi commercial et convenez de la manière dont l’équipe note l’échange ou la décision suivante.',
+        title: 'Que faut-il contrôler avant une confirmation ?',
+        paragraphs: ['Relisez les informations qui influencent le document :'],
+        list: [
+          'Le client et la fiche concernée.',
+          'Les produits, les références et les quantités.',
+          'Les prix, les remises, les taxes et le total.',
+          'Les éléments qui dépendent encore du client.',
+          'Les éléments qui demandent une vérification fournisseur.',
+          'Le contrôle porte sur le contenu du devis. Il ne transforme pas le devis en vente, en facture ou en règlement.',
         ],
       },
       {
-        title: 'Relier le devis sans confondre les documents',
+        title: 'Qui porte la prochaine action ?',
         paragraphs: [
-          'La fiche optique apporte du contexte au devis. Un achat fournisseur peut ensuite devenir nécessaire. Ces opérations restent distinctes afin que l’équipe puisse vérifier les références, les montants et les décisions propres à chacune.',
+          'Attribuez un responsable à la prochaine action. Indiquez aussi ce que cette personne doit faire : appeler, vérifier une référence, demander une information ou mettre à jour le document.',
+          'Une date seule ne suffit pas. L’équipe doit comprendre l’action attendue et l’information qui permettra de la terminer.',
+        ],
+      },
+      {
+        title: 'Comment garder le contexte sans confondre les documents ?',
+        paragraphs: [
+          'La fiche optique peut apporter du contexte au devis. Un besoin d’achat fournisseur peut aussi apparaître. Ces opérations restent distinctes.',
+        ],
+        list: [
+          'Le devis présente une proposition commerciale.',
+          'La vente représente l’opération commerciale retenue.',
+          'La facture présente le montant facturé.',
+          'Le statut de règlement indique si la facture reste à régler ou a été réglée.',
+          'La commande fournisseur concerne l’achat auprès d’un fournisseur.',
+          'Cette distinction aide l’équipe à vérifier le bon document au bon moment.',
+        ],
+      },
+      {
+        title: 'Quelle revue courte faire chaque jour ?',
+        paragraphs: [
+          'Examinez les devis qui demandent une action. Pour chacun, confirmez les quatre points suivants :',
+        ],
+        list: [
+          'L’étape actuelle.',
+          'Le responsable.',
+          'L’information manquante.',
+          'Le prochain geste.',
+          'Cette revue doit rester courte. Son objectif est de rendre la prochaine action visible.',
         ],
       },
     ],
+    relatedSlugs: ['suivre-commande-fournisseur', 'preparer-roles-acces', 'organiser-references-produits'],
     capability: {
-      title: 'Ventes & devis dans Opti Solution',
-      text: 'Voyez comment l’équipe prépare les documents commerciaux, contrôle leur contenu et suit la vente.',
+      title: 'Opti Solution et les devis',
+      text: 'Opti Solution permet de préparer des devis, d’ajouter des produits et des quantités, puis de contrôler les prix, les remises et les taxes. Les documents commerciaux et leurs états restent distincts.',
       href: '/fonctionnalites#ventes-devis',
       linkText: 'Explorer Ventes & devis',
     },
@@ -210,13 +323,16 @@ export const resourceArticles: ResourceArticle[] = [
     slug: 'preparer-roles-acces',
     type: 'Guide',
     category: 'Équipe',
-    title: 'Préparer les rôles et les accès avant le déploiement',
+    title: 'Comment définir les rôles et les accès avant un déploiement',
+    seoTitle: 'Rôles et accès avant un déploiement',
     description:
-      'Définissez qui consulte, prépare, contrôle ou confirme chaque opération avant de configurer les utilisateurs.',
-    reading: '6 min',
-    updated: '2 octobre 2026',
+      'Listez les responsabilités, séparez consultation et confirmation, puis testez les accès du logiciel avec des scénarios courts avant le déploiement.',
+    intro:
+      'Définissez les responsabilités avant de configurer les menus. Cette méthode aide à donner à chaque personne les accès nécessaires à son travail. Elle évite aussi de reproduire sans examen les droits d’un ancien logiciel.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/lens-configuration.webp',
     imageAlt: 'Écran de configuration de caractéristiques optiques dans Opti Solution.',
@@ -224,42 +340,66 @@ export const resourceArticles: ResourceArticle[] = [
     imageCaption: 'Les accès deviennent plus simples à définir lorsque les responsabilités sont explicites',
     sections: [
       {
-        title: 'Lister les responsabilités avant les menus',
+        title: 'Quelles responsabilités faut-il lister ?',
         paragraphs: [
-          'Commencez par décrire le travail de chaque rôle : consulter une fiche, saisir une correction, préparer un devis, confirmer une commande, enregistrer une réception ou suivre un règlement.',
-          'Cette liste donne une base plus claire que la reproduction des accès d’un ancien logiciel.',
-        ],
-      },
-      {
-        title: 'Séparer consulter, préparer et confirmer',
-        paragraphs: [
-          'Une personne peut avoir besoin de voir une information sans pouvoir la modifier. Une autre peut préparer un document qui doit être contrôlé avant confirmation. Formaliser ces différences aide à configurer des responsabilités compréhensibles.',
+          'Décrivez les opérations de chaque rôle avec des verbes précis. Par exemple : consulter une fiche, saisir une correction, préparer un devis, confirmer une commande, enregistrer une réception ou suivre un règlement.',
+          'Pour chaque opération, indiquez :',
         ],
         list: [
-          'Qui consulte les fiches clients et les informations optiques ?',
-          'Qui saisit et qui valide une correction ?',
-          'Qui prépare et qui confirme ventes et achats ?',
-          'Qui traite les factures et les paiements ?',
-          'Qui gère les référentiels et les accès ?',
+          'Qui consulte l’information.',
+          'Qui prépare le document.',
+          'Qui le relit.',
+          'Qui peut le confirmer.',
+          'Qui traite les exceptions.',
+          'Cette liste devient la base de la configuration. Elle reste plus claire qu’une liste de menus sans contexte.',
         ],
       },
       {
-        title: 'Prévoir les absences et les exceptions',
+        title: 'Pourquoi séparer consultation, préparation et confirmation ?',
         paragraphs: [
-          'Le fonctionnement doit rester clair lorsqu’une personne est absente ou lorsqu’un document sort du parcours habituel. Identifiez les rôles de remplacement et les décisions qui nécessitent l’intervention du responsable.',
+          'Une personne peut avoir besoin de consulter une information sans pouvoir la modifier. Une autre peut préparer un document qui doit être relu avant confirmation.',
+          'Les cases doivent être complétées avec le responsable du magasin. Elles ne constituent pas une configuration universelle.',
         ],
-      },
-      {
-        title: 'Valider avec des scénarios courts',
-        paragraphs: [
-          'Avant la mise en service, faites parcourir à chaque rôle quelques opérations représentatives. Vérifiez que l’utilisateur voit ce dont il a besoin et sait quand transmettre la fiche à la personne suivante.',
-        ],
-        note: {
-          title: 'À préparer pour le diagnostic',
-          text: 'Une liste des utilisateurs, de leurs responsabilités et des validations attendues suffit pour commencer la discussion.',
+        table: {
+          headers: ['Opération', 'Consulter', 'Préparer', 'Relire', 'Confirmer'],
+          rows: [
+            ['Fiche client', 'À définir', 'À définir', 'À définir', 'Selon le périmètre'],
+            ['Devis', 'À définir', 'À définir', 'À définir', 'À définir'],
+            ['Commande fournisseur', 'À définir', 'À définir', 'À définir', 'À définir'],
+            ['Réception', 'À définir', 'À définir', 'À définir', 'À définir'],
+            ['Facture et règlement', 'À définir', 'À définir', 'À définir', 'À définir'],
+          ],
         },
       },
+      {
+        title: 'Comment prévoir les absences et les exceptions ?',
+        paragraphs: [
+          'Nommez un rôle de remplacement pour les opérations prioritaires. Précisez aussi les décisions qui doivent rester sous le contrôle du responsable.',
+          'Définissez les comptes et les responsabilités par utilisateur selon le périmètre retenu. Ne présentez pas un accès partagé comme un rôle. La règle exacte doit être définie pendant la mise en place.',
+        ],
+      },
+      {
+        title: 'Comment tester les accès avant l’ouverture ?',
+        paragraphs: [
+          'Préparez des scénarios courts et représentatifs. Demandez à chaque rôle d’exécuter seulement les actions prévues. Vérifiez ensuite que l’utilisateur voit les informations nécessaires et comprend quand transmettre le dossier.',
+        ],
+        list: [
+          'Retrouver une fiche client.',
+          'Préparer un devis.',
+          'Préparer une commande fournisseur.',
+          'Enregistrer une réception.',
+          'Consulter une facture et son statut de règlement.',
+        ],
+      },
+      {
+        title: 'Que faut-il apporter au diagnostic ?',
+        paragraphs: [
+          'Une première version peut tenir sur une page. Préparez la liste des utilisateurs, leurs responsabilités, les validations attendues et les remplacements prévus.',
+          'Opti Solution prend en charge une configuration des rôles et des accès. Le détail dépend du périmètre convenu et des opérations réellement utilisées.',
+        ],
+      },
     ],
+    relatedSlugs: ['choisir-deploiement-local-ou-heberge', 'preparer-fichier-excel', 'suivre-devis'],
     capability: {
       title: 'Configuration & gestion',
       text: 'Découvrez comment les rôles, les accès et les référentiels sont préparés dans le périmètre retenu.',
@@ -271,13 +411,16 @@ export const resourceArticles: ResourceArticle[] = [
     slug: 'preparer-fichier-excel',
     type: 'Guide',
     category: 'Données',
-    title: 'Préparer un fichier Excel avant une évaluation d’import',
+    title: 'Comment préparer un fichier Excel avant un import de données',
+    seoTitle: 'Préparer un fichier Excel pour l’import',
     description:
-      'Nettoyez la structure, les identifiants et les valeurs de vos fichiers avant d’évaluer une reprise de données.',
-    reading: '7 min',
-    updated: '2 octobre 2026',
+      'Nettoyez les colonnes, formats, identifiants et doublons avant d’évaluer l’import des données de votre magasin d’optique avec un échantillon fictif.',
+    intro:
+      'Un fichier régulier facilite l’évaluation d’un import. Chaque colonne doit représenter une information. Chaque ligne doit représenter un enregistrement. Avant tout échange, retirez les données personnelles réelles et préparez un échantillon représentatif.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/products.webp',
     imageAlt: 'Fiche produit illustrant les champs à préparer avant un import.',
@@ -285,58 +428,85 @@ export const resourceArticles: ResourceArticle[] = [
     imageCaption: 'Un fichier régulier permet d’évaluer plus précisément les données à reprendre',
     sections: [
       {
-        title: 'Conserver une ligne d’en-tête claire',
+        title: 'Comment organiser les colonnes ?',
         paragraphs: [
-          'Chaque colonne doit représenter une seule information et porter un nom compréhensible. Évitez les titres fusionnés, les lignes décoratives et les sous-tableaux placés dans la même feuille.',
-        ],
-      },
-      {
-        title: 'Une ligne, un enregistrement',
-        paragraphs: [
-          'Déterminez ce que représente une ligne : un client, un fournisseur, un produit ou une autre entité. Ne mélangez pas plusieurs familles de données dans le même tableau lorsque leurs colonnes et leurs règles diffèrent.',
+          'Placez une seule ligne d’en-tête au début du tableau. Donnez à chaque colonne un nom court et compréhensible.',
+          'Une colonne doit contenir une seule information. Séparez le téléphone, l’adresse électronique et la ville si ces données doivent être traitées séparément.',
         ],
         list: [
-          'Supprimer les lignes entièrement vides et les totaux intermédiaires.',
-          'Choisir un format cohérent pour les dates et les nombres.',
-          'Éviter plusieurs valeurs différentes dans une seule cellule.',
-          'Conserver un identifiant stable lorsqu’il existe.',
+          'Évitez les cellules fusionnées.',
+          'Évitez les titres répartis sur plusieurs lignes.',
+          'Évitez les sous-tableaux dans la même feuille.',
+          'N’utilisez pas la couleur comme seule information.',
+          'Ne remplacez pas une valeur structurée par un commentaire.',
         ],
       },
       {
-        title: 'Repérer les doublons sans les supprimer trop vite',
+        title: 'Que doit représenter une ligne ?',
         paragraphs: [
-          'Deux lignes proches peuvent représenter un doublon ou deux fiches réellement distinctes. Ajoutez une colonne de décision et faites valider les cas ambigus par la personne qui connaît les données.',
+          'Définissez l’entité avant de nettoyer le fichier. Une ligne peut représenter un client, un fournisseur, un produit ou une autre entité. Ne mélangez pas plusieurs familles lorsque leurs colonnes et leurs règles diffèrent.',
+          'Vérifiez ensuite les points suivants :',
+        ],
+        list: [
+          'Les lignes entièrement vides.',
+          'Les totaux intermédiaires.',
+          'Les formats de date.',
+          'Les formats numériques.',
+          'Les cellules qui contiennent plusieurs valeurs.',
+          'Les identifiants stables déjà disponibles.',
         ],
       },
       {
-        title: 'Préparer un échantillon anonymisé',
+        title: 'Comment traiter les doublons ?',
         paragraphs: [
-          'Un petit échantillon représentatif aide à examiner les colonnes, les formats et les relations entre fichiers. Retirez les données personnelles réelles avant un premier échange commercial.',
+          'Ne supprimez pas automatiquement deux lignes proches. Elles peuvent représenter un doublon ou deux fiches distinctes.',
+          'Ajoutez une colonne de décision. Utilisez des valeurs simples : à vérifier, à conserver, à fusionner ou à archiver. Confiez les cas ambigus à une personne qui connaît les données.',
         ],
-        note: {
-          title: 'Évaluation avant import',
-          text: 'Le format, le volume, la qualité et les relations entre les fichiers doivent être examinés avant de confirmer une reprise.',
-        },
+      },
+      {
+        title: 'Comment préparer un échantillon sûr ?',
+        paragraphs: [
+          'Choisissez quelques lignes qui représentent les cas courants et les cas difficiles. Remplacez les données personnelles par des valeurs fictives cohérentes. Ne transmettez pas de données personnelles réelles dans un formulaire commercial.',
+          'L’échantillon doit permettre d’examiner les éléments suivants :',
+        ],
+        list: [
+          'Les noms de colonnes.',
+          'Les formats.',
+          'Les valeurs manquantes.',
+          'Les relations entre plusieurs fichiers.',
+          'Les cas qui demandent une décision métier.',
+        ],
+      },
+      {
+        title: 'Qu’est-ce qui doit être évalué avant l’import ?',
+        paragraphs: [
+          'Le format, le volume, la qualité et les relations entre les fichiers doivent être examinés. Cette évaluation permet de définir le périmètre, les responsabilités et les contrôles nécessaires.',
+          'Une reprise de données n’est pas garantie par la présence d’un fichier Excel. Elle doit être confirmée dans une proposition après examen des sources.',
+        ],
       },
     ],
+    relatedSlugs: ['organiser-references-produits', 'preparer-roles-acces', 'choisir-deploiement-local-ou-heberge'],
     capability: {
       title: 'Évaluer une reprise de données',
       text: 'Préparez les sources et les décisions qui permettront de définir un périmètre de migration réaliste.',
       href: '/ressources/preparer-migration',
-      linkText: 'Lire le guide de migration',
+      linkText: 'Lire le guide de préparation d’une migration',
     },
   },
   {
     slug: 'suivre-commande-fournisseur',
     type: 'Article',
     category: 'Achats',
-    title: 'Suivre une commande fournisseur jusqu’à la réception',
+    title: 'Comment suivre une commande fournisseur jusqu’à la réception',
+    seoTitle: 'Commande fournisseur : suivi et réception',
     description:
-      'Clarifiez les documents, les contrôles et les responsabilités entre le besoin d’achat et la réception des produits.',
-    reading: '6 min',
-    updated: '2 octobre 2026',
+      'Distinguez demande de prix, commande et réception pour contrôler les références, les quantités et les responsabilités du suivi fournisseur en magasin.',
+    intro:
+      'Le suivi fournisseur devient plus clair lorsque chaque document garde son rôle. La demande de prix prépare l’échange. La commande indique ce qui a été demandé. La réception indique ce qui est arrivé. L’équipe peut alors vérifier les écarts sans confondre les opérations.',
+    reading: '4 min',
+    updated: '6 octobre 2026',
     published: '2026-10-02',
-    modified: '2026-10-02',
+    modified: '2026-10-06',
     author: 'Mohamed El Bachrioui',
     image: '/product/tablet/purchase-order.webp',
     imageAlt: 'Commande fournisseur Opti Solution avec suivi de la réception.',
@@ -344,36 +514,68 @@ export const resourceArticles: ResourceArticle[] = [
     imageCaption: 'La commande et la réception restent deux moments distincts du suivi fournisseur',
     sections: [
       {
-        title: 'Identifier l’origine du besoin',
+        title: 'D’où vient le besoin d’achat ?',
         paragraphs: [
-          'Avant de contacter le fournisseur, précisez les produits, quantités, références et informations qui ont déclenché l’achat. Cette préparation réduit les ambiguïtés au moment de comparer la demande, la commande et la réception.',
-        ],
-      },
-      {
-        title: 'Traiter chaque document selon son rôle',
-        paragraphs: [
-          'La demande de prix sert à préparer l’échange avec le fournisseur. La commande confirme l’engagement retenu. La réception enregistre ce qui est réellement arrivé. Garder ces étapes distinctes permet de contrôler les écarts.',
+          'Identifiez l’origine du besoin avant de contacter le fournisseur. Il peut être lié à une demande client, à une quantité de stock ou à une décision du magasin.',
+          'Préparez les éléments suivants :',
         ],
         list: [
-          'Vérifier le fournisseur et les références demandées.',
-          'Relire les quantités, prix et conditions avant confirmation.',
-          'Comparer la réception avec la commande concernée.',
-          'Signaler les quantités ou références qui demandent une vérification.',
+          'Les références concernées.',
+          'Les quantités demandées.',
+          'Le fournisseur à consulter.',
+          'Les informations encore incertaines.',
+          'La personne responsable du suivi.',
+          'Cette préparation réduit les ambiguïtés lorsque l’équipe compare les documents.',
         ],
       },
       {
-        title: 'Attribuer la responsabilité du suivi',
+        title: 'Quel est le rôle de chaque document ?',
         paragraphs: [
-          'Déterminez qui prépare l’achat, qui le confirme et qui contrôle la réception. Le responsable doit aussi savoir où consigner une différence ou une information encore incertaine.',
+          'Une réception ne doit pas être présentée comme une simple copie automatique de la commande. Elle décrit un état différent et demande son propre contrôle.',
+        ],
+        table: {
+          headers: ['Document', 'Rôle', 'Question de contrôle'],
+          rows: [
+            ['Demande de prix fournisseur', 'Préparer l’échange', 'Les références et quantités sont-elles correctes ?'],
+            [
+              'Commande fournisseur',
+              'Enregistrer ce qui a été demandé',
+              'Le fournisseur, les prix et les conditions ont-ils été relus ?',
+            ],
+            [
+              'Réception',
+              'Enregistrer ce qui est arrivé',
+              'Les quantités et références reçues correspondent-elles à la commande ?',
+            ],
+          ],
+        },
+      },
+      {
+        title: 'Quels contrôles faire avant de confirmer ?',
+        list: [
+          'Vérifier le fournisseur.',
+          'Relire les références et les quantités.',
+          'Contrôler les prix et les conditions disponibles.',
+          'Identifier les éléments qui demandent une décision.',
+          'Confirmer seulement après la relecture prévue.',
         ],
       },
       {
-        title: 'Conserver le lien avec le besoin du magasin',
+        title: 'Comment traiter un écart à la réception ?',
         paragraphs: [
-          'Le parcours fournisseur peut découler d’un besoin client ou d’un besoin de stock. Ce contexte aide l’équipe à prioriser le suivi, tout en conservant des documents de vente et d’achat séparés.',
+          'Comparez la réception avec la commande concernée. Signalez les quantités ou les références qui demandent une vérification. Notez aussi la personne qui doit décider de la suite.',
+          'Cet article ne définit pas une procédure fournisseur universelle. Le magasin doit convenir de la manière dont il traite un manque, un remplacement ou une livraison partielle.',
+        ],
+      },
+      {
+        title: 'Qui porte le suivi ?',
+        paragraphs: [
+          'Définissez qui prépare l’achat, qui le relit, qui le confirme et qui contrôle la réception. Le responsable du suivi doit savoir où consigner une différence et à qui transmettre le dossier.',
+          'Opti Solution couvre les fiches fournisseurs, les demandes de prix, les commandes et la réception dans le périmètre documenté. Le parcours fournisseur reste distinct de la vente client.',
         ],
       },
     ],
+    relatedSlugs: ['organiser-references-produits', 'suivre-devis', 'preparer-roles-acces'],
     capability: {
       title: 'Fournisseurs & achats dans Opti Solution',
       text: 'Suivez le travail fournisseur depuis la demande de prix jusqu’à la réception, avec un contrôle à chaque confirmation.',

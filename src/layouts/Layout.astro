@@ -25,8 +25,33 @@ const vercelAnalyticsEnabled = process.env.VERCEL === '1';
 ---
 
 <!doctype html>
-<html lang={language} dir={textDirection} class="2xl:text-[20px]">
+<html lang={language} dir={textDirection} class="os-styles-pending 2xl:text-[20px]">
   <head>
+    <style is:inline>
+      html.os-styles-pending {
+        background: #f8f5ed;
+      }
+
+      html.os-styles-pending body {
+        visibility: hidden;
+      }
+    </style>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const reveal = () => root.classList.remove('os-styles-pending');
+
+        document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(reveal), { once: true });
+        window.setTimeout(reveal, 4000);
+      })();
+    </script>
+    <noscript
+      ><style is:inline>
+        html.os-styles-pending body {
+          visibility: visible;
+        }
+      </style></noscript
+    >
     <CommonMeta />
     <Favicons />
     <CustomStyles />

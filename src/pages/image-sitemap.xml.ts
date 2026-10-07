@@ -4,7 +4,7 @@ const imagesByPage = [
   {
     page: '/',
     images: [
-      ['/product/device-showcase.png', 'Opti Solution sur ordinateur, tablette et mobile'],
+      ['/product/device-showcase.webp', 'Opti Solution sur ordinateur, tablette et mobile'],
       ['/product/tablet/optical-correction.webp', 'Correction optique dans Opti Solution'],
       ['/product/tablet/quotations.webp', 'Suivi des devis clients dans Opti Solution'],
       ['/product/tablet/products.webp', 'Catalogue produit et stock dans Opti Solution'],
@@ -61,9 +61,8 @@ export const GET: APIRoute = ({ site }) => {
     .map(({ page, images }) => {
       const imageEntries = images
         .map(
-          ([path, title]) => `    <image:image>
+          ([path]) => `    <image:image>
       <image:loc>${escapeXml(new URL(path, site).href)}</image:loc>
-      <image:title>${escapeXml(title)}</image:title>
     </image:image>`
         )
         .join('\n');

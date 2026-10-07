@@ -10,7 +10,7 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID?.tri
 const metadata = {
   title: 'Politique de confidentialité',
   description:
-    'Découvrez comment Opti Solution collecte, utilise, protège et conserve les données transmises sur son site.',
+    'Découvrez comment Opti Solution collecte, utilise, protège et conserve les données transmises sur son site et comment exercer vos droits.',
 };
 
 const sections = [
@@ -37,12 +37,12 @@ const sections = [
           Cette politique décrit les données traitées lorsque vous consultez le site Opti Solution ou demandez une
           démonstration, ainsi que les choix et les droits dont vous disposez.
         </p>
-        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : 1 octobre 2026</p>
+        <p class="os-privacy-updated"><span aria-hidden="true"></span> Dernière mise à jour : 5 octobre 2026</p>
       </div>
       <dl class="os-privacy-summary" aria-label="Résumé de la politique de confidentialité">
         <div>
           <dt>Collecte</dt>
-          <dd>Uniquement les informations nécessaires à votre demande.</dd>
+          <dd>Informations liées à votre demande, données techniques et statistiques de visite.</dd>
         </div>
         <div>
           <dt>Publicité</dt>
@@ -53,8 +53,8 @@ const sections = [
           <dd>
             {
               analyticsEnabled
-                ? 'Google Analytics est chargé uniquement après votre accord.'
-                : 'Aucun outil d’analyse non essentiel n’est activé actuellement.'
+                ? 'Vercel Web Analytics et, uniquement après votre accord, Google Analytics.'
+                : 'Statistiques de visite avec Vercel Web Analytics, sans cookies tiers.'
             }
           </dd>
         </div>
@@ -191,7 +191,8 @@ const sections = [
           <ul>
             <li>aux personnes autorisées chez Opti Solution qui préparent et suivent les démonstrations ;</li>
             <li>
-              aux prestataires techniques retenus pour l’hébergement, la transmission ou la sécurisation du formulaire ;
+              aux prestataires techniques retenus pour l’hébergement, la mesure d’audience, la transmission ou la
+              sécurisation du formulaire ;
             </li>
             <li>aux autorités habilitées, uniquement lorsqu’une obligation légale l’impose.</li>
           </ul>
@@ -220,8 +221,19 @@ const sections = [
         <section id="cookies">
           <span class="os-privacy-section-number">07</span>
           <h2>Cookies et mesure d’audience</h2>
+          <p>
+            Le site utilise Vercel Web Analytics pour mesurer sa fréquentation et améliorer ses contenus. Ce service
+            fournit des statistiques agrégées sur les pages consultées, les sites référents, le navigateur, le type
+            d’appareil et la localisation approximative. Il ne recourt pas à des cookies tiers et ne suit pas votre
+            navigation entre différents sites. Cette intégration ne transmet pas les champs du formulaire de
+            démonstration.
+          </p>
+          <p>
+            Pour en savoir plus sur les données traitées, consultez la{' '}
+            <a href="https://vercel.com/docs/analytics/privacy-policy">documentation de confidentialité de Vercel</a>.
+          </p>
           {
-            analyticsEnabled ? (
+            analyticsEnabled && (
               <>
                 <p>
                   Google Analytics est proposé pour mesurer les pages consultées, les clics vers une demande de démo et
@@ -235,24 +247,12 @@ const sections = [
                   les sessions. Aucune donnée saisie dans le formulaire n’est envoyée à Google Analytics.
                 </p>
                 <p>
-                  Vous pouvez retirer ou modifier votre choix à tout moment. Le refus n’empêche pas l’utilisation du
-                  site ni l’envoi d’une demande de démonstration.
+                  Vous pouvez retirer ou modifier votre choix concernant Google Analytics à tout moment. Le refus
+                  n’empêche pas l’utilisation du site ni l’envoi d’une demande de démonstration.
                 </p>
                 <button type="button" class="btn-secondary" data-analytics-manage>
-                  Gérer mon choix de mesure d’audience
+                  Gérer mon choix Google Analytics
                 </button>
-              </>
-            ) : (
-              <>
-                <p>
-                  Le site n’active actuellement aucun outil de publicité, de profilage ou de mesure d’audience non
-                  essentiel. Il peut utiliser des mécanismes techniques strictement nécessaires à la navigation, à la
-                  sécurité ou au bon fonctionnement du service. Ils ne servent pas à vous suivre sur d’autres sites.
-                </p>
-                <p>
-                  Si un outil non essentiel est ajouté ultérieurement, cette politique sera mise à jour et votre accord
-                  sera demandé avant son dépôt ou son activation lorsque la réglementation l’exige.
-                </p>
               </>
             )
           }

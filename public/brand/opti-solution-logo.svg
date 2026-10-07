@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438 112" role="img" aria-labelledby="title description">
+  <title id="title">Opti Solution</title>
+  <desc id="description">Opti Solution wordmark with a connected optical lens symbol.</desc>
+  <g fill="none">
+    <circle cx="56" cy="56" r="17.25" stroke="#0F3D32" stroke-width="6.75" />
+    <circle cx="56" cy="56" r="10.5" stroke="#0F3D32" stroke-opacity=".22" stroke-width="2.25" />
+    <path d="M41.75 22.55A37.5 37.5 0 0 1 89 48.5" stroke="#0F3D32" stroke-width="4.125" stroke-linecap="round" />
+    <path d="M89.6 63.5A37.5 37.5 0 0 1 65 90.8" stroke="#0F3D32" stroke-width="4.125" stroke-linecap="round" />
+    <path d="M46.25 92A37.5 37.5 0 0 1 22.4 68" stroke="#0F3D32" stroke-width="4.125" stroke-linecap="round" />
+    <path d="M22.55 45.5A37.5 37.5 0 0 1 32 30.5" stroke="#0F3D32" stroke-width="4.125" stroke-linecap="round" />
+    <circle cx="56" cy="17.75" r="6.75" fill="#0F3D32" />
+    <circle cx="18.5" cy="57.5" r="6.75" fill="#0F3D32" />
+    <circle cx="54.5" cy="93.5" r="6.75" fill="#0F3D32" />
+    <circle cx="91.25" cy="60.5" r="7.5" fill="#C9A96B" />
+  </g>
+  <text x="126" y="72" font-family="Georgia, 'Noto Serif', 'Times New Roman', serif" font-size="46" letter-spacing="-1.5">
+    <tspan fill="#0F3D32" font-weight="700">Opti</tspan>
+    <tspan dx="5" fill="#1F1F1F" font-weight="400">Solution</tspan>
+  </text>
+</svg>

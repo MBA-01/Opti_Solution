@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { SITE } from 'astrowind:config';
 import { getHomePermalink } from '~/utils/permalinks';
 import Logo from '~/components/Logo.astro';
 
@@ -35,9 +34,7 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
     <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12">
       <div class="col-span-12 lg:col-span-4">
         <div class="mb-2">
-          <a class="inline-block" href={getHomePermalink()} aria-label={`${SITE?.name} — Accueil`}
-            ><Logo inverse={theme === 'dark'} /></a
-          >
+          <a class="inline-block" href={getHomePermalink()}><Logo inverse={theme === 'dark'} /></a>
         </div>
         <div class="text-sm text-muted flex gap-1">
           {
@@ -99,7 +96,7 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
         )
       }
 
-      <div class="text-sm mr-4 dark:text-muted">
+      <div class="os-footer-note text-sm mr-4">
         <Fragment set:html={footNote} />
       </div>
     </div>

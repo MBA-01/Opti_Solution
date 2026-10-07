@@ -57,8 +57,10 @@ const normalizePath = (pathname) => {
   return pathname.replace(/\/$/, '');
 };
 
+const isSearchEngineVerificationFile = (file) => /^google[a-z0-9]+\.html$/i.test(relative(distRoot, file));
+
 const pages = walk(distRoot)
-  .filter((file) => file.endsWith('.html'))
+  .filter((file) => file.endsWith('.html') && !isSearchEngineVerificationFile(file))
   .map((file) => {
     const html = readFileSync(file, 'utf8');
     const route = routeFromFile(file);
@@ -116,6 +118,10 @@ for (const page of pages) {
   if (!page.redirect && !page.description) errors.push(`${page.route}: missing meta description`);
 
   if (!page.noindex && !page.redirect && page.route !== '/404') {
+    if (page.title.length < 30 || page.title.length > 65)
+      warnings.push(`${page.route}: title length ${page.title.length} characters (target 30–65)`);
+    if (page.description.length < 120 || page.description.length > 165)
+      warnings.push(`${page.route}: meta description length ${page.description.length} characters (target 120–165)`);
     if (page.wordCount < 200) errors.push(`${page.route}: ${page.wordCount} words in <main> (minimum 200)`);
     if (page.longestParagraph > 120)
       errors.push(`${page.route}: paragraph of ${page.longestParagraph} words (readability maximum 120)`);
@@ -123,10 +129,63 @@ for (const page of pages) {
       errors.push(`${page.route}: sentence of ${page.longestSentence} words (readability maximum 45)`);
     const h1Count = [...page.main.matchAll(/<h1\b/gi)].length;
     if (h1Count !== 1) errors.push(`${page.route}: expected one H1 in <main>, found ${h1Count}`);
+
+    const metaTags = [...page.html.matchAll(/<meta\b[^>]*>/gi)].map(([tag]) => tag);
+    const metaContent = (attribute, value) => {
+      const tag = metaTags.find((candidate) => extractAttribute(candidate, attribute)?.toLowerCase() === value);
+      return tag ? extractAttribute(tag, 'content') || '' : '';
+    };
+    const robotsContent = metaContent('name', 'robots');
+    if (!robotsContent.includes('max-image-preview:large')) {
+      errors.push(`${page.route}: robots metadata does not allow large image previews`);
+    }
+    for (const [attribute, value] of [
+      ['property', 'og:title'],
+      ['property', 'og:description'],
+      ['property', 'og:image'],
+      ['property', 'og:image:alt'],
+      ['name', 'twitter:title'],
+      ['name', 'twitter:description'],
+      ['name', 'twitter:image'],
+      ['name', 'twitter:image:alt'],
+    ]) {
+      if (!metaContent(attribute, value)) errors.push(`${page.route}: missing ${value} metadata`);
+    }
+    if (metaContent('property', 'og:locale') !== 'fr_MA') {
+      errors.push(`${page.route}: expected og:locale to be fr_MA`);
+    }
   }
 
   for (const [tag] of page.html.matchAll(/<img\b[^>]*>/gi)) {
     if (typeof extractAttribute(tag, 'alt') === 'undefined') errors.push(`${page.route}: image missing alt attribute`);
+  }
+
+  for (const [tag] of page.html.matchAll(/<(?:img|script)\b[^>]*>/gi)) {
+    const source = extractAttribute(tag, 'src');
+    if (!source || /^(?:https?:|data:)/i.test(source)) continue;
+    const assetPath = join(distRoot, source.replace(/^\//, '').split(/[?#]/)[0]);
+    if (!existsSync(assetPath)) errors.push(`${page.route}: missing source asset ${source}`);
+  }
+
+  for (const [tag] of page.html.matchAll(/<link\b[^>]*>/gi)) {
+    const relation = extractAttribute(tag, 'rel')?.toLowerCase() || '';
+    const href = extractAttribute(tag, 'href');
+    if (!href || !/(?:icon|preload)/.test(relation) || /^(?:https?:|data:)/i.test(href)) continue;
+    const assetPath = join(distRoot, href.replace(/^\//, '').split(/[?#]/)[0]);
+    if (!existsSync(assetPath)) errors.push(`${page.route}: missing linked asset ${href}`);
+  }
+
+  for (const match of page.html.matchAll(
+    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi
+  )) {
+    try {
+      const schema = JSON.parse(match[1]);
+      const schemaText = JSON.stringify(schema);
+      if (/"@type":"(?:FAQPage|HowTo)"/.test(schemaText))
+        errors.push(`${page.route}: deprecated or ineligible FAQPage/HowTo schema`);
+    } catch {
+      errors.push(`${page.route}: invalid JSON-LD`);
+    }
   }
 
   for (const [tag] of page.html.matchAll(/<a\b[^>]*href\s*=\s*(["'])(.*?)\1[^>]*>/gi)) {
@@ -202,6 +261,29 @@ const robots = existsSync(join(distRoot, 'robots.txt')) ? readFileSync(join(dist
 if (!robots.includes('sitemap-index.xml')) errors.push('robots.txt does not reference sitemap-index.xml');
 if (!robots.includes('image-sitemap.xml')) errors.push('robots.txt does not reference image-sitemap.xml');
 
+const imageSitemapPath = join(distRoot, 'image-sitemap.xml');
+const imageSitemap = existsSync(imageSitemapPath) ? readFileSync(imageSitemapPath, 'utf8') : '';
+if (/<image:(?:caption|geo_location|title|license)>/i.test(imageSitemap)) {
+  errors.push('image-sitemap.xml contains deprecated image metadata tags');
+}
+for (const match of imageSitemap.matchAll(/<image:loc>(.*?)<\/image:loc>/gi)) {
+  try {
+    const imageUrl = new URL(decodeEntities(match[1]));
+    const assetPath = join(distRoot, imageUrl.pathname.replace(/^\//, ''));
+    if (!existsSync(assetPath)) errors.push(`image-sitemap.xml references missing asset ${imageUrl.pathname}`);
+  } catch {
+    errors.push(`image-sitemap.xml contains invalid image URL ${match[1]}`);
+  }
+}
+
+const pageSitemap = existsSync(join(distRoot, 'sitemap-0.xml'))
+  ? readFileSync(join(distRoot, 'sitemap-0.xml'), 'utf8')
+  : '';
+for (const page of pages.filter(({ noindex }) => noindex)) {
+  const canonicalUrl = `${productionOrigin}${page.route === '/' ? '' : page.route}`;
+  if (pageSitemap.includes(`<loc>${canonicalUrl}</loc>`)) errors.push(`${page.route}: noindex page present in sitemap`);
+}
+
 console.log(`SEO audit: ${publicPages.length} indexable pages, ${pages.length} HTML outputs.`);
 console.log(`Word counts: ${publicPages.map(({ route, wordCount }) => `${route}=${wordCount}`).join(', ')}`);
 console.log(
@@ -216,5 +298,5 @@ if (errors.length) {
 }
 
 console.log(
-  'SEO audit passed: canonicals, metadata, word counts, readability, internal links, anchors, orphan pages, image alts, and sitemaps.'
+  'SEO audit passed: canonicals, metadata, social previews, word counts, readability, internal links, anchors, orphan pages, source assets, image alts, structured data, and sitemaps.'
 );

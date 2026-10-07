@@ -24,13 +24,14 @@ const {
   twitter = {},
 } = Astro.props;
 const isUtilityPage = Astro.url.pathname.startsWith('/concepts/') || Astro.url.pathname === '/homes/saas';
+const openGraphLocale = I18N?.language === 'fr' ? 'fr_MA' : I18N?.language || 'en_US';
 
 const mergedOg: MetaDataOpenGraph = merge(
   {
     url: canonical,
     siteName: SITE?.name,
     images: [],
-    locale: I18N?.language || 'en',
+    locale: openGraphLocale,
     type: 'website',
   },
   METADATA?.openGraph,
@@ -72,6 +73,10 @@ function buildOpenGraph(og: MetaDataOpenGraph): SEOProps['openGraph'] | undefine
 const mergedTwitter = merge(
   {
     card: (adaptedOg?.images?.length ? 'summary_large_image' : 'summary') as 'summary_large_image' | 'summary',
+    title: title || METADATA?.title?.default || '',
+    description: description || METADATA?.description,
+    image: firstImage?.url,
+    imageAlt: title || METADATA?.title?.default || '',
   },
   METADATA?.twitter
     ? {
@@ -108,6 +113,7 @@ const seoProps: SEOProps = {
         ? !METADATA.robots.follow
         : true,
   description: description || METADATA?.description,
+  robotsExtras: 'max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   openGraph: buildOpenGraph(adaptedOg),
   twitter: mergedTwitter,
   surpressWarnings: true,

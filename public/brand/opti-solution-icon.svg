@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Opti Solution app icon</title>
+  <desc id="description">The Opti Solution optical lens symbol on a deep forest background.</desc>
+  <rect width="512" height="512" rx="128" fill="#0B2E26" />
+  <g transform="translate(80 80) scale(5.5)">
+    <circle cx="32" cy="32" r="11.5" fill="none" stroke="#F8F5ED" stroke-width="4.5" />
+    <circle cx="32" cy="32" r="7" fill="none" stroke="#F8F5ED" stroke-opacity=".3" stroke-width="1.5" />
+    <path d="M22.5 9.7A25 25 0 0 1 54 27" fill="none" stroke="#F8F5ED" stroke-width="2.75" stroke-linecap="round" />
+    <path d="M54.4 37A25 25 0 0 1 38 55.2" fill="none" stroke="#F8F5ED" stroke-width="2.75" stroke-linecap="round" />
+    <path d="M25.5 56A25 25 0 0 1 9.6 40" fill="none" stroke="#F8F5ED" stroke-width="2.75" stroke-linecap="round" />
+    <path d="M9.7 25A25 25 0 0 1 16 15" fill="none" stroke="#F8F5ED" stroke-width="2.75" stroke-linecap="round" />
+    <circle cx="32" cy="6.5" r="4.5" fill="#F8F5ED" />
+    <circle cx="7" cy="33" r="4.5" fill="#F8F5ED" />
+    <circle cx="31" cy="57" r="4.5" fill="#F8F5ED" />
+    <circle cx="55.5" cy="35" r="5" fill="#C9A96B" />
+  </g>
+</svg>

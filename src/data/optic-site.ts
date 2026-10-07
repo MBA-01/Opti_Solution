@@ -198,11 +198,11 @@ export const resources = [
   {
     type: 'Guide',
     category: 'Migration',
-    title: 'Préparer les données d’un magasin avant une migration',
+    title: 'Préparer les données avant une migration',
     description:
-      'Rassemblez les bons fichiers, clarifiez vos référentiels et préparez une reprise de données réaliste.',
+      'Inventoriez les sources, séparez les familles de données et préparez des exemples fictifs avant l’évaluation.',
     href: '/ressources/preparer-migration',
-    reading: '7 min',
+    reading: '4 min',
   },
   {
     type: 'Article',
@@ -211,14 +211,6 @@ export const resources = [
     description: 'Comprenez ce qui relie les opérations et les contrôles qui restent entre les mains de votre équipe.',
     href: '/fonctionnement',
     reading: '5 min',
-  },
-  {
-    type: 'Guide',
-    category: 'Équipe',
-    title: 'Préparer les rôles et accès avant le déploiement',
-    description: 'Définissez qui consulte, prépare ou confirme les opérations avant d’ouvrir les accès.',
-    href: '/ressources/preparer-roles-acces',
-    reading: '6 min',
   },
 ];
 
